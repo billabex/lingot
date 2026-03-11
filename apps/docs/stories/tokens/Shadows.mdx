@@ -1,0 +1,49 @@
+{/* @jsxImportSource react */}
+import { Meta } from "@storybook/addon-docs/blocks";
+import { shadows } from "@billabex/ui-tokens";
+import { ShadowScale, Tip } from "./helpers";
+
+<Meta title="Tokens/Shadows" />
+
+# Shadows
+
+Three elevation levels for depth and layering. All shadows use a warm-tinted color to match the Billabex aesthetic. These are **global tokens** — used directly, with no semantic alias layer.
+
+<Tip>
+  <strong>Import:</strong>{" "}
+  <code>{"import { shadows } from '@billabex/ui-tokens'"}</code>
+  <br />
+  {"Each token exposes "}<code>.css</code>{" (full box-shadow string), "}<code>.offsetX</code>{", "}<code>.offsetY</code>{", "}<code>.blur</code>{", "}<code>.spread</code>{", "}<code>.color</code>{" (ColorToken), and "}<code>toString()</code>{"."}
+</Tip>
+
+---
+
+## Elevation Levels
+
+<table>
+  <thead>
+    <tr><th>Token</th><th>CSS value</th><th>Use case</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>sm</code></td><td><code>{"0px 2px 8px 0px rgba(28,28,26,0.08)"}</code></td><td>Subtle lift — dropdowns, popovers</td></tr>
+    <tr><td><code>md</code></td><td><code>{"0px 6px 16px -2px rgba(28,28,26,0.10)"}</code></td><td>Medium elevation — cards, modals</td></tr>
+    <tr><td><code>lg</code></td><td><code>{"0px 12px 28px -6px rgba(28,28,26,0.12)"}</code></td><td>Strong elevation — floating panels</td></tr>
+  </tbody>
+</table>
+
+<ShadowScale tokens={shadows} />
+
+---
+
+## Usage
+
+```ts
+import { shadows } from "@billabex/ui-tokens";
+
+shadows.sm.css     // '0px 2px 8px 0px rgba(28, 28, 26, 0.08)'
+shadows.md.css     // '0px 6px 16px -2px rgba(28, 28, 26, 0.10)'
+shadows.lg.css     // '0px 12px 28px -6px rgba(28, 28, 26, 0.12)'
+
+// Use in inline styles
+<div style={{ boxShadow: shadows.md.css }} />
+```

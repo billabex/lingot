@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { InfoRow } from "./info-row";
 
 const meta = {
-  title: "Components/InfoRow",
+  title: "Data Display/InfoRow",
   component: InfoRow,
   tags: ["autodocs"],
   argTypes: {

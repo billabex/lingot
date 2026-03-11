@@ -3,7 +3,7 @@ import { Settings, Trash, Plus, Pencil } from "lucide-react";
 import { IconButton } from "./icon-button";
 
 const meta = {
-  title: "Components/IconButton",
+  title: "Actions/IconButton",
   component: IconButton,
   tags: ["autodocs"],
   argTypes: {

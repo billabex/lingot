@@ -51,16 +51,14 @@ export default defineConfig({
 ### Components
 
 ```tsx
-import { Button } from '@billabex/ui-components'
+import { Button, Card, Modal } from '@billabex/ui-components'
 
 <Button variant="primary" size="medium">
   Get Started
 </Button>
 ```
 
-Button variants: `primary` | `secondary` | `ghost` | `destructive`
-Button sizes: `medium` | `small`
-
+37 components across 6 categories: **Actions**, **Data Display**, **Data Entry**, **Feedback**, **Navigation**, **Layout**. See the [Storybook](https://main--69b0a2df3c85af8d575f47a7.chromatic.com) or the [component README](./packages/ui-components/README.md) for the full list.
 ### Tokens
 
 Tokens are rich TypeScript objects, not plain strings:

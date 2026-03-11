@@ -3,7 +3,7 @@ import { ListFilter, ChevronDown } from "lucide-react";
 import { FilterButton } from "./filter-button";
 
 const meta = {
-  title: "Components/FilterButton",
+  title: "Actions/FilterButton",
   component: FilterButton,
   tags: ["autodocs"],
   argTypes: {

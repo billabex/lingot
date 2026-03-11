@@ -2,6 +2,8 @@ import type { HTMLAttributes, ReactNode } from "react";
 import { stepperItemRecipe, stepperCircleRecipe } from "./stepper-item.recipe";
 import type { StepperItemState } from "./stepper-item.recipe";
 
+export type { StepperItemState } from "./stepper-item.recipe";
+
 export interface StepperItemProps extends HTMLAttributes<HTMLDivElement> {
   /** Step state */
   state?: StepperItemState;

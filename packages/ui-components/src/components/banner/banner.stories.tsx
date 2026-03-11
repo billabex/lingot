@@ -3,7 +3,7 @@ import { Info, TriangleAlert, CircleAlert, CircleCheck } from "lucide-react";
 import { Banner } from "./banner";
 
 const meta = {
-  title: "Components/Banner",
+  title: "Feedback/Banner",
   component: Banner,
   tags: ["autodocs"],
   argTypes: {

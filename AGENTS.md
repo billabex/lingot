@@ -144,15 +144,26 @@ packages/ui-preset/src/
 └── index.ts                    # billabexPreset (bridges tokens → Panda CSS)
 
 packages/ui-components/src/
-├── index.ts
-└── components/{name}/
-    ├── {name}.tsx              # RSC component
-    ├── {name}.recipe.ts        # Panda CVA recipe
-    ├── {name}.stories.tsx      # Storybook story
-    ├── {name}.spec.tsx         # Unit test
-    └── index.ts
+├── index.ts                        # Public barrel — re-exports all components
+└── components/
+    ├── {name}/                      # Standalone component
+    │   ├── {name}.tsx
+    │   ├── {name}.recipe.ts
+    │   ├── {name}.stories.tsx
+    │   ├── {name}.spec.tsx
+    │   └── index.ts
+    └── {family}/                    # Parent/child family (dropdown, filter, stepper, table)
+        ├── {parent}.tsx
+        ├── {parent}.recipe.ts
+        ├── {parent}.stories.tsx
+        ├── {parent}.spec.tsx
+        ├── {child}.tsx
+        ├── {child}.recipe.ts
+        ├── {child}.stories.tsx
+        ├── {child}.spec.tsx
+        └── index.ts                # Re-exports both parent and child
 
-apps/docs/                      # Storybook (component documentation)
+apps/docs/                          # Storybook (component documentation)
 ```
 
 ## Rules
@@ -178,3 +189,59 @@ apps/docs/                      # Storybook (component documentation)
 | `pnpm --filter @billabex/ui-tokens build:figma` | Regenerate tokens.json |
 | `pnpm --filter @billabex/ui-preset build` | Build the optional Panda preset package |
 | `pnpm --filter @billabex/ui-components codegen` | Regenerate styled-system/ |
+
+## Components
+
+### Standalone
+
+| Component | Directory | Description |
+|-----------|-----------|-------------|
+| `Badge` | `badge/` | Status labels and counters |
+| `Banner` | `banner/` | Contextual messages (info, warning, error, success) |
+| `Breadcrumb` | `breadcrumb/` | Navigation breadcrumb trail |
+| `Button` | `button/` | Primary action trigger |
+| `Card` | `card/` | Content container with optional header/footer |
+| `Checkbox` | `checkbox/` | Boolean toggle input |
+| `Divider` | `divider/` | Horizontal or vertical separator |
+| `EmptyState` | `empty-state/` | Placeholder for empty lists/views |
+| `FormField` | `form-field/` | Label + input + helper/error wrapper |
+| `IconButton` | `icon-button/` | Icon-only action button |
+| `InfoRow` | `info-row/` | Label–value pair row |
+| `Input` | `input/` | Text input field |
+| `Link` | `link/` | Anchor-style navigation |
+| `ListItem` | `list-item/` | Row in a list with title, meta, preview |
+| `Modal` | `modal/` | Dialog overlay |
+| `NavItem` | `nav-item/` | Sidebar navigation entry |
+| `PageHeader` | `page-header/` | Top-level page title bar with actions |
+| `PanelHeader` | `panel-header/` | Panel title bar with filters and actions |
+| `SectionTitle` | `section-title/` | Collapsible section heading |
+| `Select` | `select/` | Dropdown select input |
+| `Sidebar` | `sidebar/` | App-level sidebar with header, content, footer |
+| `TabItem` | `tab-item/` | Individual tab trigger |
+| `Toast` | `toast/` | Transient notification |
+| `Toggle` | `toggle/` | On/off switch |
+| `Tooltip` | `tooltip/` | Hover info popup |
+
+### Component families
+
+Parent/child pairs that live in a shared directory:
+
+| Family | Directory | Components |
+|--------|-----------|------------|
+| Dropdown | `dropdown/` | `DropdownMenu` + `DropdownItem` |
+| Filter | `filter/` | `FilterRow` + `FilterButton` |
+| Stepper | `stepper/` | `Stepper` + `StepperItem` |
+| Table | `table/` | `Table` + `TableRow` |
+
+### Storybook categories
+
+Stories are organized by function, not alphabetically:
+
+| Category | Components |
+|----------|------------|
+| **Actions** | Button, IconButton, Link, Toggle, FilterButton |
+| **Data Display** | Badge, Card, Divider, EmptyState, InfoRow, ListItem, Table, TableRow, Tooltip |
+| **Data Entry** | Checkbox, FormField, Input, Select |
+| **Feedback** | Banner, Modal, Toast |
+| **Navigation** | Breadcrumb, NavItem, PageHeader, SectionTitle, Sidebar, Stepper, StepperItem, TabItem |
+| **Layout** | DropdownItem, DropdownMenu, FilterRow, PanelHeader |

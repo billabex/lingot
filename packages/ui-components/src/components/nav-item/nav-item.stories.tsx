@@ -3,7 +3,7 @@ import { House, Settings, Inbox, NotebookText } from "lucide-react";
 import { NavItem } from "./nav-item";
 
 const meta = {
-  title: "Components/NavItem",
+  title: "Navigation/NavItem",
   component: NavItem,
   tags: ["autodocs"],
   argTypes: {

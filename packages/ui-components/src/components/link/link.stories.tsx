@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Link } from "./link";
 
 const meta = {
-  title: "Components/Link",
+  title: "Actions/Link",
   component: Link,
   tags: ["autodocs"],
   argTypes: {

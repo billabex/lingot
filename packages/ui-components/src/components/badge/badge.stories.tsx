@@ -3,7 +3,7 @@ import { CircleAlert, Info, CircleCheck, TriangleAlert, ChevronDown } from "luci
 import { Badge } from "./badge";
 
 const meta = {
-  title: "Components/Badge",
+  title: "Data Display/Badge",
   component: Badge,
   tags: ["autodocs"],
   argTypes: {

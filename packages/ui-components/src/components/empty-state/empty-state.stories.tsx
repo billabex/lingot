@@ -3,7 +3,7 @@ import { Inbox, FileSearch } from "lucide-react";
 import { EmptyState } from "./empty-state";
 
 const meta = {
-  title: "Components/EmptyState",
+  title: "Data Display/EmptyState",
   component: EmptyState,
   tags: ["autodocs"],
   argTypes: {

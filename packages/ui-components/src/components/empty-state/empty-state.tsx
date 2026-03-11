@@ -4,6 +4,7 @@ import {
   emptyStateIconRecipe,
   emptyStateTitleRecipe,
   emptyStateDescriptionRecipe,
+  emptyStateTextRecipe,
 } from "./empty-state.recipe";
 import type { EmptyStateVariant } from "./empty-state.recipe";
 
@@ -44,7 +45,7 @@ export function EmptyState({
           {icon}
         </span>
       )}
-      <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
+      <div className={emptyStateTextRecipe({})}>
         <span className={emptyStateTitleRecipe({ variant })}>{title}</span>
         {description && (
           <span className={emptyStateDescriptionRecipe({ variant })}>{description}</span>

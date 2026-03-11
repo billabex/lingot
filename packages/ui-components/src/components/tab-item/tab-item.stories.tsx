@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { TabItem } from "./tab-item";
+import { border } from "@billabex/ui-tokens";
 
 const meta = {
   title: "Navigation/TabItem",
@@ -26,7 +27,7 @@ export const Active: Story = {
 /** Tab bar example */
 export const TabBar: Story = {
   render: () => (
-    <div style={{ display: "flex", gap: "16px", borderBottom: "1px solid #e3dbd2" }}>
+    <div style={{ display: "flex", gap: "16px", borderBottom: `1px solid ${border.default.hex}` }}>
       <TabItem active>Overview</TabItem>
       <TabItem>Activity</TabItem>
       <TabItem>Settings</TabItem>

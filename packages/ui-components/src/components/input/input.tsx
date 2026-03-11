@@ -1,5 +1,5 @@
 import type { InputHTMLAttributes } from "react";
-import { inputRecipe } from "./input.recipe";
+import { inputRecipe, inputWrapperRecipe, inputLabelRecipe } from "./input.recipe";
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   /** Show error styling */
@@ -23,16 +23,11 @@ export function Input({
   const inputId = id || (label ? `input-${label.toLowerCase().replace(/\s+/g, "-")}` : undefined);
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "4px", width: "100%" }}>
+    <div className={inputWrapperRecipe({})}>
       {label && (
         <label
           htmlFor={inputId}
-          style={{
-            fontSize: "12px",
-            lineHeight: "16px",
-            fontWeight: 500,
-            color: "#534840",
-          }}
+          className={inputLabelRecipe({})}
         >
           {label}
         </label>

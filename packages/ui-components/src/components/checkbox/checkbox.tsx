@@ -1,5 +1,5 @@
 import type { InputHTMLAttributes } from "react";
-import { checkboxRecipe, checkboxInputRecipe } from "./checkbox.recipe";
+import { checkboxRecipe, checkboxInputRecipe, checkboxLabelRecipe } from "./checkbox.recipe";
 
 export interface CheckboxProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "type"> {
   /** Optional label next to the checkbox */
@@ -22,8 +22,7 @@ export function Checkbox({
 
   return (
     <label
-      className={`${checkboxRecipe({})}${className ? ` ${className}` : ""}`}
-      style={disabled ? { opacity: 0.4, cursor: "not-allowed" } : undefined}
+      className={`${checkboxRecipe({ disabled: !!disabled })}${className ? ` ${className}` : ""}`}
     >
       <input
         type="checkbox"
@@ -33,14 +32,7 @@ export function Checkbox({
         {...props}
       />
       {label && (
-        <span
-          style={{
-            fontSize: "12px",
-            lineHeight: "16px",
-            fontWeight: 500,
-            color: "#1c1917",
-          }}
-        >
+        <span className={checkboxLabelRecipe({})}>
           {label}
         </span>
       )}

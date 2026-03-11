@@ -7,8 +7,17 @@ export const checkboxRecipe = cva({
     gap: "md",
     cursor: "pointer",
   },
-  variants: {},
-  defaultVariants: {},
+  variants: {
+    disabled: {
+      true: {
+        opacity: 0.4,
+        cursor: "not-allowed",
+      },
+    },
+  },
+  defaultVariants: {
+    disabled: false,
+  },
 });
 
 export const checkboxInputRecipe = cva({
@@ -43,6 +52,17 @@ export const checkboxInputRecipe = cva({
       opacity: 0.4,
       cursor: "not-allowed",
     },
+  },
+  variants: {},
+  defaultVariants: {},
+});
+
+export const checkboxLabelRecipe = cva({
+  base: {
+    fontSize: "caption",
+    lineHeight: "caption",
+    fontWeight: "medium",
+    color: "text.primary",
   },
   variants: {},
   defaultVariants: {},

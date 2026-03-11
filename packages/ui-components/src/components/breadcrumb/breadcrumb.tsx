@@ -1,5 +1,11 @@
 import type { HTMLAttributes, ReactNode } from "react";
-import { breadcrumbRecipe } from "./breadcrumb.recipe";
+import {
+  breadcrumbRecipe,
+  breadcrumbSeparatorRecipe,
+  breadcrumbItemRecipe,
+  breadcrumbCurrentRecipe,
+  breadcrumbLinkRecipe,
+} from "./breadcrumb.recipe";
 
 export interface BreadcrumbItem {
   /** Display label */
@@ -15,13 +21,13 @@ export interface BreadcrumbProps extends HTMLAttributes<HTMLElement> {
   separator?: ReactNode;
 }
 
-const DefaultSeparator = () => (
+const DefaultSeparator = ({ className }: { className?: string }) => (
   <svg
     viewBox="0 0 16 16"
     width={12}
     height={12}
     fill="none"
-    style={{ color: "#9c8e82", flexShrink: 0 }}
+    className={className}
   >
     <path
       d="M6 4l4 4-4 4"
@@ -44,7 +50,7 @@ export function Breadcrumb({
   className,
   ...props
 }: BreadcrumbProps) {
-  const sep = separator || <DefaultSeparator />;
+  const sep = separator || <DefaultSeparator className={breadcrumbSeparatorRecipe({})} />;
 
   return (
     <nav aria-label="Breadcrumb" {...props}>
@@ -53,20 +59,16 @@ export function Breadcrumb({
           const isLast = index === items.length - 1;
 
           return (
-            <li key={index} style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}>
+            <li key={index} className={breadcrumbItemRecipe({})}>
               {index > 0 && <span aria-hidden="true">{sep}</span>}
               {isLast ? (
-                <span aria-current="page" style={{ color: "#1c1917" }}>
+                <span aria-current="page" className={breadcrumbCurrentRecipe({})}>
                   {item.label}
                 </span>
               ) : (
                 <a
                   href={item.href || "#"}
-                  style={{
-                    color: "#b5634b",
-                    textDecoration: "none",
-                    cursor: "pointer",
-                  }}
+                  className={breadcrumbLinkRecipe({})}
                 >
                   {item.label}
                 </a>

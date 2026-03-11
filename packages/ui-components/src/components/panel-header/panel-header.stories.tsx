@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Badge } from "../badge";
 import { FilterButton } from "../filter";
 import { PanelHeader } from "./panel-header";
+import { action as actionToken } from "@billabex/ui-tokens";
 
 const meta = {
   title: "Layout/PanelHeader",
@@ -56,7 +57,7 @@ export const WithTabs: Story = {
       title="Settings"
       tabs={
         <div style={{ display: "flex", gap: "md" }}>
-          <button style={{ padding: "8px 16px", borderBottom: "2px solid #1c1c1a" }}>Profile</button>
+          <button style={{ padding: "8px 16px", borderBottom: `2px solid ${actionToken.primary.hex}` }}>Profile</button>
           <button style={{ padding: "8px 16px" }}>Security</button>
           <button style={{ padding: "8px 16px" }}>Notifications</button>
         </div>
@@ -95,7 +96,7 @@ export const FullExample: Story = {
       }
       tabs={
         <div style={{ display: "flex", gap: "md" }}>
-          <button style={{ padding: "8px 16px", borderBottom: "2px solid #1c1c1a" }}>Active</button>
+          <button style={{ padding: "8px 16px", borderBottom: `2px solid ${actionToken.primary.hex}` }}>Active</button>
           <button style={{ padding: "8px 16px" }}>Archived</button>
         </div>
       }

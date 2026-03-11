@@ -8,6 +8,7 @@ export const selectRecipe = cva({
     borderColor: "border.default",
     borderRadius: "sm",
     px: "md",
+    pr: "3xl",
     py: "xs",
     fontSize: "body",
     lineHeight: "body",
@@ -50,4 +51,47 @@ export const selectRecipe = cva({
   defaultVariants: {
     error: false,
   },
+});
+
+export const selectWrapperRecipe = cva({
+  base: {
+    display: "flex",
+    flexDirection: "column",
+    gap: "xs",
+    width: "100%",
+  },
+  variants: {},
+  defaultVariants: {},
+});
+
+export const selectLabelRecipe = cva({
+  base: {
+    fontSize: "caption",
+    lineHeight: "caption",
+    fontWeight: "medium",
+    color: "text.secondary",
+  },
+  variants: {},
+  defaultVariants: {},
+});
+
+export const selectContainerRecipe = cva({
+  base: {
+    position: "relative",
+    color: "text.tertiary",
+  },
+  variants: {},
+  defaultVariants: {},
+});
+
+export const selectIconRecipe = cva({
+  base: {
+    position: "absolute",
+    right: "md",
+    top: "50%",
+    transform: "translateY(-50%)",
+    pointerEvents: "none",
+  },
+  variants: {},
+  defaultVariants: {},
 });

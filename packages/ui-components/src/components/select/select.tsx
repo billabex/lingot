@@ -1,5 +1,11 @@
 import type { SelectHTMLAttributes, ReactNode } from "react";
-import { selectRecipe } from "./select.recipe";
+import {
+  selectRecipe,
+  selectWrapperRecipe,
+  selectLabelRecipe,
+  selectContainerRecipe,
+  selectIconRecipe,
+} from "./select.recipe";
 
 export interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   /** Show error styling */
@@ -10,13 +16,13 @@ export interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   children: ReactNode;
 }
 
-const ChevronDown = () => (
+const ChevronDown = ({ className }: { className?: string }) => (
   <svg
     viewBox="0 0 16 16"
     width={16}
     height={16}
     fill="none"
-    style={{ position: "absolute", right: 8, top: "50%", transform: "translateY(-50%)", pointerEvents: "none" }}
+    className={className}
   >
     <path d="M4 6l4 4 4-4" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" />
   </svg>
@@ -38,30 +44,24 @@ export function Select({
   const selectId = id || (label ? `select-${label.toLowerCase().replace(/\s+/g, "-")}` : undefined);
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "4px", width: "100%" }}>
+    <div className={selectWrapperRecipe({})}>
       {label && (
         <label
           htmlFor={selectId}
-          style={{
-            fontSize: "12px",
-            lineHeight: "16px",
-            fontWeight: 500,
-            color: "#534840",
-          }}
+          className={selectLabelRecipe({})}
         >
           {label}
         </label>
       )}
-      <div style={{ position: "relative", color: "#9c8e82" }}>
+      <div className={selectContainerRecipe({})}>
         <select
           id={selectId}
           className={`${selectRecipe({ error })}${className ? ` ${className}` : ""}`}
-          style={{ paddingRight: 32 }}
           {...props}
         >
           {children}
         </select>
-        <ChevronDown />
+        <ChevronDown className={selectIconRecipe({})} />
       </div>
     </div>
   );

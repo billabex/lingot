@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Inbox, FileSearch } from "lucide-react";
 import { EmptyState } from "./empty-state";
+import { bg, text } from "@billabex/ui-tokens";
 
 const meta = {
   title: "Data Display/EmptyState",
@@ -53,8 +54,8 @@ export const WithAction: Story = {
           padding: "6px 12px",
           borderRadius: "8px",
           border: "none",
-          backgroundColor: "#1c1917",
-          color: "white",
+          backgroundColor: bg.inverse.hex,
+          color: text.inverse.hex,
           cursor: "pointer",
           fontSize: "14px",
         }}

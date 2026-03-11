@@ -13,6 +13,7 @@ export default {
         "repo",
         "ci",
         "deps",
+        "release",
       ],
     ],
     "scope-empty": [1, "never"], // warn if no scope

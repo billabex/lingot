@@ -174,7 +174,7 @@ apps/docs/                          # Storybook (component documentation)
 - **ESM only**: `"type": "module"`, `.js` extensions in relative imports.
 - **Tests**: `*.spec.ts` / `*.spec.tsx`, colocated next to source. Never `.test.ts`, never `__tests__/`.
 - **Stories**: `*.stories.tsx`, colocated with components.
-- **Commits**: conventional commits — `type(scope): description`. Scopes: `ui-tokens`, `ui-preset`, `ui-components`, `docs`, `repo`, `ci`, `deps`. Enforced by commitlint + husky.
+- **Commits**: conventional commits — `type(scope): description`. Scopes: `ui-tokens`, `ui-preset`, `ui-components`, `docs`, `repo`, `ci`, `deps`, `release`. Enforced by commitlint + husky.
 - **Pre-commit**: lint-staged runs `tsc --noEmit` + `vitest run` on affected packages only.
 - **Versioning**: Changesets. Published packages are linked (same version). Public npm `@billabex` scope.
 

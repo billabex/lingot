@@ -1,0 +1,142 @@
+{/* @jsxImportSource react */}
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="Introduction" />
+
+# Lingot — Billabex Design System
+
+Welcome to the **Lingot** design system documentation. Lingot powers the UI of [Billabex](https://next.billabex.com) through three npm packages:
+
+<table>
+  <thead>
+    <tr><th>Package</th><th>Role</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>@billabex/ui-tokens</code></td>
+      <td>Design tokens — colors, spacing, typography, shadows. Pure TypeScript, framework-agnostic.</td>
+    </tr>
+    <tr>
+      <td><code>@billabex/ui-preset</code></td>
+      <td>{"Optional Panda CSS preset for apps that want tokens in their own panda.config.ts."}</td>
+    </tr>
+    <tr>
+      <td><code>@billabex/ui-components</code></td>
+      <td>React components — RSC-compatible, shipped with prebuilt CSS.</td>
+    </tr>
+  </tbody>
+</table>
+
+---
+
+## Quick Start
+
+```bash
+pnpm add @billabex/ui-components
+```
+
+Import the stylesheet once in your app entrypoint:
+
+```ts
+import "@billabex/ui-components/styles.css";
+```
+
+Then use components:
+
+```tsx
+import { Button } from "@billabex/ui-components";
+
+<Button variant="primary" size="medium">
+  Get Started
+</Button>
+```
+
+---
+
+## Token Architecture
+
+Tokens are organized in two layers that flow into components:
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│  Global (primitive) tokens         Semantic tokens          │
+│  ─────────────────────────         ───────────────          │
+│  colors.neutral[700] (#1c1917) ──→ bg.inverse              │
+│                                ──→ text.primary             │
+│                                ──→ action.primary           │
+│  colors.red[600] (#d92d20)     ──→ status.error             │
+│                                ──→ action.destructive       │
+│                                ──→ border.error             │
+│  spacing.md (8px)              ──→ (used directly)          │
+│  radii.sm (8px)                ──→ (used directly)          │
+└──────────────────────────┬──────────────────────────────────┘
+                           │
+                     Panda CSS preset
+                           │
+                    Component recipes
+                           │
+                     Prebuilt CSS
+```
+
+### Global tokens (primitives)
+
+The raw design values — the palette. Every color, spacing step, radius, shadow, and typography style the system knows.
+
+```ts
+import { colors, spacing, radii, shadows, typography } from "@billabex/ui-tokens";
+
+colors.neutral[700].hex   // '#1c1917'
+spacing.md.px             // '8px'
+radii.sm.px               // '8px'
+shadows.md.css            // '0px 6px 16px -2px rgba(28, 28, 26, 0.10)'
+```
+
+**When to use directly:** spacing, radii, shadows, and typography are used as-is (they have no semantic layer). For **colors**, prefer semantic tokens instead.
+
+### Semantic tokens
+
+Purpose-based aliases for colors. They reference global tokens so palette changes propagate everywhere automatically.
+
+```ts
+import { bg, text, action, status, border } from "@billabex/ui-tokens";
+
+bg.default.hex       // '#ffffff'  (← colors.solid.white)
+text.primary.hex     // '#1c1917'  (← colors.neutral[700])
+action.primary.hex   // '#1c1917'  (← colors.neutral[700])
+status.error.hex     // '#d92d20'  (← colors.red[600])
+```
+
+**When to use:** Always, for colors. Components and application code should reference semantic tokens so the palette can evolve without code changes.
+
+### Why this matters
+
+- **Palette change?** Update one global value → every semantic token that references it updates automatically.
+- **Semantic rename?** Change `bg.default` from white to cream → every component follows, zero code changes in consumers.
+- **Same value, different intent:** `neutral[700]` serves as `bg.inverse`, `text.primary`, AND `action.primary`. Each carries a different design intention even though they share the same hex today.
+
+---
+
+## Using Tokens
+
+Tokens are rich TypeScript objects with built-in conversion methods — not plain strings:
+
+```ts
+import { bg, spacing, shadows } from "@billabex/ui-tokens";
+
+// Color tokens
+bg.default.hex          // '#ffffff'
+bg.default.rgb          // { r: 255, g: 255, b: 255 }
+bg.default.hsl          // { h: 0, s: 0, l: 100 }
+bg.default.rgba(0.5)    // 'rgba(255, 255, 255, 0.5)'
+`${bg.default}`         // '#ffffff' (toString)
+
+// Dimension tokens
+spacing.md.value        // 8
+spacing.md.px           // '8px'
+spacing.md.rem          // '0.5rem'
+
+// Shadow tokens
+shadows.sm.css          // '0px 2px 8px 0px rgba(28, 28, 26, 0.08)'
+```
+
+Browse the **Tokens** section in the sidebar to explore every token with its value and visual preview.

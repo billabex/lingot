@@ -1,0 +1,103 @@
+{/* @jsxImportSource react */}
+import { Meta } from "@storybook/addon-docs/blocks";
+import { spacing, typography } from "@billabex/ui-tokens";
+import { Tip } from "./helpers";
+
+<Meta title="Tokens/Units (px vs rem)" />
+
+# Units (px vs rem)
+
+Short answer: **use both** — each has a role.
+
+<Tip>
+  <strong>Recommended team rule:</strong>{" "}
+  Layout + typography in <code>rem</code>; hairlines/borders and pixel-critical details in <code>px</code>.
+</Tip>
+
+---
+
+## Why tokens are defined from px
+
+In this design system, primitive dimensions are authored from pixel values because:
+
+- Figma specs are pixel-based
+- It keeps token values deterministic and easy to compare with designs
+- It avoids drift between design handoff and implementation
+
+At the same time, dimension tokens expose both:
+
+- <code>.px</code> for fixed pixel usage
+- <code>.rem</code> for scalable usage
+
+---
+
+## Why rem is often better at runtime
+
+`rem` scales with the root font size, which improves accessibility for users who increase text size/browser zoom.
+
+- Better user preference support
+- Better responsive scaling behavior
+- More robust across device density and zoom contexts
+
+---
+
+## Practical recommendation
+
+<table>
+  <thead>
+    <tr><th>Category</th><th>Prefer</th><th>Why</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Typography (font-size, line-height)</td>
+      <td><code>rem</code></td>
+      <td>Accessibility and text scaling</td>
+    </tr>
+    <tr>
+      <td>Component spacing (padding, gap, margin, sizes)</td>
+      <td><code>rem</code> (default)</td>
+      <td>Consistent scaling with user settings</td>
+    </tr>
+    <tr>
+      <td>Borders / hairlines / 1px details</td>
+      <td><code>px</code></td>
+      <td>Crisp visual rendering and predictable strokes</td>
+    </tr>
+    <tr>
+      <td>Shadows and icon strokes</td>
+      <td><code>px</code> (usually)</td>
+      <td>Visual precision from design specs</td>
+    </tr>
+    <tr>
+      <td>Breakpoints (if tokenized)</td>
+      <td><code>rem</code></td>
+      <td>Responsive behavior aligned with text scaling</td>
+    </tr>
+  </tbody>
+</table>
+
+---
+
+## Examples with existing tokens
+
+```ts
+import { spacing, typography } from "@billabex/ui-tokens";
+
+// Layout/spacing (recommended default)
+spacing.md.rem              // '0.5rem'
+
+// Pixel-precise usage when needed
+spacing.md.px               // '8px'
+
+// Typography
+typography.body.fontSize.rem     // e.g. '0.875rem'
+typography.body.lineHeight.rem   // e.g. '1.25rem'
+```
+
+---
+
+## Final guideline
+
+Keep **px as source-of-truth in tokens** (design parity), but consume **rem by default** in components for typography/layout.
+
+Use **px selectively** where visual crispness is required.

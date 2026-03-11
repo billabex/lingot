@@ -1,0 +1,52 @@
+{/* @jsxImportSource react */}
+import { Meta } from "@storybook/addon-docs/blocks";
+import { radii } from "@billabex/ui-tokens";
+import { RadiiScale, Tip } from "./helpers";
+
+<Meta title="Tokens/Radii" />
+
+# Border Radius
+
+Border radius tokens for consistent rounding across all components. These are **global tokens** — used directly, with no semantic alias layer.
+
+<Tip>
+  <strong>Import:</strong>{" "}
+  <code>{"import { radii } from '@billabex/ui-tokens'"}</code>
+  <br />
+  {"Each token exposes "}<code>.value</code>{" (number), "}<code>.px</code>{", "}<code>.rem</code>{", and "}<code>toString()</code>{"."}
+</Tip>
+
+---
+
+## Scale
+
+<table>
+  <thead>
+    <tr><th>Token</th><th>Value</th><th>Use case</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>none</code></td><td>0px</td><td>Sharp corners</td></tr>
+    <tr><td><code>xs</code></td><td>4px</td><td>Checkboxes, small elements</td></tr>
+    <tr><td><code>sm</code></td><td>8px</td><td>Buttons, inputs, cards</td></tr>
+    <tr><td><code>md</code></td><td>12px</td><td>Modals, larger containers</td></tr>
+    <tr><td><code>lg</code></td><td>16px</td><td>Feature cards, hero sections</td></tr>
+    <tr><td><code>full</code></td><td>9999px</td><td>Pills, badges, avatars</td></tr>
+  </tbody>
+</table>
+
+<RadiiScale tokens={radii} />
+
+---
+
+## Usage
+
+```ts
+import { radii } from "@billabex/ui-tokens";
+
+radii.sm.px     // '8px'
+radii.md.px     // '12px'
+radii.full.px   // '9999px'
+
+// Use in inline styles
+<div style={{ borderRadius: radii.sm.px }} />
+```

@@ -1,0 +1,14 @@
+# Default owners for the entire repo
+* @tinque
+
+# Token architecture
+packages/ui-tokens/ @tinque
+
+# Panda CSS preset
+packages/ui-preset/ @tinque
+
+# React components
+packages/ui-components/ @tinque
+
+# Documentation / Storybook
+apps/docs/ @tinque

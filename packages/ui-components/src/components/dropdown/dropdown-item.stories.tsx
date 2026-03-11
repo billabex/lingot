@@ -3,7 +3,7 @@ import { Check, Settings, Pencil, Trash } from "lucide-react";
 import { DropdownItem } from "./dropdown-item";
 
 const meta = {
-  title: "Components/DropdownItem",
+  title: "Layout/DropdownItem",
   component: DropdownItem,
   tags: ["autodocs"],
   argTypes: {

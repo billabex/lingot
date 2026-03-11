@@ -1,0 +1,56 @@
+{/* @jsxImportSource react */}
+import { Meta } from "@storybook/addon-docs/blocks";
+import { typography } from "@billabex/ui-tokens";
+import { TypographyScale, Tip } from "./helpers";
+
+<Meta title="Tokens/Typography" />
+
+# Typography
+
+All text styles in the design system. The typeface is **Nunito** with weights ranging from 400 (regular) to 600 (semibold). These are **global tokens** — used directly, with no semantic alias layer.
+
+For unit strategy (`px` vs `rem`), see **[Tokens/Units (px vs rem)](?path=/docs/tokens-units-px-vs-rem--docs)**.
+
+<Tip>
+  <strong>Import:</strong>{" "}
+  <code>{"import { typography } from '@billabex/ui-tokens'"}</code>
+  <br />
+  {"Each token contains "}<code>fontFamily</code>{", "}<code>fontWeight</code>{", "}<code>fontSize</code>{", "}<code>lineHeight</code>{", and "}<code>letterSpacing</code>{" (all dimensions are DimensionTokens)."}
+</Tip>
+
+---
+
+## Type Scale
+
+<table>
+  <thead>
+    <tr><th>Token</th><th>Weight</th><th>Size</th><th>Line height</th><th>Use case</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>display</code></td><td>600</td><td>32px</td><td>40px</td><td>Hero headings, landing pages</td></tr>
+    <tr><td><code>headlineLg</code></td><td>600</td><td>20px</td><td>28px</td><td>Page titles, section headers</td></tr>
+    <tr><td><code>headlineSm</code></td><td>600</td><td>16px</td><td>24px</td><td>Card titles, sub-headers</td></tr>
+    <tr><td><code>body</code></td><td>400</td><td>14px</td><td>20px</td><td>Default body text, descriptions</td></tr>
+    <tr><td><code>bodySm</code></td><td>400</td><td>13px</td><td>18px</td><td>Secondary text, compact UI</td></tr>
+    <tr><td><code>caption</code></td><td>500</td><td>12px</td><td>16px</td><td>Labels, badges, metadata</td></tr>
+  </tbody>
+</table>
+
+<TypographyScale tokens={typography} />
+
+---
+
+## Usage
+
+```ts
+import { typography } from "@billabex/ui-tokens";
+
+typography.body.fontFamily        // 'Nunito, sans-serif'
+typography.body.fontWeight        // 400
+typography.body.fontSize.px       // '14px'
+typography.body.lineHeight.px     // '20px'
+
+typography.display.fontSize.rem   // '2rem'
+```
+
+> For component CSS, prefer `typography.*.fontSize.rem` and `typography.*.lineHeight.rem` by default.

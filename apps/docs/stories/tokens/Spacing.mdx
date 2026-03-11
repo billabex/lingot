@@ -1,0 +1,80 @@
+{/* @jsxImportSource react */}
+import { Meta } from "@storybook/addon-docs/blocks";
+import { spacing, padding } from "@billabex/ui-tokens";
+import { SpacingScale, Tip } from "./helpers";
+
+<Meta title="Tokens/Spacing" />
+
+# Spacing
+
+A consistent spacing scale used across all components for margins, paddings, and gaps. These are **global tokens** — used directly, with no semantic alias layer.
+
+For unit strategy (`px` vs `rem`), see **[Tokens/Units (px vs rem)](?path=/docs/tokens-units-px-vs-rem--docs)**.
+
+<Tip>
+  <strong>Import:</strong>{" "}
+  <code>{"import { spacing, padding } from '@billabex/ui-tokens'"}</code>
+  <br />
+  {"Each token exposes "}<code>.value</code>{" (number), "}<code>.px</code>{", "}<code>.rem</code>{", and "}<code>toString()</code>{"."}
+</Tip>
+
+---
+
+## Scale
+
+The base spacing scale. All component internals (gaps, paddings, margins) are built from these values.
+
+<table>
+  <thead>
+    <tr><th>Token</th><th>Value</th><th>Use case</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>xs</code></td><td>4px</td><td>Tight gaps, icon padding</td></tr>
+    <tr><td><code>sm</code></td><td>6px</td><td>Small button padding</td></tr>
+    <tr><td><code>md</code></td><td>8px</td><td>Default gap, input padding</td></tr>
+    <tr><td><code>lg</code></td><td>12px</td><td>Component internal spacing</td></tr>
+    <tr><td><code>xl</code></td><td>16px</td><td>Card padding, section gaps</td></tr>
+    <tr><td><code>2xl</code></td><td>24px</td><td>Page padding, large gaps</td></tr>
+    <tr><td><code>3xl</code></td><td>32px</td><td>Section separation</td></tr>
+    <tr><td><code>4xl</code></td><td>48px</td><td>Large layout gaps</td></tr>
+    <tr><td><code>5xl</code></td><td>64px</td><td>Page-level spacing</td></tr>
+  </tbody>
+</table>
+
+<SpacingScale tokens={spacing} />
+
+---
+
+## Padding Presets
+
+Semantic-like shortcuts for recurring layout patterns.
+
+<table>
+  <thead>
+    <tr><th>Token</th><th>Value</th><th>Use case</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>card</code></td><td>16px</td><td>Internal padding of card-like containers</td></tr>
+    <tr><td><code>page</code></td><td>24px</td><td>Page-level horizontal padding</td></tr>
+  </tbody>
+</table>
+
+<SpacingScale tokens={padding} />
+
+---
+
+## Usage
+
+```ts
+import { spacing, padding } from "@billabex/ui-tokens";
+
+spacing.md.value   // 8
+spacing.md.px      // '8px'
+spacing.md.rem     // '0.5rem'
+`${spacing.md}`    // '8px' (toString)
+
+padding.card.px    // '16px'
+padding.page.px    // '24px'
+```
+
+> In components, prefer `spacing.*.rem` for scalable layout by default, and use `.px` only when pixel precision is required.

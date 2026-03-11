@@ -1,0 +1,214 @@
+{/* @jsxImportSource react */}
+import { Meta } from "@storybook/addon-docs/blocks";
+import {
+  colors,
+  bg,
+  text,
+  action,
+  status,
+  border,
+} from "@billabex/ui-tokens";
+import { ColorGrid, SemanticColorTable, Tip } from "./helpers";
+
+<Meta title="Tokens/Colors" />
+
+# Colors
+
+## Global vs Semantic — two layers, one system
+
+The color system is organized in **two layers**:
+
+<table>
+  <thead>
+    <tr>
+      <th>Layer</th>
+      <th>Purpose</th>
+      <th>Import</th>
+      <th>When to use</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Global</strong> (primitive)</td>
+      <td>The raw palette — every color value the design system knows.</td>
+      <td><code>colors</code></td>
+      <td>Almost never directly. These are the building blocks.</td>
+    </tr>
+    <tr>
+      <td><strong>Semantic</strong></td>
+      <td>Purpose-based aliases that reference globals.</td>
+      <td><code>bg</code>, <code>text</code>, <code>action</code>, <code>status</code>, <code>border</code></td>
+      <td>Always. Components and app code should use these.</td>
+    </tr>
+  </tbody>
+</table>
+
+**Why two layers?** Semantic tokens decouple _intent_ from _value_. `bg.default` means "default background" — today it's white, but it could change to cream tomorrow. If you used `colors.solid.white` directly, you'd have to update every callsite. With `bg.default`, you update one line in `semantic.ts` and everything follows.
+
+```
+Global (palette)         Semantic (intent)
+─────────────────        ─────────────────
+colors.solid.white   ←── bg.default
+colors.neutral[700]  ←── bg.inverse
+colors.neutral[700]  ←── text.primary
+colors.neutral[700]  ←── action.primary
+colors.red[600]      ←── status.error
+colors.red[600]      ←── action.destructive
+colors.red[600]      ←── border.error
+```
+
+Notice how the same global value (`neutral[700]`) can serve multiple semantic purposes, and a single palette change propagates everywhere automatically.
+
+<Tip>
+  <strong>Import semantic tokens:</strong>{" "}
+  <code>{"import { bg, text, action, status, border } from '@billabex/ui-tokens'"}</code>
+  <br />
+  {"Each token exposes "}<code>.hex</code>{", "}<code>.rgb</code>{", "}<code>.hsl</code>{", "}<code>.rgba(alpha)</code>{", and "}<code>toString()</code>{"."}
+</Tip>
+
+---
+
+## Global Tokens — the raw palette
+
+These are all the colors the system knows. You typically won't use them directly — prefer semantic tokens instead. They're documented here so you understand what backs each semantic alias.
+
+### Solids
+
+<ColorGrid tokens={colors.solid} />
+
+### Neutral
+
+The core warm-neutral scale. This is the backbone of the UI — most backgrounds, text, and interactive surfaces derive from this.
+
+<ColorGrid tokens={colors.neutral} />
+
+### Gold
+
+The brand accent used for highlights and decorative elements.
+
+<ColorGrid tokens={colors.gold} />
+
+### Terracotta
+
+The warm accent used for links and emphasis.
+
+<ColorGrid tokens={colors.terracotta} />
+
+### Green (success)
+
+<ColorGrid tokens={colors.green} />
+
+### Orange (warning)
+
+<ColorGrid tokens={colors.orange} />
+
+### Red (error / destructive)
+
+<ColorGrid tokens={colors.red} />
+
+### Blue (info)
+
+<ColorGrid tokens={colors.blue} />
+
+---
+
+## Semantic Tokens — use these
+
+Each semantic token points to a global value. The `←` annotation shows which primitive backs each one.
+
+### Background (`bg`)
+
+Surface colors for pages, cards, overlays.
+
+<SemanticColorTable
+  tokens={bg}
+  references={{
+    default: "solid.white",
+    subtle: "neutral.100",
+    muted: "neutral.200",
+    inverse: "neutral.700",
+    brand: "blue.50",
+    accent: "terracotta.300",
+  }}
+/>
+
+### Text (`text`)
+
+Foreground colors for headings, body, labels, links.
+
+<SemanticColorTable
+  tokens={text}
+  references={{
+    primary: "neutral.700",
+    secondary: "neutral.500",
+    tertiary: "neutral.400",
+    inverse: "solid.white",
+    link: "terracotta.400",
+    linkHover: "terracotta.500",
+  }}
+/>
+
+### Action (`action`)
+
+Colors for buttons and interactive elements.
+
+<SemanticColorTable
+  tokens={action}
+  references={{
+    primary: "neutral.700",
+    primaryHover: "neutral.600",
+    primaryPressed: "neutral.500",
+    secondary: "neutral.200",
+    secondaryHover: "neutral.300",
+    destructive: "red.600",
+  }}
+/>
+
+### Status (`status`)
+
+Feedback colors for success, warning, error, and informational states. Each has a strong and a subtle variant.
+
+<SemanticColorTable
+  tokens={status}
+  references={{
+    success: "green.600",
+    successSubtle: "green.50",
+    warning: "orange.500",
+    warningSubtle: "orange.50",
+    error: "red.600",
+    errorSubtle: "red.50",
+    info: "blue.700",
+    infoSubtle: "blue.50",
+  }}
+/>
+
+### Border (`border`)
+
+Stroke colors for dividers, input borders, focus rings.
+
+<SemanticColorTable
+  tokens={border}
+  references={{
+    default: "neutral.300",
+    subtle: "neutral.200",
+    focus: "neutral.700",
+    error: "red.600",
+  }}
+/>
+
+---
+
+## Usage
+
+```ts
+import { bg, text, colors } from "@billabex/ui-tokens";
+
+// Semantic tokens (recommended)
+bg.default.hex          // '#ffffff'
+bg.default.rgba(0.5)    // 'rgba(255, 255, 255, 0.5)'
+text.primary.hex        // '#1c1917'
+
+// Global tokens (only when needed)
+colors.neutral[700].hex // '#1c1917'
+colors.gold[500].hex    // '#d4a853'
+```

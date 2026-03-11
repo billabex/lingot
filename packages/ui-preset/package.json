@@ -1,6 +1,6 @@
 {
   "name": "@billabex/ui-preset",
-  "version": "0.0.0",
+  "version": "0.1.1",
   "description": "Optional Panda CSS preset for the Billabex design system",
   "type": "module",
   "main": "./dist/index.js",

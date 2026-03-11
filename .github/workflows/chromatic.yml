@@ -38,3 +38,4 @@ jobs:
           workingDir: apps/docs
           buildScriptName: build
           exitOnceUploaded: true
+          autoAcceptChanges: main

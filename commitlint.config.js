@@ -17,4 +17,8 @@ export default {
     ],
     "scope-empty": [1, "never"], // warn if no scope
   },
+  ignores: [
+    // Allow Changesets "Version Packages" commits in CI
+    (message) => message.startsWith("Version Packages"),
+  ],
 };

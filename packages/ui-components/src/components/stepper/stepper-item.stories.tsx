@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { StepperItem } from "./stepper-item";
 
 const meta = {
-  title: "Components/StepperItem",
+  title: "Navigation/StepperItem",
   component: StepperItem,
   tags: ["autodocs"],
   argTypes: {

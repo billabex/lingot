@@ -1,5 +1,13 @@
 # @billabex/ui-docs
 
+## 0.0.2
+
+### Patch Changes
+
+- Updated dependencies [[`1a73dd7`](https://github.com/billabex/lingot/commit/1a73dd70c96210a93426e95d9385de73024b6e95)]:
+  - @billabex/ui-tokens@0.1.1
+  - @billabex/ui-components@0.1.1
+
 ## 0.0.1
 
 ### Patch Changes

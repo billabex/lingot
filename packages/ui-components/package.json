@@ -1,6 +1,6 @@
 {
   "name": "@billabex/ui-components",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "React components for the Billabex design system — RSC compatible with prebuilt CSS",
   "type": "module",
   "main": "./dist/index.js",

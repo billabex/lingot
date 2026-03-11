@@ -1,6 +1,6 @@
 {
   "name": "@billabex/ui-tokens",
-  "version": "0.0.0",
+  "version": "0.1.1",
   "description": "Design tokens for the Billabex design system — framework-agnostic, Figma Token Studio compatible",
   "type": "module",
   "main": "./dist/index.js",

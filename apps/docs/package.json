@@ -1,6 +1,6 @@
 {
   "name": "@billabex/ui-docs",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": true,
   "description": "Storybook documentation for the Billabex design system",
   "type": "module",

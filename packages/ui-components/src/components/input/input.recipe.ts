@@ -52,3 +52,25 @@ export const inputRecipe = cva({
     error: false,
   },
 });
+
+export const inputWrapperRecipe = cva({
+  base: {
+    display: "flex",
+    flexDirection: "column",
+    gap: "xs",
+    width: "100%",
+  },
+  variants: {},
+  defaultVariants: {},
+});
+
+export const inputLabelRecipe = cva({
+  base: {
+    fontSize: "caption",
+    lineHeight: "caption",
+    fontWeight: "medium",
+    color: "text.secondary",
+  },
+  variants: {},
+  defaultVariants: {},
+});

@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Check, Settings, Pencil, Trash } from "lucide-react";
 import { DropdownItem } from "./dropdown-item";
+import { border, action } from "@billabex/ui-tokens";
 
 const meta = {
   title: "Layout/DropdownItem",
@@ -32,10 +33,10 @@ export const Disabled: Story = {
 /** Dropdown menu example */
 export const DropdownExample: Story = {
   render: () => (
-    <div style={{ display: "flex", flexDirection: "column", width: "180px", padding: "4px", border: "1px solid #e3dbd2", borderRadius: "8px" }}>
+    <div style={{ display: "flex", flexDirection: "column", width: "180px", padding: "4px", border: `1px solid ${border.default.hex}`, borderRadius: "8px" }}>
       <DropdownItem leftIcon={<Pencil size={16} />}>Edit</DropdownItem>
       <DropdownItem leftIcon={<Settings size={16} />}>Settings</DropdownItem>
-      <DropdownItem leftIcon={<Trash size={16} />} style={{ color: "#dc2626" }}>Delete</DropdownItem>
+      <DropdownItem leftIcon={<Trash size={16} />} style={{ color: action.destructive.hex }}>Delete</DropdownItem>
     </div>
   ),
 };

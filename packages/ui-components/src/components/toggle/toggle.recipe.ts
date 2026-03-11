@@ -7,8 +7,17 @@ export const toggleRecipe = cva({
     gap: "md",
     cursor: "pointer",
   },
-  variants: {},
-  defaultVariants: {},
+  variants: {
+    disabled: {
+      true: {
+        opacity: 0.4,
+        cursor: "not-allowed",
+      },
+    },
+  },
+  defaultVariants: {
+    disabled: false,
+  },
 });
 
 export const toggleTrackRecipe = cva({
@@ -40,4 +49,41 @@ export const toggleTrackRecipe = cva({
     checked: false,
     disabled: false,
   },
+});
+
+export const toggleKnobRecipe = cva({
+  base: {
+    position: "absolute",
+    top: "2px",
+    width: "20px",
+    height: "20px",
+    borderRadius: "full",
+    bg: "bg.default",
+    transition: "left 0.15s ease",
+    shadow: "sm",
+  },
+  variants: {
+    checked: {
+      true: {
+        left: "18px",
+      },
+      false: {
+        left: "2px",
+      },
+    },
+  },
+  defaultVariants: {
+    checked: false,
+  },
+});
+
+export const toggleLabelRecipe = cva({
+  base: {
+    fontSize: "body",
+    lineHeight: "body",
+    fontWeight: "regular",
+    color: "text.primary",
+  },
+  variants: {},
+  defaultVariants: {},
 });

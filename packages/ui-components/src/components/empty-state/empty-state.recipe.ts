@@ -96,3 +96,13 @@ export const emptyStateDescriptionRecipe = cva({
 });
 
 export type EmptyStateVariant = "default" | "compact";
+
+export const emptyStateTextRecipe = cva({
+  base: {
+    display: "flex",
+    flexDirection: "column",
+    gap: "xs",
+  },
+  variants: {},
+  defaultVariants: {},
+});

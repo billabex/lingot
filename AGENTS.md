@@ -239,9 +239,9 @@ Stories are organized by function, not alphabetically:
 
 | Category | Components |
 |----------|------------|
-| **Actions** | Button, IconButton, Link, Toggle, FilterButton |
+| **Actions** | Button, IconButton, Link, Toggle |
 | **Data Display** | Badge, Card, Divider, EmptyState, InfoRow, ListItem, Table, TableRow, Tooltip |
 | **Data Entry** | Checkbox, FormField, Input, Select |
 | **Feedback** | Banner, Modal, Toast |
-| **Navigation** | Breadcrumb, NavItem, PageHeader, SectionTitle, Sidebar, Stepper, StepperItem, TabItem |
+| **Navigation** | Breadcrumb, FilterButton, NavItem, PageHeader, SectionTitle, Sidebar, Stepper, StepperItem, TabItem |
 | **Layout** | DropdownItem, DropdownMenu, FilterRow, PanelHeader |

@@ -11,8 +11,8 @@ describe("Input", () => {
     expect(el.tagName).toBe("INPUT");
   });
 
-  it("applies small size styling when size='sm'", () => {
-    const { container } = render(<Input size="sm" placeholder="Sm" />);
+  it("applies small size styling when size='small'", () => {
+    const { container } = render(<Input size="small" placeholder="Sm" />);
     expect(container.innerHTML).toContain("fs_body.sm");
   });
 

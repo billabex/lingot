@@ -32,13 +32,13 @@ export const inputRecipe = cva({
   },
   variants: {
     size: {
-      md: {
+      medium: {
         px: "md",
         py: "xs",
         fontSize: "body",
         lineHeight: "body",
       },
-      sm: {
+      small: {
         px: "lg",
         py: "md",
         fontSize: "body.sm",
@@ -59,12 +59,12 @@ export const inputRecipe = cva({
     },
   },
   defaultVariants: {
-    size: "md",
+    size: "medium",
     error: false,
   },
 });
 
-export type InputSize = "sm" | "md";
+export type InputSize = "small" | "medium";
 
 export const inputWrapperRecipe = cva({
   base: {

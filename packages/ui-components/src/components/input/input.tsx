@@ -8,7 +8,7 @@ import type { InputSize } from "./input.recipe";
 
 export interface InputProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, "size"> {
-  /** Visual size. `md` is the default, `sm` matches panel search fields. */
+  /** Visual size. `medium` is the default; `small` matches panel search fields. */
   size?: InputSize;
   /** Show error styling */
   error?: boolean;
@@ -22,7 +22,7 @@ export interface InputProps
  * RSC-compatible (no `'use client'` needed).
  */
 export function Input({
-  size = "md",
+  size = "medium",
   error = false,
   label,
   className,

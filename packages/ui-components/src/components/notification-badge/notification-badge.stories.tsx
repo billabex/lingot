@@ -6,7 +6,12 @@ const meta = {
   title: "Feedback/NotificationBadge",
   component: NotificationBadge,
   tags: ["autodocs"],
-  args: { count: 25 },
+  argTypes: {
+    count: { control: { type: "number", min: 0 }, description: "Count to display" },
+    max: { control: { type: "number", min: 1 }, description: "Threshold above which count is truncated to `${max}+`" },
+    showZero: { control: "boolean", description: "Render the badge even when count is 0" },
+  },
+  args: { count: 25, max: 99, showZero: false },
 } satisfies Meta<typeof NotificationBadge>;
 
 export default meta;

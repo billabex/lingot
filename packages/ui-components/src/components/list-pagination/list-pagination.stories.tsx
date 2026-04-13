@@ -6,6 +6,13 @@ const meta = {
   title: "Navigation/ListPagination",
   component: ListPagination,
   tags: ["autodocs"],
+  argTypes: {
+    page: { control: { type: "number", min: 1 }, description: "Current page (1-indexed)" },
+    total: { control: { type: "number", min: 0 }, description: "Total items across all pages" },
+    pageSize: { control: { type: "number", min: 1 }, description: "Items per page" },
+    prevLabel: { control: "text", description: "Accessible label for Prev" },
+    nextLabel: { control: "text", description: "Accessible label for Next" },
+  },
   args: {
     page: 1,
     total: 30,

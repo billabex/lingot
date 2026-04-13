@@ -8,10 +8,16 @@ const meta = {
   component: NavItem,
   tags: ["autodocs"],
   argTypes: {
+    variant: {
+      control: "select",
+      options: ["default", "icon"],
+      description: "Horizontal label item or 32×32 icon square",
+    },
     active: { control: "boolean", description: "Active state" },
+    disabled: { control: "boolean", description: "Disabled state" },
     children: { control: "text", description: "Label" },
   },
-  args: { children: "Menu Item", active: false },
+  args: { variant: "default", children: "Menu Item", active: false, disabled: false },
 } satisfies Meta<typeof NavItem>;
 
 export default meta;

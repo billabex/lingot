@@ -9,7 +9,15 @@ const meta = {
   title: "Layout/Sidebar",
   component: Sidebar,
   tags: ["autodocs"],
+  argTypes: {
+    variant: {
+      control: "select",
+      options: ["default", "rail"],
+      description: "Auto-width shell or 48 px icon rail",
+    },
+  },
   args: {
+    variant: "default",
     children: (
       <>
         <IconButton icon={<Home size={16} />} aria-label="Home" />

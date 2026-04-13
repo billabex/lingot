@@ -31,7 +31,10 @@ const config: StorybookConfig = {
 
   typescript: {
     reactDocgen: "react-docgen-typescript",
-  }
+    reactDocgenTypescriptOptions: {
+      tsconfigPath: resolve(__dirname, "../../../packages/ui-components/tsconfig.json"),
+    },
+  },
 };
 
 export default config;

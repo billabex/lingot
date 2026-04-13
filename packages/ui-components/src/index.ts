@@ -4,7 +4,7 @@
 
 // Badge
 export { Badge } from "./components/badge";
-export type { BadgeProps, BadgeVariant } from "./components/badge";
+export type { BadgeProps, BadgeVariant, BadgeShape } from "./components/badge";
 export { badgeRecipe } from "./components/badge";
 
 // Banner

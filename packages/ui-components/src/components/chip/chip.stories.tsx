@@ -13,10 +13,15 @@ const meta = {
       options: ["filter", "removable", "static"],
       description: "Chip behavior",
     },
+    active: {
+      control: "boolean",
+      description: "Active filter state (filter variant only)",
+    },
     children: { control: "text", description: "Chip label" },
   },
   args: {
     variant: "filter",
+    active: false,
     children: "Action requise",
   },
 } satisfies Meta<typeof Chip>;

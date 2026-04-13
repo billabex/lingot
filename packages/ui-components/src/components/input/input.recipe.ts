@@ -7,10 +7,6 @@ export const inputRecipe = cva({
     border: "1px solid",
     borderColor: "border.default",
     borderRadius: "sm",
-    px: "md",
-    py: "xs",
-    fontSize: "body",
-    lineHeight: "body",
     fontFamily: "body",
     fontWeight: "regular",
     color: "text.primary",
@@ -35,6 +31,20 @@ export const inputRecipe = cva({
     },
   },
   variants: {
+    size: {
+      md: {
+        px: "md",
+        py: "xs",
+        fontSize: "body",
+        lineHeight: "body",
+      },
+      sm: {
+        px: "lg",
+        py: "md",
+        fontSize: "body.sm",
+        lineHeight: "body.sm",
+      },
+    },
     error: {
       true: {
         borderColor: "border.error",
@@ -49,9 +59,12 @@ export const inputRecipe = cva({
     },
   },
   defaultVariants: {
+    size: "md",
     error: false,
   },
 });
+
+export type InputSize = "sm" | "md";
 
 export const inputWrapperRecipe = cva({
   base: {

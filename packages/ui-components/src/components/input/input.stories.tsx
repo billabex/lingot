@@ -42,6 +42,20 @@ export const Error: Story = {
 };
 
 /** All states side by side */
+export const Small: Story = {
+  args: { size: "sm", placeholder: "Rechercher un compte ou un sujet..." },
+};
+
+export const SmallVsMedium: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: 12, width: 320 }}>
+      <Input size="md" placeholder="Medium (default) — 14 / 20, 8 / 8 padding" />
+      <Input size="sm" placeholder="Small — 13 / 18, 8 / 12 padding" />
+    </div>
+  ),
+};
+
+/** All states side by side */
 export const AllStates: Story = {
   render: () => (
     <div style={{ display: "flex", gap: "16px", maxWidth: "600px" }}>

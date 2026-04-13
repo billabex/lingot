@@ -216,6 +216,7 @@ apps/docs/                          # Storybook (component documentation)
 | `NavItem` | `nav-item/` | Sidebar navigation entry |
 | `PageHeader` | `page-header/` | Top-level page title bar with actions |
 | `ListPagination` | `list-pagination/` | Prev/next + range label for list panels (e.g. Tasks / Comms) |
+| `NotificationBadge` | `notification-badge/` | Overlay count pill for icons (unread counts, etc.) |
 | `PanelHeader` | `panel-header/` | Panel title bar with filters and actions |
 | `SectionTitle` | `section-title/` | Collapsible section heading |
 | `Select` | `select/` | Dropdown select input |
@@ -244,6 +245,6 @@ Stories are organized by function, not alphabetically:
 | **Actions** | Button, IconButton, Link, Toggle |
 | **Data Display** | Badge, Card, Divider, EmptyState, InfoRow, ListItem, Table, TableRow, Tooltip |
 | **Data Entry** | Checkbox, FormField, Input, Select |
-| **Feedback** | Banner, Modal, Toast |
+| **Feedback** | Banner, Modal, NotificationBadge, Toast |
 | **Navigation** | Breadcrumb, Chip, ChipGroup, ListPagination, NavItem, PageHeader, SectionTitle, Sidebar, Stepper, StepperItem, TabItem |
 | **Layout** | DropdownItem, DropdownMenu, FilterRow, PanelHeader |

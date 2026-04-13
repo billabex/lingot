@@ -6,9 +6,26 @@ export const sidebarRecipe = cva({
     flexDirection: "column",
     alignItems: "center",
     overflow: "clip",
-    py: "md",
-    bg: "bg.default",
     height: "100%",
+    flexShrink: 0,
+  },
+  variants: {
+    variant: {
+      default: {
+        bg: "bg.default",
+        paddingBlock: "md",
+        width: "auto",
+      },
+      rail: {
+        bg: "bg.subtle",
+        width: "48px",
+        paddingBlock: "md",
+        paddingInline: "0",
+      },
+    },
+  },
+  defaultVariants: {
+    variant: "default",
   },
 });
 
@@ -49,3 +66,5 @@ export const sidebarFooterRecipe = cva({
     marginTop: "auto",
   },
 });
+
+export type SidebarVariant = "default" | "rail";

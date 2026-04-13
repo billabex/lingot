@@ -131,6 +131,12 @@ export {
 export { NavItem } from "./components/nav-item";
 export type { NavItemProps } from "./components/nav-item";
 export { navItemRecipe } from "./components/nav-item";
+export type { NavItemVariant } from "./components/nav-item";
+
+// NotificationBadge
+export { NotificationBadge } from "./components/notification-badge";
+export type { NotificationBadgeProps } from "./components/notification-badge";
+export { notificationBadgeRecipe } from "./components/notification-badge";
 
 // PageHeader
 export { PageHeader } from "./components/page-header";
@@ -158,7 +164,7 @@ export { selectRecipe } from "./components/select";
 
 // Sidebar
 export { Sidebar } from "./components/sidebar";
-export type { SidebarProps } from "./components/sidebar";
+export type { SidebarProps, SidebarVariant } from "./components/sidebar";
 export {
   sidebarRecipe,
   sidebarHeaderRecipe,

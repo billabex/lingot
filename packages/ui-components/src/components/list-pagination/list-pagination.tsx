@@ -1,12 +1,11 @@
 import type { HTMLAttributes } from "react";
 import {
-  paginationRecipe,
-  paginationInfoRecipe,
-  paginationButtonRecipe,
-} from "./pagination.recipe";
-import type { PaginationSize } from "./pagination.recipe";
+  listPaginationRecipe,
+  listPaginationInfoRecipe,
+  listPaginationButtonRecipe,
+} from "./list-pagination.recipe";
 
-export interface PaginationProps
+export interface ListPaginationProps
   extends Omit<HTMLAttributes<HTMLDivElement>, "onChange"> {
   /** Current page, 1-indexed. */
   page: number;
@@ -16,8 +15,6 @@ export interface PaginationProps
   pageSize: number;
   /** Fired with the next page (1-indexed) when Prev / Next is pressed. */
   onChange: (page: number) => void;
-  /** Visual size. `sm` is the panel-light variant (chevrons + range). */
-  size?: PaginationSize;
   /** Custom range label. Defaults to `${start}–${end} of ${total}`. */
   formatLabel?: (start: number, end: number, total: number) => string;
   /** Accessible label for the Prev button. */
@@ -30,22 +27,22 @@ const defaultFormat = (start: number, end: number, total: number) =>
   `${start}–${end} of ${total}`;
 
 /**
- * Pagination — A minimal prev/next + range pager for list panels.
+ * ListPagination — A minimal prev/next + range pager for list panels.
+ * For numbered pagination inside tables, use `TablePagination` (coming later).
  *
  * RSC-compatible (no `'use client'` needed).
  */
-export function Pagination({
+export function ListPagination({
   page,
   total,
   pageSize,
   onChange,
-  size = "sm",
   formatLabel = defaultFormat,
   prevLabel = "Previous page",
   nextLabel = "Next page",
   className,
   ...rest
-}: PaginationProps) {
+}: ListPaginationProps) {
   const safeTotal = Math.max(0, total);
   const safePageSize = Math.max(1, pageSize);
   const totalPages = Math.max(1, Math.ceil(safeTotal / safePageSize));
@@ -58,12 +55,12 @@ export function Pagination({
 
   return (
     <div
-      className={`${paginationRecipe({ size })}${className ? ` ${className}` : ""}`}
+      className={`${listPaginationRecipe()}${className ? ` ${className}` : ""}`}
       {...rest}
     >
       <button
         type="button"
-        className={paginationButtonRecipe()}
+        className={listPaginationButtonRecipe()}
         aria-label={prevLabel}
         disabled={prevDisabled}
         onClick={() => onChange(currentPage - 1)}
@@ -82,12 +79,12 @@ export function Pagination({
           <path d="M7.5 2.5L4 6l3.5 3.5" />
         </svg>
       </button>
-      <span className={paginationInfoRecipe()}>
+      <span className={listPaginationInfoRecipe()}>
         {formatLabel(start, end, safeTotal)}
       </span>
       <button
         type="button"
-        className={paginationButtonRecipe()}
+        className={listPaginationButtonRecipe()}
         aria-label={nextLabel}
         disabled={nextDisabled}
         onClick={() => onChange(currentPage + 1)}

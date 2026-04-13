@@ -107,14 +107,14 @@ export {
   listItemMetaRecipe,
   listItemSubRecipe,
 } from "./components/list-item";
-// Pagination
-export { Pagination } from "./components/pagination";
-export type { PaginationProps, PaginationSize } from "./components/pagination";
+// ListPagination
+export { ListPagination } from "./components/list-pagination";
+export type { ListPaginationProps } from "./components/list-pagination";
 export {
-  paginationRecipe,
-  paginationInfoRecipe,
-  paginationButtonRecipe,
-} from "./components/pagination";
+  listPaginationRecipe,
+  listPaginationInfoRecipe,
+  listPaginationButtonRecipe,
+} from "./components/list-pagination";
 
 // Modal
 export { Modal } from "./components/modal";

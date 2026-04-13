@@ -215,7 +215,7 @@ apps/docs/                          # Storybook (component documentation)
 | `Modal` | `modal/` | Dialog overlay |
 | `NavItem` | `nav-item/` | Sidebar navigation entry |
 | `PageHeader` | `page-header/` | Top-level page title bar with actions |
-| `Pagination` | `pagination/` | Prev/next + range label for list panels |
+| `ListPagination` | `list-pagination/` | Prev/next + range label for list panels (e.g. Tasks / Comms) |
 | `PanelHeader` | `panel-header/` | Panel title bar with filters and actions |
 | `SectionTitle` | `section-title/` | Collapsible section heading |
 | `Select` | `select/` | Dropdown select input |
@@ -245,5 +245,5 @@ Stories are organized by function, not alphabetically:
 | **Data Display** | Badge, Card, Divider, EmptyState, InfoRow, ListItem, Table, TableRow, Tooltip |
 | **Data Entry** | Checkbox, FormField, Input, Select |
 | **Feedback** | Banner, Modal, Toast |
-| **Navigation** | Breadcrumb, Chip, ChipGroup, NavItem, PageHeader, Pagination, SectionTitle, Sidebar, Stepper, StepperItem, TabItem |
+| **Navigation** | Breadcrumb, Chip, ChipGroup, ListPagination, NavItem, PageHeader, SectionTitle, Sidebar, Stepper, StepperItem, TabItem |
 | **Layout** | DropdownItem, DropdownMenu, FilterRow, PanelHeader |

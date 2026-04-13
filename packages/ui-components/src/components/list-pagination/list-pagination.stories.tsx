@@ -1,10 +1,10 @@
 import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Pagination } from "./pagination";
+import { ListPagination } from "./list-pagination";
 
 const meta = {
-  title: "Navigation/Pagination",
-  component: Pagination,
+  title: "Navigation/ListPagination",
+  component: ListPagination,
   tags: ["autodocs"],
   args: {
     page: 1,
@@ -12,7 +12,7 @@ const meta = {
     pageSize: 25,
     onChange: () => {},
   },
-} satisfies Meta<typeof Pagination>;
+} satisfies Meta<typeof ListPagination>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -24,7 +24,7 @@ const Stage = ({ children }: { children: React.ReactNode }) => (
 export const FirstPage: Story = {
   render: (args) => (
     <Stage>
-      <Pagination {...args} onChange={() => {}} />
+      <ListPagination {...args} onChange={() => {}} />
     </Stage>
   ),
 };
@@ -32,7 +32,7 @@ export const FirstPage: Story = {
 export const MiddlePage: Story = {
   render: () => (
     <Stage>
-      <Pagination page={2} total={120} pageSize={25} onChange={() => {}} />
+      <ListPagination page={2} total={120} pageSize={25} onChange={() => {}} />
     </Stage>
   ),
 };
@@ -40,7 +40,7 @@ export const MiddlePage: Story = {
 export const LastPage: Story = {
   render: () => (
     <Stage>
-      <Pagination page={5} total={120} pageSize={25} onChange={() => {}} />
+      <ListPagination page={5} total={120} pageSize={25} onChange={() => {}} />
     </Stage>
   ),
 };
@@ -48,7 +48,7 @@ export const LastPage: Story = {
 export const FrenchLocale: Story = {
   render: () => (
     <Stage>
-      <Pagination
+      <ListPagination
         page={1}
         total={30}
         pageSize={25}
@@ -63,10 +63,10 @@ export const FrenchLocale: Story = {
 
 export const Interactive: Story = {
   render: () => {
-    const PaginationDemo = () => {
+    const ListPaginationDemo = () => {
       const [page, setPage] = useState(1);
       return (
-        <Pagination
+        <ListPagination
           page={page}
           total={120}
           pageSize={25}
@@ -77,7 +77,7 @@ export const Interactive: Story = {
     };
     return (
       <Stage>
-        <PaginationDemo />
+        <ListPaginationDemo />
       </Stage>
     );
   },
@@ -86,7 +86,7 @@ export const Interactive: Story = {
 export const EmptyState: Story = {
   render: () => (
     <Stage>
-      <Pagination
+      <ListPagination
         page={1}
         total={0}
         pageSize={25}

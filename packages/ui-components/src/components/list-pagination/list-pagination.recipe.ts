@@ -1,6 +1,6 @@
 import { cva } from "styled-system/css";
 
-export const paginationRecipe = cva({
+export const listPaginationRecipe = cva({
   base: {
     display: "flex",
     alignItems: "center",
@@ -12,17 +12,9 @@ export const paginationRecipe = cva({
     borderTopColor: "border.subtle",
     fontFamily: "body",
   },
-  variants: {
-    size: {
-      sm: {},
-    },
-  },
-  defaultVariants: {
-    size: "sm",
-  },
 });
 
-export const paginationInfoRecipe = cva({
+export const listPaginationInfoRecipe = cva({
   base: {
     fontFamily: "body",
     fontSize: "caption.xs",
@@ -33,7 +25,7 @@ export const paginationInfoRecipe = cva({
   },
 });
 
-export const paginationButtonRecipe = cva({
+export const listPaginationButtonRecipe = cva({
   base: {
     width: "24px",
     height: "24px",
@@ -66,5 +58,3 @@ export const paginationButtonRecipe = cva({
     },
   },
 });
-
-export type PaginationSize = "sm";

@@ -100,14 +100,12 @@ export { ListItem } from "./components/list-item";
 export type { ListItemProps } from "./components/list-item";
 export {
   listItemRecipe,
-  listItemLeadingRecipe,
-  listItemContentRecipe,
   listItemTitleRowRecipe,
   listItemTitleRecipe,
   listItemTitleTrailingRecipe,
   listItemPreviewRecipe,
+  listItemMetaRecipe,
   listItemSubRecipe,
-  listItemTrailingRecipe,
 } from "./components/list-item";
 // Modal
 export { Modal } from "./components/modal";

@@ -2,12 +2,10 @@ export { ListItem } from "./list-item";
 export type { ListItemProps } from "./list-item";
 export {
   listItemRecipe,
-  listItemLeadingRecipe,
-  listItemContentRecipe,
   listItemTitleRowRecipe,
   listItemTitleRecipe,
   listItemTitleTrailingRecipe,
   listItemPreviewRecipe,
+  listItemMetaRecipe,
   listItemSubRecipe,
-  listItemTrailingRecipe,
 } from "./list-item.recipe";

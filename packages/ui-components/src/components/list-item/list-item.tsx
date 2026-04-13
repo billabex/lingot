@@ -1,42 +1,37 @@
 import type { HTMLAttributes, MouseEventHandler, ReactNode } from "react";
 import {
   listItemRecipe,
-  listItemLeadingRecipe,
-  listItemContentRecipe,
   listItemTitleRowRecipe,
   listItemTitleRecipe,
   listItemTitleTrailingRecipe,
   listItemPreviewRecipe,
+  listItemMetaRecipe,
   listItemSubRecipe,
-  listItemTrailingRecipe,
 } from "./list-item.recipe.js";
 
+type ListItemVariant = "task" | "thread";
 type ListItemAccent = "reply" | "info" | "success" | "warning" | "error";
-type ListItemDensity = "default" | "compact";
 
 export interface ListItemProps
   extends Omit<HTMLAttributes<HTMLElement>, "title" | "onClick"> {
   /** Root element. Use `button` for clickable rows, `a` for links, `div` for static. */
   as?: "div" | "button" | "a";
-  /** Left-border accent tone (3 px colored stripe). Omit for no accent. */
+  /** Visual shape. `task` (rounded, no divider) or `thread` (flat, bottom divider). */
+  variant?: ListItemVariant;
+  /** Left-border accent tone (2 px colored stripe). Omit for no accent. */
   accent?: ListItemAccent;
   /** Persistent selection state — applies `bg.muted`. */
   active?: boolean;
-  /** Vertical density. */
-  density?: ListItemDensity;
-  /** Leading slot — icon, avatar, or status dot. */
-  leading?: ReactNode;
-  /** Main title text. Truncates with ellipsis. */
+  /** Main title text (account name). `bodySm / 500 / text.primary`, truncated. */
   title: string;
-  /** Right side of the title row — badge, count, chip, etc. */
+  /** Right side of the title row — a status `<Badge/>` (task) or a date string (thread). */
   titleTrailing?: ReactNode;
-  /** Secondary preview / subtitle text. Truncates. Accepts ReactNode for
-   *  composed content (e.g. amount + aging + time). */
+  /** Subject / snippet line. `bodySm` (task) or `caption` (thread), secondary, truncated. */
   preview?: ReactNode;
-  /** Tertiary line — captionXs (11/16/400) tertiary color. */
+  /** Horizontal row beneath the preview — amount + aging + time (task) or badge + contact (thread). */
+  meta?: ReactNode;
+  /** Tertiary line at the bottom — `captionXs / tertiary`. */
   sub?: ReactNode;
-  /** Right rail — timestamp, count, action button. */
-  trailing?: ReactNode;
   /** Anchor href — only used when `as="a"`. */
   href?: string;
   /** Disabled state — only meaningful when `as="button"`. */
@@ -46,21 +41,21 @@ export interface ListItemProps
 }
 
 /**
- * ListItem — A single row in a list (task, conversation, message).
+ * ListItem — A single row in a list. Used in the Tasks list (variant="task")
+ * and the Communications thread list (variant="thread").
  *
  * RSC-compatible (no `'use client'` needed).
  */
 export function ListItem({
   as = "div",
+  variant = "task",
   accent,
   active = false,
-  density = "default",
-  leading,
   title,
   titleTrailing,
   preview,
+  meta,
   sub,
-  trailing,
   href,
   disabled,
   onClick,
@@ -69,26 +64,27 @@ export function ListItem({
 }: ListItemProps) {
   const clickable = as === "button" || as === "a";
   const rootClass = `${listItemRecipe({
+    variant,
     accent: accent ?? "none",
     active,
-    density,
     clickable,
   })}${className ? ` ${className}` : ""}`;
 
   const body = (
     <>
-      {leading ? <div className={listItemLeadingRecipe()}>{leading}</div> : null}
-      <div className={listItemContentRecipe()}>
-        <div className={listItemTitleRowRecipe()}>
-          <span className={listItemTitleRecipe()}>{title}</span>
-          {titleTrailing ? (
-            <div className={listItemTitleTrailingRecipe()}>{titleTrailing}</div>
-          ) : null}
-        </div>
-        {preview ? <div className={listItemPreviewRecipe()}>{preview}</div> : null}
-        {sub ? <div className={listItemSubRecipe()}>{sub}</div> : null}
+      <div className={listItemTitleRowRecipe()}>
+        <span className={listItemTitleRecipe()}>{title}</span>
+        {titleTrailing ? (
+          <div className={listItemTitleTrailingRecipe()}>{titleTrailing}</div>
+        ) : null}
       </div>
-      {trailing ? <div className={listItemTrailingRecipe()}>{trailing}</div> : null}
+      {preview ? (
+        <div className={listItemPreviewRecipe({ variant })}>{preview}</div>
+      ) : null}
+      {meta ? (
+        <div className={listItemMetaRecipe({ variant })}>{meta}</div>
+      ) : null}
+      {sub ? <div className={listItemSubRecipe()}>{sub}</div> : null}
     </>
   );
 

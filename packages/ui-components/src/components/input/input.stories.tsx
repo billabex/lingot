@@ -6,6 +6,11 @@ const meta = {
   component: Input,
   tags: ["autodocs"],
   argTypes: {
+    size: {
+      control: "select",
+      options: ["md", "sm"],
+      description: "Size preset",
+    },
     error: { control: "boolean", description: "Show error styling" },
     disabled: { control: "boolean", description: "Disable the input" },
     label: { control: "text", description: "Label above the input" },
@@ -13,6 +18,7 @@ const meta = {
   },
   args: {
     placeholder: "Placeholder",
+    size: "md",
     error: false,
     disabled: false,
   },

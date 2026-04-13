@@ -6,11 +6,8 @@ export const badgeRecipe = cva({
     alignItems: "center",
     justifyContent: "center",
     gap: "xs",
-    px: "xs",
-    borderRadius: "full",
     fontSize: "caption",
     lineHeight: "caption",
-    fontWeight: "medium",
     fontFamily: "body",
     whiteSpace: "nowrap",
   },
@@ -19,28 +16,60 @@ export const badgeRecipe = cva({
       neutral: {
         bg: "bg.muted",
         color: "text.secondary",
+        fontWeight: "medium",
       },
       info: {
         bg: "status.infoSubtle",
         color: "status.info",
+        fontWeight: "medium",
       },
       success: {
         bg: "status.successSubtle",
         color: "status.success",
+        fontWeight: "medium",
       },
       warning: {
         bg: "status.warningSubtle",
         color: "status.warning",
+        fontWeight: "medium",
       },
       error: {
         bg: "status.errorSubtle",
         color: "status.error",
+        fontWeight: "medium",
+      },
+      count: {
+        bg: "bg.subtle",
+        color: "text.tertiary",
+        fontWeight: "regular",
+        border: "1px solid",
+        borderColor: "border.subtle",
+      },
+    },
+    shape: {
+      pill: {
+        borderRadius: "full",
+        paddingInline: "xs",
+      },
+      square: {
+        borderRadius: "xs",
+        paddingInline: "md",
+        paddingBlock: "xs",
       },
     },
   },
   defaultVariants: {
     variant: "neutral",
+    shape: "pill",
   },
 });
 
-export type BadgeVariant = "neutral" | "info" | "success" | "warning" | "error";
+export type BadgeVariant =
+  | "neutral"
+  | "info"
+  | "success"
+  | "warning"
+  | "error"
+  | "count";
+
+export type BadgeShape = "pill" | "square";

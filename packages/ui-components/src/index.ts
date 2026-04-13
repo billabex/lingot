@@ -107,6 +107,15 @@ export {
   listItemMetaRecipe,
   listItemSubRecipe,
 } from "./components/list-item";
+// Pagination
+export { Pagination } from "./components/pagination";
+export type { PaginationProps, PaginationSize } from "./components/pagination";
+export {
+  paginationRecipe,
+  paginationInfoRecipe,
+  paginationButtonRecipe,
+} from "./components/pagination";
+
 // Modal
 export { Modal } from "./components/modal";
 export type { ModalProps } from "./components/modal";

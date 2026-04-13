@@ -8,15 +8,18 @@ const meta = {
   component: ListItem,
   tags: ["autodocs"],
   args: {
-    title: "Acme Corp",
-    preview: "Invoice #1204 — payment confirmation",
+    title: "DOSFARMASHOP",
+    preview: "Examiner le refus de Jaime",
+  },
+  parameters: {
+    layout: "centered",
   },
 } satisfies Meta<typeof ListItem>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-/* Meta-row cell styles, properly themed via Panda css() */
+/* ── Shared cell styles for the meta row, Panda-tokenized ─────────── */
 const amountCls = css({
   fontFamily: "body",
   fontSize: "body.sm",
@@ -24,21 +27,7 @@ const amountCls = css({
   fontWeight: "medium",
   color: "text.primary",
 });
-const agingErrorCls = css({
-  fontFamily: "body",
-  fontSize: "caption",
-  lineHeight: "caption",
-  fontWeight: "medium",
-  color: "status.error",
-});
-const agingWarnCls = css({
-  fontFamily: "body",
-  fontSize: "caption",
-  lineHeight: "caption",
-  fontWeight: "medium",
-  color: "status.warning",
-});
-const timeCls = css({
+const dateCls = css({
   fontFamily: "body",
   fontSize: "caption",
   lineHeight: "caption",
@@ -46,180 +35,134 @@ const timeCls = css({
   color: "text.tertiary",
   marginLeft: "auto",
 });
-const contactCls = css({
+const exchangesCls = css({
   fontFamily: "body",
-  fontSize: "caption.xs",
-  lineHeight: "caption.xs",
+  fontSize: "body.sm",
+  lineHeight: "body.sm",
   fontWeight: "regular",
-  color: "text.tertiary",
+  color: "text.primary",
 });
 
-const listShell = css({
-  width: "360px",
-  padding: "md",
-  display: "flex",
-  flexDirection: "column",
-  gap: "xs",
-  bg: "bg.default",
-  borderRadius: "md",
-  border: "1px solid",
-  borderColor: "border.subtle",
-});
-
-const Shell = ({ children }: { children: React.ReactNode }) => (
-  <div className={listShell}>{children}</div>
+/* ── Stage: a fixed-width canvas so truncation and layout are honest ─ */
+const stage = css({ width: "320px" });
+const Stage = ({ children }: { children: React.ReactNode }) => (
+  <div className={stage}>{children}</div>
 );
 
-/* ─── Single-item states ─────────────────────────────────────────────── */
+/* ── Component states ─────────────────────────────────────────────── */
 
 export const Default: Story = {
   render: (args) => (
-    <Shell>
+    <Stage>
       <ListItem as="button" {...args} onClick={() => {}} />
-    </Shell>
+    </Stage>
   ),
 };
 
 export const Active: Story = {
   render: (args) => (
-    <Shell>
+    <Stage>
       <ListItem as="button" active {...args} onClick={() => {}} />
-    </Shell>
+    </Stage>
   ),
 };
+
+export const Disabled: Story = {
+  render: (args) => (
+    <Stage>
+      <ListItem as="button" disabled {...args} onClick={() => {}} />
+    </Stage>
+  ),
+};
+
+/* ── Slot variations ──────────────────────────────────────────────── */
 
 export const WithStatusBadge: Story = {
   render: (args) => (
-    <Shell>
+    <Stage>
       <ListItem
         as="button"
         {...args}
-        titleTrailing={<Badge variant="error">Action</Badge>}
+        titleTrailing={<Badge variant="error">Action requise</Badge>}
         onClick={() => {}}
       />
-    </Shell>
+    </Stage>
   ),
 };
 
-export const WithReplyAccent: Story = {
+export const WithMeta: Story = {
   render: (args) => (
-    <Shell>
-      <ListItem as="button" accent="reply" {...args} onClick={() => {}} />
-    </Shell>
+    <Stage>
+      <ListItem
+        as="button"
+        {...args}
+        titleTrailing={<Badge variant="error">Action requise</Badge>}
+        meta={
+          <>
+            <span className={amountCls}>16 200 €</span>
+            <span className={dateCls}>1 avr. 10:24</span>
+          </>
+        }
+        onClick={() => {}}
+      />
+    </Stage>
   ),
 };
 
-/* ─── Tasks module — full task-item layout ───────────────────────────── */
-
-export const TaskModule: Story = {
-  render: () => (
-    <Shell>
+export const WithSub: Story = {
+  render: (args) => (
+    <Stage>
       <ListItem
         as="button"
-        title="Acme Corp"
-        titleTrailing={<Badge variant="error">Action</Badge>}
-        preview="Invoice #1204 — 14 days overdue"
-        meta={
-          <>
-            <span className={amountCls}>€1,240.00</span>
-            <span className={agingErrorCls}>14d overdue</span>
-            <span className={timeCls}>10:30 AM</span>
-          </>
-        }
-        sub="3 open disputes"
+        {...args}
+        titleTrailing={<Badge variant="error">Action requise</Badge>}
+        sub="3 litiges ouverts"
         onClick={() => {}}
       />
-      <ListItem
-        as="button"
-        active
-        title="Beta Industries"
-        titleTrailing={<Badge variant="warning">Waiting</Badge>}
-        preview="1st dunning — reminder scheduled"
-        meta={
-          <>
-            <span className={amountCls}>€3,420.50</span>
-            <span className={agingWarnCls}>5d</span>
-            <span className={timeCls}>Yesterday</span>
-          </>
-        }
-        onClick={() => {}}
-      />
-      <ListItem
-        as="button"
-        title="Gamma Holdings"
-        titleTrailing={<Badge variant="success">Received</Badge>}
-        preview="Payment confirmation"
-        meta={
-          <>
-            <span className={amountCls}>€890.00</span>
-            <span className={timeCls}>Apr 10</span>
-          </>
-        }
-        onClick={() => {}}
-      />
-      <ListItem
-        as="button"
-        title="Delta Labs"
-        titleTrailing={<Badge variant="info">Sent</Badge>}
-        preview="1st dunning sent"
-        meta={
-          <>
-            <span className={amountCls}>€560.00</span>
-            <span className={timeCls}>Apr 08</span>
-          </>
-        }
-        onClick={() => {}}
-      />
-    </Shell>
+    </Stage>
   ),
 };
 
-/* ─── Communications module — same layout, accent for replies ──────── */
+/* ── Truncation sanity check ──────────────────────────────────────── */
 
-export const CommsModule: Story = {
+export const LongTitleAndPreview: Story = {
   render: () => (
-    <Shell>
+    <Stage>
       <ListItem
         as="button"
-        accent="reply"
-        title="Jane Doe — Acme Corp"
-        titleTrailing="2h"
-        preview="Thanks for the update, I'll confirm with finance…"
+        title="DOSFARMASHOP ONLINE SERVICES LIMITED"
+        titleTrailing={<Badge variant="warning">Planifiée</Badge>}
+        preview="Rappel formel avec mise en demeure et suspension du compte client"
         meta={
           <>
-            <Badge variant="error">Reply</Badge>
-            <span className={contactCls}>jane.doe@acme.com</span>
+            <span className={exchangesCls}>6 échanges</span>
+            <span className={dateCls}>25 mars 09:00</span>
           </>
         }
         onClick={() => {}}
       />
+    </Stage>
+  ),
+};
+
+/* ── Full example — how a real row looks in Tasks / Comms ─────────── */
+
+export const FullExample: Story = {
+  render: () => (
+    <Stage>
       <ListItem
         as="button"
-        active
-        title="Marie Curie — Gamma SAS"
-        titleTrailing="1d"
-        preview="Question about the invoice breakdown"
+        title="DOSFARMASHOP"
+        titleTrailing={<Badge variant="error">Action requise</Badge>}
+        preview="Examiner le refus de Jaime"
         meta={
           <>
-            <Badge variant="info">Sent</Badge>
-            <span className={contactCls}>marie@gamma.fr</span>
+            <span className={amountCls}>16 200 €</span>
+            <span className={dateCls}>1 avr. 10:24</span>
           </>
         }
         onClick={() => {}}
       />
-      <ListItem
-        as="button"
-        title="Alan Turing — Delta Labs"
-        titleTrailing="3d"
-        preview="Re: payment schedule"
-        meta={
-          <>
-            <Badge variant="warning">Planned</Badge>
-            <span className={contactCls}>alan@delta.co</span>
-          </>
-        }
-        onClick={() => {}}
-      />
-    </Shell>
+    </Stage>
   ),
 };

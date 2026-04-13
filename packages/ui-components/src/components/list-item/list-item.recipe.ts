@@ -9,7 +9,6 @@ export const listItemRecipe = cva({
     paddingBlock: "lg",
     paddingInline: "xl",
     borderRadius: "sm",
-    borderLeft: "2px solid transparent",
     bg: "transparent",
     textAlign: "left",
     fontFamily: "body",
@@ -22,14 +21,6 @@ export const listItemRecipe = cva({
     },
   },
   variants: {
-    accent: {
-      none: {},
-      reply: { borderLeftColor: "terracotta.400" },
-      info: { borderLeftColor: "status.info" },
-      success: { borderLeftColor: "status.success" },
-      warning: { borderLeftColor: "status.warning" },
-      error: { borderLeftColor: "status.error" },
-    },
     active: {
       true: { bg: "bg.muted" },
       false: {},
@@ -47,7 +38,6 @@ export const listItemRecipe = cva({
     },
   ],
   defaultVariants: {
-    accent: "none",
     active: false,
     clickable: false,
   },
@@ -86,11 +76,6 @@ export const listItemTitleTrailingRecipe = cva({
     alignItems: "center",
     gap: "xs",
     flexShrink: 0,
-    color: "text.tertiary",
-    fontFamily: "body",
-    fontSize: "caption.xs",
-    lineHeight: "caption.xs",
-    fontWeight: "regular",
   },
 });
 

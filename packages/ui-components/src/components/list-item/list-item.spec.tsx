@@ -6,8 +6,8 @@ afterEach(cleanup);
 
 describe("ListItem", () => {
   it("renders title", () => {
-    render(<ListItem title="Acme Corp" />);
-    expect(screen.getByText("Acme Corp")).toBeTruthy();
+    render(<ListItem title="DOSFARMASHOP" />);
+    expect(screen.getByText("DOSFARMASHOP")).toBeTruthy();
   });
 
   it("renders preview when provided", () => {
@@ -17,21 +17,21 @@ describe("ListItem", () => {
 
   it("renders meta when provided", () => {
     render(
-      <ListItem title="Title" meta={<span data-testid="meta">€100</span>} />
+      <ListItem title="Title" meta={<span data-testid="meta">16 200 €</span>} />
     );
     expect(screen.getByTestId("meta")).toBeTruthy();
   });
 
   it("renders sub when provided", () => {
-    render(<ListItem title="Title" sub="3 open disputes" />);
-    expect(screen.getByText("3 open disputes")).toBeTruthy();
+    render(<ListItem title="Title" sub="3 litiges ouverts" />);
+    expect(screen.getByText("3 litiges ouverts")).toBeTruthy();
   });
 
   it("renders titleTrailing slot", () => {
     render(
       <ListItem
         title="Title"
-        titleTrailing={<span data-testid="title-trailing">2h</span>}
+        titleTrailing={<span data-testid="title-trailing">badge</span>}
       />
     );
     expect(screen.getByTestId("title-trailing")).toBeTruthy();
@@ -40,11 +40,6 @@ describe("ListItem", () => {
   it("applies active styling when active is true", () => {
     const { container } = render(<ListItem title="Title" active />);
     expect(container.innerHTML).toContain("bg_bg.muted");
-  });
-
-  it("applies reply accent (terracotta left border)", () => {
-    const { container } = render(<ListItem title="Title" accent="reply" />);
-    expect(container.innerHTML).toContain("terracotta.400");
   });
 
   it("renders as a button when as='button'", () => {

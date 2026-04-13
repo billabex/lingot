@@ -28,10 +28,20 @@ describe("primitive tokens", () => {
   });
 
   it("typography has correct structure", () => {
-    expect(typography.body.fontFamily).toBe("Nunito, sans-serif");
+    expect(typography.body.fontFamily).toBe("Outfit, sans-serif");
     expect(typography.body.fontWeight).toBe(400);
     expect(typography.body.fontSize.value).toBe(14);
     expect(typography.display.fontSize.value).toBe(32);
+  });
+
+  it("typography covers the full scale", () => {
+    expect(typography.headlineMd.fontSize.value).toBe(18);
+    expect(typography.headlineMd.fontWeight).toBe(600);
+    expect(typography.headlineSm.fontWeight).toBe(500);
+    expect(typography.captionSoft.fontWeight).toBe(400);
+    expect(typography.captionXs.fontSize.value).toBe(11);
+    expect(typography.micro.fontSize.value).toBe(10);
+    expect(typography.micro.fontWeight).toBe(500);
   });
 });
 

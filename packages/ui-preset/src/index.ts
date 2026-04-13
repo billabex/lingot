@@ -75,10 +75,14 @@ export const billabexPreset = definePreset({
       fontSizes: {
         display: { value: typography.display.fontSize.px },
         "headline.lg": { value: typography.headlineLg.fontSize.px },
+        "headline.md": { value: typography.headlineMd.fontSize.px },
         "headline.sm": { value: typography.headlineSm.fontSize.px },
         body: { value: typography.body.fontSize.px },
         "body.sm": { value: typography.bodySm.fontSize.px },
         caption: { value: typography.caption.fontSize.px },
+        "caption.soft": { value: typography.captionSoft.fontSize.px },
+        "caption.xs": { value: typography.captionXs.fontSize.px },
+        micro: { value: typography.micro.fontSize.px },
       },
       fontWeights: {
         regular: { value: "400" },
@@ -88,10 +92,14 @@ export const billabexPreset = definePreset({
       lineHeights: {
         display: { value: typography.display.lineHeight.px },
         "headline.lg": { value: typography.headlineLg.lineHeight.px },
+        "headline.md": { value: typography.headlineMd.lineHeight.px },
         "headline.sm": { value: typography.headlineSm.lineHeight.px },
         body: { value: typography.body.lineHeight.px },
         "body.sm": { value: typography.bodySm.lineHeight.px },
         caption: { value: typography.caption.lineHeight.px },
+        "caption.soft": { value: typography.captionSoft.lineHeight.px },
+        "caption.xs": { value: typography.captionXs.lineHeight.px },
+        micro: { value: typography.micro.lineHeight.px },
       },
     },
     semanticTokens: {

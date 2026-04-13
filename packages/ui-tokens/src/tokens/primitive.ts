@@ -132,7 +132,7 @@ export const shadows = {
 // Typography
 // ---------------------------------------------------------------------------
 
-const fontFamily = "Nunito, sans-serif";
+const fontFamily = "Outfit, sans-serif";
 
 export const typography = {
   display: {
@@ -149,9 +149,16 @@ export const typography = {
     lineHeight: dimension(28),
     letterSpacing: dimension(0),
   },
-  headlineSm: {
+  headlineMd: {
     fontFamily,
     fontWeight: 600,
+    fontSize: dimension(18),
+    lineHeight: dimension(24),
+    letterSpacing: dimension(0),
+  },
+  headlineSm: {
+    fontFamily,
+    fontWeight: 500,
     fontSize: dimension(16),
     lineHeight: dimension(24),
     letterSpacing: dimension(0),
@@ -175,6 +182,27 @@ export const typography = {
     fontWeight: 500,
     fontSize: dimension(12),
     lineHeight: dimension(16),
+    letterSpacing: dimension(0),
+  },
+  captionSoft: {
+    fontFamily,
+    fontWeight: 400,
+    fontSize: dimension(12),
+    lineHeight: dimension(16),
+    letterSpacing: dimension(0),
+  },
+  captionXs: {
+    fontFamily,
+    fontWeight: 400,
+    fontSize: dimension(11),
+    lineHeight: dimension(16),
+    letterSpacing: dimension(0),
+  },
+  micro: {
+    fontFamily,
+    fontWeight: 500,
+    fontSize: dimension(10),
+    lineHeight: dimension(14),
     letterSpacing: dimension(0),
   },
 } as const satisfies Record<string, TypographyToken>;

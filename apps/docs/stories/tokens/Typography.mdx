@@ -7,7 +7,9 @@ import { TypographyScale, Tip } from "./helpers";
 
 # Typography
 
-All text styles in the design system. The typeface is **Nunito** with weights ranging from 400 (regular) to 600 (semibold). These are **global tokens** — used directly, with no semantic alias layer.
+All text styles in the design system. The typeface is **Outfit** with weights 300, 400, 500, and 600. These are **global tokens** — used directly, with no semantic alias layer.
+
+> **Font loading** is the consumer's responsibility. Load Outfit via Google Fonts or self-host: `<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">`.
 
 For unit strategy (`px` vs `rem`), see **[Tokens/Units (px vs rem)](?path=/docs/tokens-units-px-vs-rem--docs)**.
 
@@ -29,10 +31,14 @@ For unit strategy (`px` vs `rem`), see **[Tokens/Units (px vs rem)](?path=/docs/
   <tbody>
     <tr><td><code>display</code></td><td>600</td><td>32px</td><td>40px</td><td>Hero headings, landing pages</td></tr>
     <tr><td><code>headlineLg</code></td><td>600</td><td>20px</td><td>28px</td><td>Page titles, section headers</td></tr>
-    <tr><td><code>headlineSm</code></td><td>600</td><td>16px</td><td>24px</td><td>Card titles, sub-headers</td></tr>
+    <tr><td><code>headlineMd</code></td><td>600</td><td>18px</td><td>24px</td><td>Summary card values, prominent numbers</td></tr>
+    <tr><td><code>headlineSm</code></td><td>500</td><td>16px</td><td>24px</td><td>Card titles, sub-headers</td></tr>
     <tr><td><code>body</code></td><td>400</td><td>14px</td><td>20px</td><td>Default body text, descriptions</td></tr>
     <tr><td><code>bodySm</code></td><td>400</td><td>13px</td><td>18px</td><td>Secondary text, compact UI</td></tr>
-    <tr><td><code>caption</code></td><td>500</td><td>12px</td><td>16px</td><td>Labels, badges, metadata</td></tr>
+    <tr><td><code>caption</code></td><td>500</td><td>12px</td><td>16px</td><td>Uppercase section labels, strong metadata</td></tr>
+    <tr><td><code>captionSoft</code></td><td>400</td><td>12px</td><td>16px</td><td>Plain captions, helper text, filter chips</td></tr>
+    <tr><td><code>captionXs</code></td><td>400</td><td>11px</td><td>16px</td><td>Dense micro labels, aging legend, timestamps</td></tr>
+    <tr><td><code>micro</code></td><td>500</td><td>10px</td><td>14px</td><td>Status badges, doc-status chips</td></tr>
   </tbody>
 </table>
 
@@ -45,7 +51,7 @@ For unit strategy (`px` vs `rem`), see **[Tokens/Units (px vs rem)](?path=/docs/
 ```ts
 import { typography } from "@billabex/ui-tokens";
 
-typography.body.fontFamily        // 'Nunito, sans-serif'
+typography.body.fontFamily        // 'Outfit, sans-serif'
 typography.body.fontWeight        // 400
 typography.body.fontSize.px       // '14px'
 typography.body.lineHeight.px     // '20px'

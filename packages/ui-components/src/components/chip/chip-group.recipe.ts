@@ -1,9 +1,10 @@
 import { cva } from "styled-system/css";
 
-export const filterRowRecipe = cva({
+export const chipGroupRecipe = cva({
   base: {
     display: "flex",
     alignItems: "flex-start",
-    gap: "md",
+    flexWrap: "wrap",
+    gap: "sm",
   },
 });

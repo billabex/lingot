@@ -56,10 +56,15 @@ export {
   emptyStateDescriptionRecipe,
 } from "./components/empty-state";
 
-// FilterButton
-export { FilterButton } from "./components/filter";
-export type { FilterButtonProps } from "./components/filter";
-export { filterButtonRecipe } from "./components/filter";
+// Chip
+export { Chip } from "./components/chip";
+export type { ChipProps, ChipVariant } from "./components/chip";
+export { chipRecipe, chipRemoveRecipe } from "./components/chip";
+
+// ChipGroup
+export { ChipGroup } from "./components/chip";
+export type { ChipGroupProps } from "./components/chip";
+export { chipGroupRecipe } from "./components/chip";
 
 // FormField
 export { FormField } from "./components/form-field";
@@ -69,11 +74,6 @@ export {
   formFieldLabelRecipe,
   formFieldHelperRecipe,
 } from "./components/form-field";
-
-// FilterRow
-export { FilterRow } from "./components/filter";
-export type { FilterRowProps } from "./components/filter";
-export { filterRowRecipe } from "./components/filter";
 
 // IconButton
 export { IconButton } from "./components/icon-button";

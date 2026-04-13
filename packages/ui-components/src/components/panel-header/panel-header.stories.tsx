@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Badge } from "../badge";
-import { FilterButton } from "../filter";
+import { Chip } from "../chip";
 import { PanelHeader } from "./panel-header";
 import { action as actionToken } from "@billabex/ui-tokens";
 
@@ -73,9 +73,9 @@ export const WithFilters: Story = {
       title="Data Table"
       filters={
         <div style={{ display: "flex", gap: "xs" }}>
-          <FilterButton>All</FilterButton>
-          <FilterButton>Completed</FilterButton>
-          <FilterButton>Pending</FilterButton>
+          <Chip>All</Chip>
+          <Chip>Completed</Chip>
+          <Chip>Pending</Chip>
         </div>
       }
     />
@@ -102,8 +102,8 @@ export const FullExample: Story = {
       }
       filters={
         <div style={{ display: "flex", gap: "xs" }}>
-          <FilterButton>By Owner</FilterButton>
-          <FilterButton>By Status</FilterButton>
+          <Chip>By Owner</Chip>
+          <Chip>By Status</Chip>
         </div>
       }
     />

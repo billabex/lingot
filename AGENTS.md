@@ -199,6 +199,8 @@ apps/docs/                          # Storybook (component documentation)
 | `Badge` | `badge/` | Status labels and counters |
 | `Banner` | `banner/` | Contextual messages (info, warning, error, success) |
 | `Breadcrumb` | `breadcrumb/` | Navigation breadcrumb trail |
+| `Chip` | `chip/` | Pill primitive — filter / removable / static |
+| `ChipGroup` | `chip/` | Horizontal wrapping row of Chips |
 | `Button` | `button/` | Primary action trigger |
 | `Card` | `card/` | Content container with optional header/footer |
 | `Checkbox` | `checkbox/` | Boolean toggle input |
@@ -229,7 +231,6 @@ Parent/child pairs that live in a shared directory:
 | Family | Directory | Components |
 |--------|-----------|------------|
 | Dropdown | `dropdown/` | `DropdownMenu` + `DropdownItem` |
-| Filter | `filter/` | `FilterRow` + `FilterButton` |
 | Stepper | `stepper/` | `Stepper` + `StepperItem` |
 | Table | `table/` | `Table` + `TableRow` |
 
@@ -243,5 +244,5 @@ Stories are organized by function, not alphabetically:
 | **Data Display** | Badge, Card, Divider, EmptyState, InfoRow, ListItem, Table, TableRow, Tooltip |
 | **Data Entry** | Checkbox, FormField, Input, Select |
 | **Feedback** | Banner, Modal, Toast |
-| **Navigation** | Breadcrumb, FilterButton, NavItem, PageHeader, SectionTitle, Sidebar, Stepper, StepperItem, TabItem |
+| **Navigation** | Breadcrumb, Chip, ChipGroup, NavItem, PageHeader, SectionTitle, Sidebar, Stepper, StepperItem, TabItem |
 | **Layout** | DropdownItem, DropdownMenu, FilterRow, PanelHeader |

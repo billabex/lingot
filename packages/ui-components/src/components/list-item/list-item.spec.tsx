@@ -42,23 +42,9 @@ describe("ListItem", () => {
     expect(container.innerHTML).toContain("bg_bg.muted");
   });
 
-  it("applies thread variant with bottom divider", () => {
-    const { container } = render(<ListItem title="Title" variant="thread" />);
-    expect(container.innerHTML).toContain("border.subtle");
-  });
-
-  it("applies reply accent (terracotta)", () => {
-    const { container } = render(
-      <ListItem title="Title" variant="thread" accent="reply" />
-    );
+  it("applies reply accent (terracotta left border)", () => {
+    const { container } = render(<ListItem title="Title" accent="reply" />);
     expect(container.innerHTML).toContain("terracotta.400");
-  });
-
-  it("applies neutral left border when active thread has no accent", () => {
-    const { container } = render(
-      <ListItem title="Title" variant="thread" active />
-    );
-    expect(container.innerHTML).toContain("neutral.700");
   });
 
   it("renders as a button when as='button'", () => {

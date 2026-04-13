@@ -8,8 +8,8 @@ export const listItemRecipe = cva({
     width: "100%",
     paddingBlock: "lg",
     paddingInline: "xl",
+    borderRadius: "sm",
     borderLeft: "2px solid transparent",
-    borderBottom: "1px solid transparent",
     bg: "transparent",
     textAlign: "left",
     fontFamily: "body",
@@ -22,15 +22,6 @@ export const listItemRecipe = cva({
     },
   },
   variants: {
-    variant: {
-      task: {
-        borderRadius: "sm",
-      },
-      thread: {
-        borderRadius: "0",
-        borderBottomColor: "border.subtle",
-      },
-    },
     accent: {
       none: {},
       reply: { borderLeftColor: "terracotta.400" },
@@ -50,19 +41,12 @@ export const listItemRecipe = cva({
   },
   compoundVariants: [
     {
-      variant: "thread",
-      active: true,
-      accent: "none",
-      css: { borderLeftColor: "neutral.700" },
-    },
-    {
       active: true,
       clickable: true,
       css: { _hover: { bg: "bg.muted" } },
     },
   ],
   defaultVariants: {
-    variant: "task",
     accent: "none",
     active: false,
     clickable: false,
@@ -113,27 +97,16 @@ export const listItemTitleTrailingRecipe = cva({
 export const listItemPreviewRecipe = cva({
   base: {
     fontFamily: "body",
+    fontSize: "body.sm",
+    lineHeight: "body.sm",
     fontWeight: "regular",
     color: "text.secondary",
     overflow: "hidden",
     textOverflow: "ellipsis",
     whiteSpace: "nowrap",
     minWidth: 0,
+    marginBottom: "sm",
   },
-  variants: {
-    variant: {
-      task: {
-        fontSize: "body.sm",
-        lineHeight: "body.sm",
-        marginBottom: "sm",
-      },
-      thread: {
-        fontSize: "caption",
-        lineHeight: "body.sm",
-      },
-    },
-  },
-  defaultVariants: { variant: "task" },
 });
 
 export const listItemMetaRecipe = cva({
@@ -145,13 +118,6 @@ export const listItemMetaRecipe = cva({
     minWidth: 0,
     fontFamily: "body",
   },
-  variants: {
-    variant: {
-      task: {},
-      thread: { marginTop: "xs" },
-    },
-  },
-  defaultVariants: { variant: "task" },
 });
 
 export const listItemSubRecipe = cva({

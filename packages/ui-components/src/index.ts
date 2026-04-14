@@ -224,6 +224,25 @@ export {
   agedBalanceLegendSwatchRecipe,
 } from "./components/aged-balance";
 
+// InvoiceCard
+export { InvoiceCard } from "./components/invoice-card";
+export type {
+  InvoiceCardProps,
+  InvoiceStatus,
+  InvoiceDueDate,
+  InvoiceDueTone,
+} from "./components/invoice-card";
+export {
+  invoiceCardRecipe,
+  invoiceCardTopRecipe,
+  invoiceCardLeftRecipe,
+  invoiceCardRightRecipe,
+  invoiceCardRefRecipe,
+  invoiceCardAmountRecipe,
+  invoiceCardDueRecipe,
+  invoiceCardMetaRecipe,
+} from "./components/invoice-card";
+
 // StatusDot
 export { StatusDot } from "./components/status-dot";
 export type { StatusDotProps, StatusDotSize, StatusDotTone } from "./components/status-dot";

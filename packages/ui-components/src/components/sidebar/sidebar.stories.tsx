@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Home, Inbox, Users, Settings, Mail, BookOpen, CheckCircle2 } from "lucide-react";
+import { css } from "styled-system/css";
+import { Mail, BookOpen, CheckCircle2, Settings } from "lucide-react";
 import { Sidebar } from "./sidebar";
 import { IconButton } from "../icon-button";
 import { NavItem } from "../nav-item";
@@ -9,74 +10,54 @@ const meta = {
   title: "Layout/Sidebar",
   component: Sidebar,
   tags: ["autodocs"],
-  argTypes: {
-    variant: {
-      control: "select",
-      options: ["default", "rail"],
-      description: "Auto-width shell or 48 px icon rail",
-    },
+  parameters: {
+    layout: "fullscreen",
   },
   args: {
-    variant: "default",
-    children: (
-      <>
-        <IconButton icon={<Home size={16} />} aria-label="Home" />
-        <IconButton icon={<Inbox size={16} />} aria-label="Inbox" />
-        <IconButton icon={<Users size={16} />} aria-label="Users" />
-      </>
-    ),
-    header: <IconButton icon={<Home size={16} />} aria-label="Logo" />,
+    children: null,
   },
 } satisfies Meta<typeof Sidebar>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {};
-
-export const WithFooter: Story = {
-  args: {
-    footer: <IconButton icon={<Settings size={16} />} aria-label="Settings" />,
-  },
-};
-
-export const MinimalNoHeader: Story = {
-  args: {
-    header: undefined,
-    children: (
-      <>
-        <IconButton icon={<Inbox size={16} />} aria-label="Inbox" />
-        <IconButton icon={<Users size={16} />} aria-label="Users" />
-      </>
-    ),
-  },
-};
-
-/* ── Rail variant — 48 px icon rail used across the workspace ─────── */
-
-const logoTile = {
-  width: 32,
-  height: 32,
-  display: "flex",
+/* Clickable company-logo tile — 32×32. Hover → action.primary.hover, active → neutral.500. */
+const logoTile = css({
+  width: "32px",
+  height: "32px",
+  display: "inline-flex",
   alignItems: "center",
   justifyContent: "center",
-  background: "var(--colors-action\\.primary)",
-  color: "var(--colors-text\\.inverse)",
-  borderRadius: 8,
-  fontWeight: 600,
-  fontFamily: "Outfit, sans-serif",
-  fontSize: 12,
-};
+  bg: "action.primary",
+  color: "text.inverse",
+  borderRadius: "sm",
+  fontFamily: "body",
+  fontWeight: "semibold",
+  fontSize: "caption",
+  cursor: "pointer",
+  border: "none",
+  transition: "background 120ms ease",
+  _hover: { bg: "action.primaryHover" },
+  _active: { bg: "neutral.500" },
+});
 
-export const Rail: Story = {
+export const Default: Story = {
   render: () => (
     <div style={{ height: 560 }}>
       <Sidebar
-        variant="rail"
-        header={<div style={logoTile}>B</div>}
-        footer={<IconButton icon={<Settings size={16} />} aria-label="Settings" />}
+        header={
+          <button
+            type="button"
+            className={logoTile}
+            aria-label="Changer d'entreprise"
+            aria-haspopup="menu"
+          >
+            B
+          </button>
+        }
+        footer={<IconButton icon={<Settings size={16} />} aria-label="Paramètres" />}
       >
-        <NavItem variant="icon" active aria-label="Tasks">
+        <NavItem variant="icon" active aria-label="Tâches">
           <CheckCircle2 size={16} />
           <NotificationBadge count={25} />
         </NavItem>

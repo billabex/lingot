@@ -1,64 +1,80 @@
 import type { HTMLAttributes, ReactNode } from "react";
 import {
   panelHeaderRecipe,
-  panelHeaderTopRowRecipe,
-  panelHeaderTitleBarRecipe,
   panelHeaderTitleRecipe,
-  panelHeaderRowRecipe,
+  panelHeaderSpacerRecipe,
+  type PanelHeaderVariant,
 } from "./panel-header.recipe";
 
-export interface PanelHeaderProps
-  extends Omit<HTMLAttributes<HTMLDivElement>, "title"> {
-  /** Title or breadcrumb component */
-  /** Title or breadcrumb component */
-  title?: ReactNode;
-  /** Badge next to title */
-  badge?: ReactNode;
-  /** Right side action buttons */
-  actions?: ReactNode;
-  /** Tab navigation row */
-  tabs?: ReactNode;
-  /** Filter buttons row */
-  filters?: ReactNode;
+export interface PanelHeaderProps extends HTMLAttributes<HTMLDivElement> {
+  /**
+   * Layout variant.
+   * - `"page"` (default) — center panel: `padding.page` (24px), `gap md`, left-aligned. Task / comm / account detail.
+   * - `"card"` — left list or right aside panel: `padding.card` (16px), `justify-content: space-between`.
+   */
+  variant?: PanelHeaderVariant;
+  /** Header content */
+  children: ReactNode;
 }
 
+export interface PanelHeaderTitleProps extends HTMLAttributes<HTMLSpanElement> {
+  children: ReactNode;
+}
+
+export type PanelHeaderSpacerProps = HTMLAttributes<HTMLSpanElement>;
+
 /**
- * PanelHeader — A composable page/panel header with sections.
+ * PanelHeader — Fixed top bar shared by all detail and list panels.
+ * 48 px tall.
+ *
+ * - `variant="page"` (default): center panels — task / comm / account detail (`padding.page`, `gap md`)
+ * - `variant="card"`: left list or right aside panels (`padding.card`, space-between)
+ *
+ * Compose content via children. Use `<PanelHeader.Title>` for the text label
+ * and `<PanelHeader.Spacer>` (page variant) to push trailing items right.
  *
  * RSC-compatible (no `'use client'` needed).
  */
 export function PanelHeader({
-  title,
-  badge,
-  actions,
-  tabs,
-  filters,
+  variant = "page",
+  children,
   className,
   ...props
 }: PanelHeaderProps) {
   return (
     <div
-      className={`${panelHeaderRecipe()}${className ? ` ${className}` : ""}`}
+      className={`${panelHeaderRecipe({ variant })}${className ? ` ${className}` : ""}`}
       {...props}
     >
-      {/* Top section: title + badge + actions */}
-      {(title || badge || actions) && (
-        <div className={panelHeaderTopRowRecipe()}>
-          <div className={panelHeaderTitleBarRecipe()}>
-            <div className={panelHeaderTitleRecipe()}>
-              {title}
-              {badge && <div>{badge}</div>}
-            </div>
-            {actions && <div>{actions}</div>}
-          </div>
-        </div>
-      )}
-
-      {/* Tabs row */}
-      {tabs && <div className={panelHeaderRowRecipe()}>{tabs}</div>}
-
-      {/* Filters row */}
-      {filters && <div className={panelHeaderRowRecipe()}>{filters}</div>}
+      {children}
     </div>
   );
 }
+
+function PanelHeaderTitle({
+  children,
+  className,
+  ...props
+}: PanelHeaderTitleProps) {
+  return (
+    <span
+      className={`${panelHeaderTitleRecipe()}${className ? ` ${className}` : ""}`}
+      {...props}
+    >
+      {children}
+    </span>
+  );
+}
+
+function PanelHeaderSpacer({ className, ...props }: PanelHeaderSpacerProps) {
+  return (
+    <span
+      aria-hidden
+      className={`${panelHeaderSpacerRecipe()}${className ? ` ${className}` : ""}`}
+      {...props}
+    />
+  );
+}
+
+PanelHeader.Title = PanelHeaderTitle;
+PanelHeader.Spacer = PanelHeaderSpacer;

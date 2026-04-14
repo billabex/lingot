@@ -2,6 +2,11 @@
 // @billabex/ui-components — Public API
 // ---------------------------------------------------------------------------
 
+// ActionBar
+export { ActionBar } from "./components/action-bar";
+export type { ActionBarProps, ActionBarAlign } from "./components/action-bar";
+export { actionBarRecipe } from "./components/action-bar";
+
 // Badge
 export { Badge } from "./components/badge";
 export type { BadgeProps, BadgeVariant, BadgeShape } from "./components/badge";
@@ -21,6 +26,32 @@ export { breadcrumbRecipe } from "./components/breadcrumb";
 export { Button } from "./components/button";
 export type { ButtonProps, ButtonVariant, ButtonSize } from "./components/button";
 export { buttonRecipe } from "./components/button";
+
+// Bubble
+export { Bubble } from "./components/bubble";
+export type { BubbleProps, BubbleSide } from "./components/bubble";
+export { bubbleRecipe } from "./components/bubble";
+
+// BubbleGroup
+export { BubbleGroup } from "./components/bubble";
+export type { BubbleGroupProps } from "./components/bubble";
+export {
+  bubbleGroupRecipe,
+  bubbleGroupStackRecipe,
+  bubbleGroupHeaderRecipe,
+  bubbleGroupAuthorRecipe,
+  bubbleGroupDateRecipe,
+} from "./components/bubble";
+
+// BubbleAttachment
+export { BubbleAttachment } from "./components/bubble";
+export type { BubbleAttachmentProps } from "./components/bubble";
+export {
+  bubbleAttachmentRecipe,
+  bubbleAttachmentGroupRecipe,
+  bubbleAttachmentIconRecipe,
+  bubbleAttachmentNameRecipe,
+} from "./components/bubble";
 
 // Card
 export { Card } from "./components/card";
@@ -116,6 +147,16 @@ export {
   listPaginationButtonRecipe,
 } from "./components/list-pagination";
 
+// MessageComposer
+export { MessageComposer } from "./components/message-composer";
+export type { MessageComposerProps } from "./components/message-composer";
+export {
+  messageComposerRecipe,
+  messageComposerTextareaRecipe,
+  messageComposerToolbarRecipe,
+  messageComposerSendRecipe,
+} from "./components/message-composer";
+
 // Modal
 export { Modal } from "./components/modal";
 export type { ModalProps } from "./components/modal";
@@ -144,13 +185,16 @@ export type { PageHeaderProps } from "./components/page-header";
 export { pageHeaderRecipe } from "./components/page-header";
 // PanelHeader
 export { PanelHeader } from "./components/panel-header";
-export type { PanelHeaderProps } from "./components/panel-header";
+export type {
+  PanelHeaderProps,
+  PanelHeaderTitleProps,
+  PanelHeaderSpacerProps,
+  PanelHeaderVariant,
+} from "./components/panel-header";
 export {
   panelHeaderRecipe,
-  panelHeaderTopRowRecipe,
-  panelHeaderTitleBarRecipe,
   panelHeaderTitleRecipe,
-  panelHeaderRowRecipe,
+  panelHeaderSpacerRecipe,
 } from "./components/panel-header";
 // SectionTitle
 export { SectionTitle } from "./components/section-title";
@@ -164,7 +208,7 @@ export { selectRecipe } from "./components/select";
 
 // Sidebar
 export { Sidebar } from "./components/sidebar";
-export type { SidebarProps, SidebarVariant } from "./components/sidebar";
+export type { SidebarProps } from "./components/sidebar";
 export {
   sidebarRecipe,
   sidebarHeaderRecipe,
@@ -187,12 +231,20 @@ export { tabItemRecipe } from "./components/tab-item";
 
 // Table
 export { Table } from "./components/table";
-export type { TableProps } from "./components/table";
+export type { TableProps, TableDensity } from "./components/table";
 export { tableRecipe, tableHeaderRecipe } from "./components/table";
 // TableRow
 export { TableRow } from "./components/table";
-export type { TableRowProps } from "./components/table";
+export type { TableRowProps, TableRowAccent } from "./components/table";
 export { tableRowRecipe } from "./components/table";
+// TableRowDetail
+export { TableRowDetail } from "./components/table";
+export type { TableRowDetailProps } from "./components/table";
+export { tableRowDetailRecipe } from "./components/table";
+// TableSortHeader
+export { TableSortHeader } from "./components/table";
+export type { TableSortHeaderProps, TableSortDirection } from "./components/table";
+export { tableSortHeaderRecipe, tableSortIconRecipe } from "./components/table";
 // Toast
 export { Toast } from "./components/toast";
 export type { ToastProps, ToastVariant } from "./components/toast";

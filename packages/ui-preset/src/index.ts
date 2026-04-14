@@ -56,6 +56,17 @@ export const billabexPreset = definePreset({
         "padding.card": { value: padding.card.px },
         "padding.page": { value: padding.page.px },
       },
+      sizes: {
+        xs: { value: spacing.xs.px },
+        sm: { value: spacing.sm.px },
+        md: { value: spacing.md.px },
+        lg: { value: spacing.lg.px },
+        xl: { value: spacing.xl.px },
+        "2xl": { value: spacing["2xl"].px },
+        "3xl": { value: spacing["3xl"].px },
+        "4xl": { value: spacing["4xl"].px },
+        "5xl": { value: spacing["5xl"].px },
+      },
       radii: {
         none: { value: radii.none.px },
         xs: { value: radii.xs.px },

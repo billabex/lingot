@@ -40,15 +40,11 @@ export function EmptyState({
       className={`${emptyStateRecipe({ variant })}${className ? ` ${className}` : ""}`}
       {...props}
     >
-      {icon && (
-        <span className={emptyStateIconRecipe({ variant })}>
-          {icon}
-        </span>
-      )}
+      {icon && <span className={emptyStateIconRecipe()}>{icon}</span>}
       <div className={emptyStateTextRecipe({})}>
-        <span className={emptyStateTitleRecipe({ variant })}>{title}</span>
+        <span className={emptyStateTitleRecipe()}>{title}</span>
         {description && (
-          <span className={emptyStateDescriptionRecipe({ variant })}>{description}</span>
+          <span className={emptyStateDescriptionRecipe()}>{description}</span>
         )}
       </div>
       {action && action}

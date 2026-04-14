@@ -199,6 +199,9 @@ apps/docs/                          # Storybook (component documentation)
 | `Badge` | `badge/` | Status labels and counters |
 | `Banner` | `banner/` | Contextual messages (info, warning, error, success) |
 | `Breadcrumb` | `breadcrumb/` | Navigation breadcrumb trail |
+| `Bubble` | `bubble/` | Chat message (agent / user) |
+| `BubbleGroup` | `bubble/` | Author + date header wrapping a run of bubbles |
+| `BubbleAttachment` | `bubble/` | Inline file chip inside a bubble |
 | `Chip` | `chip/` | Pill primitive — filter / removable / static |
 | `ChipGroup` | `chip/` | Horizontal wrapping row of Chips |
 | `Button` | `button/` | Primary action trigger |
@@ -216,11 +219,12 @@ apps/docs/                          # Storybook (component documentation)
 | `NavItem` | `nav-item/` | Sidebar navigation entry |
 | `PageHeader` | `page-header/` | Top-level page title bar with actions |
 | `ListPagination` | `list-pagination/` | Prev/next + range label for list panels (e.g. Tasks / Comms) |
+| `MessageComposer` | `message-composer/` | Auto-growing textarea with attach + send toolbar — Cmd/Ctrl+Enter submits |
 | `NotificationBadge` | `notification-badge/` | Overlay count pill for icons (unread counts, etc.) |
-| `PanelHeader` | `panel-header/` | Panel title bar with filters and actions |
+| `PanelHeader` | `panel-header/` | Panel top bar (48 px) — `variant="page"` (padding.page, gap md — center panels) or `"card"` (padding.card, space-between — left list / right aside) |
 | `SectionTitle` | `section-title/` | Collapsible section heading |
 | `Select` | `select/` | Dropdown select input |
-| `Sidebar` | `sidebar/` | App-level sidebar with header, content, footer |
+| `Sidebar` | `sidebar/` | App-level 48 px icon rail — transparent background, header / content / footer slots |
 | `TabItem` | `tab-item/` | Individual tab trigger |
 | `Toast` | `toast/` | Transient notification |
 | `Toggle` | `toggle/` | On/off switch |
@@ -234,7 +238,7 @@ Parent/child pairs that live in a shared directory:
 |--------|-----------|------------|
 | Dropdown | `dropdown/` | `DropdownMenu` + `DropdownItem` |
 | Stepper | `stepper/` | `Stepper` + `StepperItem` |
-| Table | `table/` | `Table` + `TableRow` |
+| Table | `table/` | `Table` + `TableRow` + `TableSortHeader` |
 
 ### Storybook categories
 
@@ -243,8 +247,8 @@ Stories are organized by function, not alphabetically:
 | Category | Components |
 |----------|------------|
 | **Actions** | Button, IconButton, Link, Toggle |
-| **Data Display** | Badge, Card, Divider, EmptyState, InfoRow, ListItem, Table, TableRow, Tooltip |
-| **Data Entry** | Checkbox, FormField, Input, Select |
+| **Data Display** | Badge, Bubble, BubbleAttachment, BubbleGroup, Card, Divider, EmptyState, InfoRow, ListItem, Table, TableRow, Tooltip |
+| **Data Entry** | Checkbox, FormField, Input, MessageComposer, Select |
 | **Feedback** | Banner, Modal, NotificationBadge, Toast |
 | **Navigation** | Breadcrumb, Chip, ChipGroup, ListPagination, NavItem, PageHeader, SectionTitle, Sidebar, Stepper, StepperItem, TabItem |
 | **Layout** | DropdownItem, DropdownMenu, FilterRow, PanelHeader |

@@ -12,20 +12,41 @@ export const tableRecipe = cva({
 export const tableHeaderRecipe = cva({
   base: {
     display: "flex",
-    gap: "xl",
+    gap: 0,
     alignItems: "center",
     overflow: "clip",
-    px: "xl",
-    py: "xs",
-    bg: "bg.subtle",
-    borderBottom: "1px solid",
-    borderTop: "1px solid",
-    borderColor: "border.default",
+    bg: "bg.default",
+    borderBottomWidth: "1px",
+    borderBottomStyle: "solid",
+    borderBottomColor: "border.default",
+    borderLeftWidth: "3px",
+    borderLeftStyle: "solid",
+    borderLeftColor: "transparent",
     width: "100%",
-    fontSize: "body",
-    lineHeight: "body",
-    fontWeight: "regular",
     fontFamily: "body",
-    color: "text.secondary",
+    fontWeight: "semibold",
+    color: "text.tertiary",
+    textTransform: "uppercase",
+    letterSpacing: "0.04em",
+    lineHeight: "20px",
+  },
+  variants: {
+    density: {
+      normal: {
+        px: "2xl",
+        py: "10px",
+        fontSize: "11px",
+      },
+      compact: {
+        px: "lg",
+        py: "md",
+        fontSize: "10px",
+      },
+    },
+  },
+  defaultVariants: {
+    density: "normal",
   },
 });
+
+export type TableDensity = "normal" | "compact";

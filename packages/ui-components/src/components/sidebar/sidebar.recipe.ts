@@ -8,24 +8,9 @@ export const sidebarRecipe = cva({
     overflow: "clip",
     height: "100%",
     flexShrink: 0,
-  },
-  variants: {
-    variant: {
-      default: {
-        bg: "bg.default",
-        paddingBlock: "md",
-        width: "auto",
-      },
-      rail: {
-        bg: "bg.subtle",
-        width: "48px",
-        paddingBlock: "md",
-        paddingInline: "0",
-      },
-    },
-  },
-  defaultVariants: {
-    variant: "default",
+    width: "48px",
+    paddingBlock: "md",
+    paddingInline: "0",
   },
 });
 
@@ -66,5 +51,3 @@ export const sidebarFooterRecipe = cva({
     marginTop: "auto",
   },
 });
-
-export type SidebarVariant = "default" | "rail";

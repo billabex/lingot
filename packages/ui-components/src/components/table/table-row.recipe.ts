@@ -4,28 +4,60 @@ export const tableRowRecipe = cva({
   base: {
     display: "flex",
     alignItems: "center",
-    gap: "xl",
-    px: "xl",
-    py: "sm",
-    borderBottom: "1px solid",
-    borderColor: "border.default",
-    fontSize: "body",
-    lineHeight: "body",
-    fontWeight: "regular",
+    gap: 0,
+    borderBottomWidth: "1px",
+    borderBottomStyle: "solid",
+    borderBottomColor: "border.default",
+    borderLeftWidth: "3px",
+    borderLeftStyle: "solid",
+    borderLeftColor: "transparent",
     fontFamily: "body",
+    fontSize: "body.sm",
+    lineHeight: "20px",
+    fontWeight: "regular",
+    color: "text.primary",
     width: "100%",
-  },
-  variants: {
-    selected: {
-      true: {
-        bg: "bg.muted",
-      },
-      false: {
-        bg: "bg.default",
-      },
+    transition: "background 120ms ease",
+    _hover: {
+      bg: "bg.subtle",
     },
   },
+  variants: {
+    density: {
+      normal: {
+        px: "2xl",
+        py: "11px",
+        minHeight: "44px",
+      },
+      compact: {
+        px: "lg",
+        py: "md",
+        minHeight: "38px",
+      },
+    },
+    selected: {
+      true: {},
+      false: {},
+    },
+    accent: {
+      none: {},
+      success: {},
+      info: {},
+      warning: {},
+      error: {},
+    },
+  },
+  compoundVariants: [
+    { selected: true, accent: "success", css: { borderLeftColor: "status.success" } },
+    { selected: true, accent: "info", css: { borderLeftColor: "status.info" } },
+    { selected: true, accent: "warning", css: { borderLeftColor: "status.warning" } },
+    { selected: true, accent: "error", css: { borderLeftColor: "status.error" } },
+  ],
   defaultVariants: {
+    density: "normal",
     selected: false,
+    accent: "none",
   },
 });
+
+export type TableRowAccent = "none" | "success" | "info" | "warning" | "error";

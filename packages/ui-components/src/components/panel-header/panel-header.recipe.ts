@@ -3,61 +3,49 @@ import { cva } from "styled-system/css";
 export const panelHeaderRecipe = cva({
   base: {
     display: "flex",
-    flexDirection: "column",
-    alignItems: "flex-start",
-    width: "100%",
-  },
-});
-
-export const panelHeaderTopRowRecipe = cva({
-  base: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "md",
-    alignItems: "flex-start",
-    width: "100%",
-    bg: "bg.default",
-    borderBottom: "1px solid",
-    borderColor: "border.default",
-    overflow: "hidden",
-    p: "xl",
-  },
-});
-
-export const panelHeaderTitleBarRecipe = cva({
-  base: {
-    display: "flex",
     alignItems: "center",
-    justifyContent: "space-between",
-    width: "100%",
-    height: "32px",
+    height: "4xl",
+    bg: "bg.default",
+    flexShrink: 0,
+    width: "full",
+  },
+  variants: {
+    variant: {
+      /** Center / main panel: padding.page (24px), gap md, left-aligned. Task / comm / account detail. */
+      page: {
+        px: "page",
+        gap: "md",
+      },
+      /** Left list or right aside panel: padding.card (16px), items pushed to edges. */
+      card: {
+        px: "card",
+        justifyContent: "space-between",
+      },
+    },
+  },
+  defaultVariants: {
+    variant: "page",
   },
 });
+
+export type PanelHeaderVariant = "page" | "card";
 
 export const panelHeaderTitleRecipe = cva({
   base: {
-    display: "flex",
-    alignItems: "center",
-    gap: "md",
+    fontFamily: "body",
     fontSize: "body",
     lineHeight: "body",
-    fontWeight: "regular",
-    fontFamily: "body",
+    fontWeight: "medium",
     color: "text.primary",
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    minWidth: 0,
   },
 });
 
-export const panelHeaderRowRecipe = cva({
+export const panelHeaderSpacerRecipe = cva({
   base: {
-    display: "flex",
-    alignItems: "flex-start",
-    gap: "xs",
-    px: "xl",
-    py: "md",
-    bg: "bg.default",
-    borderBottom: "1px solid",
-    borderColor: "border.default",
-    overflow: "hidden",
-    width: "100%",
+    flex: "1",
   },
 });

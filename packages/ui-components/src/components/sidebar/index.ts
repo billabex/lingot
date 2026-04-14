@@ -6,4 +6,3 @@ export {
   sidebarContentRecipe,
   sidebarFooterRecipe,
 } from "./sidebar.recipe";
-export type { SidebarVariant } from "./sidebar.recipe";

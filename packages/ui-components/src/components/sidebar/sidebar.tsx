@@ -5,12 +5,9 @@ import {
   sidebarContentRecipe,
   sidebarFooterRecipe,
 } from "./sidebar.recipe";
-import type { SidebarVariant } from "./sidebar.recipe";
 
 export interface SidebarProps extends HTMLAttributes<HTMLElement> {
-  /** Visual shape — `default` (auto-width shell) or `rail` (48 px icon rail). */
-  variant?: SidebarVariant;
-  /** Header content (e.g. a logo tile) */
+  /** Header content (e.g. a logo tile / company dropdown trigger) */
   header?: ReactNode;
   /** Footer content (e.g. settings / account icon) */
   footer?: ReactNode;
@@ -19,13 +16,12 @@ export interface SidebarProps extends HTMLAttributes<HTMLElement> {
 }
 
 /**
- * Sidebar — A vertical navigation container with optional header and footer.
- * Use `variant="rail"` for the 48 px icon-only rail.
+ * Sidebar — 48 px vertical icon rail with optional header and footer.
+ * Transparent background — the surrounding layout owns the color.
  *
  * RSC-compatible (no `'use client'` needed).
  */
 export function Sidebar({
-  variant = "default",
   header,
   footer,
   children,
@@ -35,7 +31,7 @@ export function Sidebar({
   return (
     <nav
       role="navigation"
-      className={`${sidebarRecipe({ variant })}${className ? ` ${className}` : ""}`}
+      className={`${sidebarRecipe()}${className ? ` ${className}` : ""}`}
       {...props}
     >
       {header && <div className={sidebarHeaderRecipe()}>{header}</div>}

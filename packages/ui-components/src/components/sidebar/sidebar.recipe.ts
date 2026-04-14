@@ -39,15 +39,3 @@ export const sidebarContentRecipe = cva({
   },
 });
 
-export const sidebarFooterRecipe = cva({
-  base: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "md",
-    alignItems: "center",
-    overflow: "clip",
-    p: "md",
-    flexShrink: 0,
-    marginTop: "auto",
-  },
-});

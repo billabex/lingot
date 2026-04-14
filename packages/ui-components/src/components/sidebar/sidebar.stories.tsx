@@ -1,8 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { css } from "styled-system/css";
-import { Mail, BookOpen, CheckCircle2, Settings } from "lucide-react";
+import { Mail, BookOpen, CheckCircle2 } from "lucide-react";
 import { Sidebar } from "./sidebar";
-import { IconButton } from "../icon-button";
 import { NavItem } from "../nav-item";
 import { NotificationBadge } from "../notification-badge";
 
@@ -55,7 +54,6 @@ export const Default: Story = {
             B
           </button>
         }
-        footer={<IconButton icon={<Settings size={16} />} aria-label="Paramètres" />}
       >
         <NavItem variant="icon" active aria-label="Tâches">
           <CheckCircle2 size={16} />

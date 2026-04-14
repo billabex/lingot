@@ -260,7 +260,6 @@ export {
   sidebarRecipe,
   sidebarHeaderRecipe,
   sidebarContentRecipe,
-  sidebarFooterRecipe,
 } from "./components/sidebar";
 // Stepper
 export { Stepper } from "./components/stepper";

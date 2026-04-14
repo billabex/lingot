@@ -199,7 +199,35 @@ export {
 // SectionTitle
 export { SectionTitle } from "./components/section-title";
 export type { SectionTitleProps } from "./components/section-title";
-export { sectionTitleRecipe, sectionTitleChevronRecipe } from "./components/section-title";
+export { sectionTitleRecipe, sectionTitleTrailingRecipe } from "./components/section-title";
+
+// Avatar
+export { Avatar } from "./components/avatar";
+export type { AvatarProps, AvatarSize } from "./components/avatar";
+export { avatarRecipe } from "./components/avatar";
+
+// AgedBalance
+export { AgedBalance } from "./components/aged-balance";
+export type {
+  AgedBalanceProps,
+  AgedBalanceBucket,
+  AgedBalanceTone,
+  AgedBalanceSegmentTone,
+} from "./components/aged-balance";
+export {
+  agedBalanceRecipe,
+  agedBalanceTotalRecipe,
+  agedBalanceBarRecipe,
+  agedBalanceSegmentRecipe,
+  agedBalanceLegendRecipe,
+  agedBalanceLegendItemRecipe,
+  agedBalanceLegendSwatchRecipe,
+} from "./components/aged-balance";
+
+// StatusDot
+export { StatusDot } from "./components/status-dot";
+export type { StatusDotProps, StatusDotSize, StatusDotTone } from "./components/status-dot";
+export { statusDotRecipe } from "./components/status-dot";
 
 // Select
 export { Select } from "./components/select";

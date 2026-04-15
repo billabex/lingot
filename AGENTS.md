@@ -220,6 +220,8 @@ apps/docs/                          # Storybook (component documentation)
 | `NavItem` | `nav-item/` | Sidebar navigation entry |
 | `PageHeader` | `page-header/` | Top-level page title bar with actions |
 | `ListPagination` | `list-pagination/` | Prev/next + range label for list panels (e.g. Tasks / Comms) |
+| `TablePagination` | `table-pagination/` | Full-width pager for data tables — range label + prev / numbered pages / next |
+| `BulkActionBar` | `bulk-action-bar/` | Dark footer toolbar surfaced when table rows are selected — count + action buttons + close |
 | `MessageComposer` | `message-composer/` | Auto-growing textarea with attach + send toolbar — Cmd/Ctrl+Enter submits |
 | `NotificationBadge` | `notification-badge/` | Overlay count pill for icons (unread counts, etc.) |
 | `PanelHeader` | `panel-header/` | Panel top bar (48 px) — `variant="page"` (padding.page, gap md — center panels) or `"card"` (padding.card, space-between — left list / right aside) |
@@ -251,6 +253,6 @@ Stories are organized by function, not alphabetically:
 | **Actions** | Button, IconButton, Link, Toggle |
 | **Data Display** | Badge, Bubble, BubbleAttachment, BubbleAttachmentGroup, BubbleGroup, Card, Divider, EmptyState, InfoRow, ListItem, Table, TableRow, Tooltip |
 | **Data Entry** | Checkbox, FormField, Input, MessageComposer, Select |
-| **Feedback** | Banner, Modal, NotificationBadge, Toast |
-| **Navigation** | Breadcrumb, Chip, ChipGroup, ListPagination, NavItem, PageHeader, SectionTitle, Sidebar, Stepper, StepperItem, TabItem, Tabs |
+| **Feedback** | Banner, BulkActionBar, Modal, NotificationBadge, Toast |
+| **Navigation** | Breadcrumb, Chip, ChipGroup, ListPagination, NavItem, PageHeader, SectionTitle, Sidebar, Stepper, StepperItem, TabItem, TablePagination, Tabs |
 | **Layout** | DropdownItem, DropdownMenu, FilterRow, PanelHeader |

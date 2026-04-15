@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { css } from "styled-system/css";
 import { CheckCircle2, ExternalLink, Mail, Users } from "lucide-react";
@@ -10,15 +11,18 @@ import { NavItem } from "../components/nav-item";
 import { NotificationBadge } from "../components/notification-badge";
 import { PanelHeader } from "../components/panel-header";
 import { Sidebar } from "../components/sidebar";
+import { CommDetail } from "../components/table/comm-detail";
+import { PlannedCommDetail } from "../components/table/planned-comm-detail";
 import { Table } from "../components/table/table";
 import { TableRow } from "../components/table/table-row";
+import { TableRowDetail } from "../components/table/table-row-detail";
 import {
   TableSortHeader,
   type TableSortDirection,
 } from "../components/table/table-sort-header";
 
-function CommsViewTemplate() {
-  return <CommsViewInner />;
+function CommsViewTemplate({ expanded = [] }: { expanded?: string[] }) {
+  return <CommsViewInner expandedIds={expanded} />;
 }
 
 const meta = {
@@ -31,6 +35,16 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {};
+
+/** Top row expanded — a planned communication showing `PlannedCommDetail`. */
+export const WithExpandedPlanned: Story = {
+  args: { expanded: ["13"] },
+};
+
+/** Three most-recent-past comms expanded — shows the accordion history pattern. */
+export const WithExpandedHistory: Story = {
+  args: { expanded: ["12", "11", "10"] },
+};
 
 /* ---------- left-panel data — 11 threads, DOSFARMASHOP selected ---------- */
 
@@ -376,11 +390,12 @@ const cellDate = css({
   color: "text.secondary",
 });
 
-function CommsViewInner() {
+function CommsViewInner({ expandedIds }: { expandedIds: string[] }) {
   const sort: { col: "date" | "subject" | "status"; dir: TableSortDirection } = {
     col: "date",
     dir: "desc",
   };
+  const expanded = new Set(expandedIds);
 
   return (
     <div className={shellPage}>
@@ -516,28 +531,45 @@ function CommsViewInner() {
                   </>
                 }
               >
-                {log.map((row) => (
-                  <TableRow key={row.id} accent={directionAccent[row.direction]}>
-                    <span style={col.channel} className={cellChannel}>
-                      <Mail size={14} />
-                    </span>
-                    <span
-                      style={col.direction}
-                      className={`${cellDirectionBase} ${cellDirectionColor[row.direction]}`}
-                    >
-                      {directionGlyph[row.direction]}
-                    </span>
-                    <span style={col.date} className={cellDate}>
-                      {row.date}
-                    </span>
-                    <span style={col.subject}>{row.subject}</span>
-                    <span style={col.status}>
-                      <Badge variant={statusVariant[row.status]}>
-                        {row.status}
-                      </Badge>
-                    </span>
-                  </TableRow>
-                ))}
+                {log.map((row) => {
+                  const isOpen = expanded.has(row.id);
+                  return (
+                    <Fragment key={row.id}>
+                      <TableRow
+                        accent={directionAccent[row.direction]}
+                        selected={isOpen}
+                      >
+                        <span style={col.channel} className={cellChannel}>
+                          <Mail size={14} />
+                        </span>
+                        <span
+                          style={col.direction}
+                          className={`${cellDirectionBase} ${cellDirectionColor[row.direction]}`}
+                        >
+                          {directionGlyph[row.direction]}
+                        </span>
+                        <span style={col.date} className={cellDate}>
+                          {row.date}
+                        </span>
+                        <span style={col.subject}>{row.subject}</span>
+                        <span style={col.status}>
+                          <Badge variant={statusVariant[row.status]}>
+                            {row.status}
+                          </Badge>
+                        </span>
+                      </TableRow>
+                      {isOpen && (
+                        <TableRowDetail>
+                          {row.direction === "planned" ? (
+                            <PlannedCommDetail subject={row.subject} />
+                          ) : (
+                            <CommDetail subject={row.subject} />
+                          )}
+                        </TableRowDetail>
+                      )}
+                    </Fragment>
+                  );
+                })}
               </Table>
             </div>
           </section>

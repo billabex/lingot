@@ -300,6 +300,15 @@ export { tableRowDetailRecipe } from "./components/table";
 export { TableSortHeader } from "./components/table";
 export type { TableSortHeaderProps, TableSortDirection } from "./components/table";
 export { tableSortHeaderRecipe, tableSortIconRecipe } from "./components/table";
+// TablePagination
+export { TablePagination } from "./components/table-pagination";
+export type { TablePaginationProps } from "./components/table-pagination";
+export {
+  tablePaginationRecipe,
+  tablePaginationInfoRecipe,
+  tablePaginationControlsRecipe,
+  tablePaginationButtonRecipe,
+} from "./components/table-pagination";
 // Toast
 export { Toast } from "./components/toast";
 export type { ToastProps, ToastVariant } from "./components/toast";

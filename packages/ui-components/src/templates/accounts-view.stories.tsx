@@ -287,7 +287,7 @@ const controlsBlock = css({
 
 const controlsSpacer = css({ flex: 1 });
 
-const searchField = css({ flex: 1, minWidth: "18rem", maxWidth: "28rem" });
+const searchField = css({ width: "17.5rem", flexShrink: 0 });
 
 const tableScroll = css({
   flex: 1,
@@ -393,15 +393,14 @@ function AccountsViewInner({ selectedIds }: { selectedIds: string[] }) {
       <div className={shellMain}>
         <div className={shellCard}>
           <section className={fullPanel}>
-            {/* Header — title + count */}
-            <div className={hrBottom}>
-              <PanelHeader variant="page">
-                <PanelHeader.Title>Comptes clients</PanelHeader.Title>
-                <Badge variant="count" shape="square">
-                  {TOTAL_ACCOUNTS}
-                </Badge>
-              </PanelHeader>
-            </div>
+            {/* Header — title + count. No border: title and controls share
+               the same visual block per prototype. */}
+            <PanelHeader variant="page">
+              <PanelHeader.Title>Comptes clients</PanelHeader.Title>
+              <Badge variant="count" shape="square">
+                {TOTAL_ACCOUNTS}
+              </Badge>
+            </PanelHeader>
 
             {/* Controls row — search + filters + pause-all */}
             <div className={`${controlsBlock} ${hrBottom}`}>
@@ -536,9 +535,7 @@ function AccountsViewInner({ selectedIds }: { selectedIds: string[] }) {
                 closeLabel="Effacer la sélection"
                 onClose={() => {}}
               >
-                <Button size="small" variant="ghost">
-                  Reprendre en interne
-                </Button>
+                <BulkActionBar.Action>Reprendre en interne</BulkActionBar.Action>
               </BulkActionBar>
             )}
 

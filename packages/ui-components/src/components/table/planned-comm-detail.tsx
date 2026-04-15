@@ -5,8 +5,6 @@ import { Button } from "../button";
 export type PlannedCommDetailProps = {
   /** Subject line displayed in the meta grid (Objet field) */
   subject?: string;
-  /** Scheduled send date/time displayed in the meta grid */
-  scheduledAt?: string;
   /** Called when the user clicks "Modifier" — typically opens an edit modal. */
   onEdit?: () => void;
   /** Called when the user clicks "Envoyer maintenant" — bypasses the schedule. */
@@ -21,6 +19,15 @@ const labelStyle: CSSProperties = {
   marginRight: 8,
 };
 
+const mutedValueStyle: CSSProperties = { color: "#9c8e82" /* text.tertiary */ };
+const valueStyle: CSSProperties = { color: "#1c1917" };
+const attachmentLinkStyle: CSSProperties = {
+  color: "#b5634b", // text.link (terracotta.400)
+  textDecoration: "underline",
+  textUnderlineOffset: 2,
+  marginRight: 12,
+};
+
 /**
  * Reference content layout for a planned follow-up row detail — meta grid +
  * message preview + an `ActionBar` with edit / send-now actions. Counterpart to
@@ -28,7 +35,6 @@ const labelStyle: CSSProperties = {
  */
 export function PlannedCommDetail({
   subject = "Relance automatique — J+30",
-  scheduledAt = "16/04/2026 08:00",
   onEdit,
   onSendNow,
 }: PlannedCommDetailProps) {
@@ -36,6 +42,7 @@ export function PlannedCommDetail({
     e.stopPropagation();
     fn?.();
   };
+  const stopAttach = (e: { stopPropagation: () => void }) => e.stopPropagation();
 
   return (
     <div>
@@ -50,21 +57,35 @@ export function PlannedCommDetail({
           lineHeight: "20px",
         }}
       >
-        {(
-          [
-            ["De", "Camille Montagnon <camille@billabex.com>"],
-            ["À", "Jaime Rodriguez <jaime@dosfarmashop.es>"],
-            ["Facture", "FA00148823"],
-            ["Étape", "Relance #7"],
-            ["Objet", subject],
-            ["Envoi prévu", scheduledAt],
-          ] as const
-        ).map(([label, value]) => (
-          <div key={label}>
-            <span style={labelStyle}>{label}</span>
-            <span style={{ color: "#1c1917" }}>{value}</span>
-          </div>
-        ))}
+        <div>
+          <span style={labelStyle}>De</span>
+          <span style={valueStyle}>Camille Montagnon &lt;camille@billabex.com&gt;</span>
+        </div>
+        <div>
+          <span style={labelStyle}>À</span>
+          <span style={valueStyle}>Jaime Rodriguez &lt;jaime@dosfarmashop.es&gt;</span>
+        </div>
+        <div>
+          <span style={labelStyle}>Cc</span>
+          <span style={mutedValueStyle}>—</span>
+        </div>
+        <div>
+          <span style={labelStyle}>Cci</span>
+          <span style={mutedValueStyle}>—</span>
+        </div>
+        <div>
+          <span style={labelStyle}>Objet</span>
+          <span style={valueStyle}>{subject}</span>
+        </div>
+        <div>
+          <span style={labelStyle}>Pièces jointes</span>
+          <a href="#" style={attachmentLinkStyle} onClick={stopAttach}>
+            FA00148823.pdf
+          </a>
+          <a href="#" style={attachmentLinkStyle} onClick={stopAttach}>
+            Conditions-paiement.pdf
+          </a>
+        </div>
       </div>
 
       {/* Body — draft preview. */}

@@ -25,6 +25,15 @@ const toggleStyle: CSSProperties = {
   display: "inline-block",
 };
 
+const mutedValueStyle: CSSProperties = { color: "#9c8e82" /* text.tertiary */ };
+const valueStyle: CSSProperties = { color: "#1c1917" };
+const attachmentLinkStyle: CSSProperties = {
+  color: "#b5634b", // text.link (terracotta.400)
+  textDecoration: "underline",
+  textUnderlineOffset: 2,
+  marginRight: 12,
+};
+
 /**
  * Reference content layout for `TableRowDetail` — mirrors the prototype's
  * `.comm-log-meta` + `.comm-log-body` structure. Each toggle link is rendered
@@ -53,20 +62,35 @@ export function CommDetail({
           lineHeight: "20px",
         }}
       >
-        {(
-          [
-            ["De", "Jaime Rodriguez <jaime@dosfarmashop.es>"],
-            ["À", "Camille Montagnon <camille@billabex.com>"],
-            ["Facture", "FA00148823"],
-            ["Étape", "Relance #6"],
-            ["Objet", subject],
-          ] as const
-        ).map(([label, value]) => (
-          <div key={label}>
-            <span style={labelStyle}>{label}</span>
-            <span style={{ color: "#1c1917" }}>{value}</span>
-          </div>
-        ))}
+        <div>
+          <span style={labelStyle}>De</span>
+          <span style={valueStyle}>Jaime Rodriguez &lt;jaime@dosfarmashop.es&gt;</span>
+        </div>
+        <div>
+          <span style={labelStyle}>À</span>
+          <span style={valueStyle}>Camille Montagnon &lt;camille@billabex.com&gt;</span>
+        </div>
+        <div>
+          <span style={labelStyle}>Cc</span>
+          <span style={mutedValueStyle}>—</span>
+        </div>
+        <div>
+          <span style={labelStyle}>Cci</span>
+          <span style={mutedValueStyle}>—</span>
+        </div>
+        <div>
+          <span style={labelStyle}>Objet</span>
+          <span style={valueStyle}>{subject}</span>
+        </div>
+        <div>
+          <span style={labelStyle}>Pièces jointes</span>
+          <a href="#" style={attachmentLinkStyle} onClick={stop}>
+            FA00148823.pdf
+          </a>
+          <a href="#" style={attachmentLinkStyle} onClick={stop}>
+            Historique-relances.pdf
+          </a>
+        </div>
       </div>
 
       {/* Body — text + inline signature/quoted blocks + their toggle links. */}

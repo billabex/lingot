@@ -7,18 +7,18 @@ export const panelHeaderRecipe = cva({
     height: "4xl",
     bg: "bg.default",
     flexShrink: 0,
-    width: "full",
+    width: "100%",
   },
   variants: {
     variant: {
       /** Center / main panel: padding.page (24px), gap md, left-aligned. Task / comm / account detail. */
       page: {
-        px: "page",
+        px: "padding.page",
         gap: "md",
       },
       /** Left list or right aside panel: padding.card (16px), items pushed to edges. */
       card: {
-        px: "card",
+        px: "padding.card",
         justifyContent: "space-between",
       },
     },

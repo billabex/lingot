@@ -17,7 +17,7 @@ export const bubbleAttachmentRecipe = cva({
     lineHeight: "body.sm",
     textDecoration: "none",
     cursor: "pointer",
-    maxWidth: "full",
+    maxWidth: "100%",
     transition: "background 0.12s ease",
     _hover: { bg: "bg.subtle" },
     _focusVisible: {

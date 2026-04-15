@@ -5,7 +5,7 @@ export const bubbleGroupRecipe = cva({
     display: "flex",
     flexDirection: "column",
     gap: "xs",
-    width: "full",
+    width: "100%",
   },
   variants: {
     side: {
@@ -23,7 +23,7 @@ export const bubbleGroupStackRecipe = cva({
     display: "flex",
     flexDirection: "column",
     gap: "xl",
-    width: "full",
+    width: "100%",
   },
   variants: {
     side: {

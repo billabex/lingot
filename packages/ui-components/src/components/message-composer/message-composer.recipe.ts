@@ -17,7 +17,7 @@ export const messageComposerRecipe = cva({
 
 export const messageComposerTextareaRecipe = cva({
   base: {
-    width: "full",
+    width: "100%",
     border: "none",
     outline: "none",
     resize: "none",

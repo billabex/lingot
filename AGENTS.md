@@ -202,6 +202,7 @@ apps/docs/                          # Storybook (component documentation)
 | `Bubble` | `bubble/` | Chat message (agent / user) |
 | `BubbleGroup` | `bubble/` | Author + date header wrapping a run of bubbles |
 | `BubbleAttachment` | `bubble/` | Inline file chip inside a bubble |
+| `BubbleAttachmentGroup` | `bubble/` | Wraps one or more `BubbleAttachment` chips with consistent flex/wrap/gap |
 | `Chip` | `chip/` | Pill primitive — filter / removable / static |
 | `ChipGroup` | `chip/` | Horizontal wrapping row of Chips |
 | `Button` | `button/` | Primary action trigger |
@@ -226,6 +227,7 @@ apps/docs/                          # Storybook (component documentation)
 | `Select` | `select/` | Dropdown select input |
 | `Sidebar` | `sidebar/` | App-level 48 px icon rail — transparent background, header / content / footer slots |
 | `TabItem` | `tab-item/` | Individual tab trigger |
+| `Tabs` | `tab-item/` | Tab bar container — flex row with bottom border, wraps `TabItem`s |
 | `Toast` | `toast/` | Transient notification |
 | `Toggle` | `toggle/` | On/off switch |
 | `Tooltip` | `tooltip/` | Hover info popup |
@@ -247,8 +249,8 @@ Stories are organized by function, not alphabetically:
 | Category | Components |
 |----------|------------|
 | **Actions** | Button, IconButton, Link, Toggle |
-| **Data Display** | Badge, Bubble, BubbleAttachment, BubbleGroup, Card, Divider, EmptyState, InfoRow, ListItem, Table, TableRow, Tooltip |
+| **Data Display** | Badge, Bubble, BubbleAttachment, BubbleAttachmentGroup, BubbleGroup, Card, Divider, EmptyState, InfoRow, ListItem, Table, TableRow, Tooltip |
 | **Data Entry** | Checkbox, FormField, Input, MessageComposer, Select |
 | **Feedback** | Banner, Modal, NotificationBadge, Toast |
-| **Navigation** | Breadcrumb, Chip, ChipGroup, ListPagination, NavItem, PageHeader, SectionTitle, Sidebar, Stepper, StepperItem, TabItem |
+| **Navigation** | Breadcrumb, Chip, ChipGroup, ListPagination, NavItem, PageHeader, SectionTitle, Sidebar, Stepper, StepperItem, TabItem, Tabs |
 | **Layout** | DropdownItem, DropdownMenu, FilterRow, PanelHeader |

@@ -57,6 +57,16 @@ export {
 export { BubbleAttachmentGroup } from "./components/bubble";
 export type { BubbleAttachmentGroupProps } from "./components/bubble";
 
+// BulkActionBar
+export { BulkActionBar } from "./components/bulk-action-bar";
+export type { BulkActionBarProps } from "./components/bulk-action-bar";
+export {
+  bulkActionBarRecipe,
+  bulkActionBarCountRecipe,
+  bulkActionBarActionsRecipe,
+  bulkActionBarCloseRecipe,
+} from "./components/bulk-action-bar";
+
 // Card
 export { Card } from "./components/card";
 export type { CardProps, CardVariant } from "./components/card";

@@ -3,12 +3,12 @@ import { useState } from "react";
 import { css } from "styled-system/css";
 import { X, CheckCircle2, ExternalLink, Mail, Users } from "lucide-react";
 import { AgedBalance } from "../components/aged-balance";
-import { Avatar } from "../components/avatar";
 import { Badge } from "../components/badge";
 import { Bubble, BubbleAttachment, BubbleAttachmentGroup, BubbleGroup } from "../components/bubble";
 import { Button } from "../components/button";
 import { Card } from "../components/card";
 import { Chip, ChipGroup } from "../components/chip";
+import { ContactCard } from "../components/contact-card";
 import { Link } from "../components/link";
 import { Input } from "../components/input";
 import { InvoiceCard } from "../components/invoice-card";
@@ -415,36 +415,6 @@ const suiviSecondaryRow = css({
 
 const attachmentGroupSpacing = css({ marginTop: "md" });
 
-const contactName = css({
-  fontSize: "body.sm",
-  lineHeight: "body.sm",
-  fontWeight: "medium",
-});
-
-const contactEmail = css({
-  fontSize: "caption.soft",
-  lineHeight: "caption.soft",
-  color: "text.tertiary",
-  overflow: "hidden",
-  textOverflow: "ellipsis",
-  whiteSpace: "nowrap",
-});
-
-const contactCountry = css({
-  fontSize: "micro",
-  lineHeight: "micro",
-  fontWeight: "semibold",
-  color: "text.tertiary",
-  letterSpacing: "0.04em",
-  marginTop: "xs",
-});
-
-const contactRow = css({
-  display: "flex",
-  alignItems: "center",
-  gap: "lg",
-});
-
 /* ---------- comms tab — table column layout (mirrors Comms View) ---------- */
 
 const detailCommsBlock = css({
@@ -485,6 +455,7 @@ function TaskViewInner({ activeTab }: { activeTab: TaskTab }) {
     col: "date",
     dir: "desc",
   };
+  const openEditContactModal = () => {};
 
   return (
       <div className={shellPage}>
@@ -746,16 +717,12 @@ function TaskViewInner({ activeTab }: { activeTab: TaskTab }) {
             {/* Contacts */}
             <div className={section}>
               <SectionTitle>Contacts</SectionTitle>
-              <div className={contactRow}>
-                <Avatar initials="JS" label="Jaime Sánchez" />
-                <div style={{ flex: 1, minWidth: 0 }}>
-                  <div className={contactName}>Jaime Sánchez</div>
-                  <div className={contactEmail}>
-                    jaime.sanchez@atida.com
-                  </div>
-                  <div className={contactCountry}>ES</div>
-                </div>
-              </div>
+              <ContactCard
+                name="Jaime Sánchez"
+                email="jaime.sanchez@atida.com"
+                language="ES"
+                onClick={openEditContactModal}
+              />
             </div>
 
             {/* Facturation */}

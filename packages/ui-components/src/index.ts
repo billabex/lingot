@@ -105,6 +105,17 @@ export {
   emptyStateDescriptionRecipe,
 } from "./components/empty-state";
 
+// ContactCard
+export { ContactCard } from "./components/contact-card";
+export type { ContactCardProps } from "./components/contact-card";
+export {
+  contactCardRecipe,
+  contactCardBodyRecipe,
+  contactCardNameRecipe,
+  contactCardEmailRecipe,
+  contactCardLanguageRecipe,
+} from "./components/contact-card";
+
 // Chip
 export { Chip } from "./components/chip";
 export type { ChipProps, ChipVariant } from "./components/chip";

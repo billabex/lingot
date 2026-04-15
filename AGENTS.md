@@ -251,7 +251,7 @@ Stories are organized by function, not alphabetically:
 | Category | Components |
 |----------|------------|
 | **Actions** | Button, IconButton, Link, Toggle |
-| **Data Display** | Badge, Bubble, BubbleAttachment, BubbleAttachmentGroup, BubbleGroup, Card, Divider, EmptyState, InfoRow, ListItem, Table, TableRow, Tooltip |
+| **Data Display** | Badge, Bubble, BubbleAttachment, BubbleAttachmentGroup, BubbleGroup, Card, ContactCard, Divider, EmptyState, InfoRow, InvoiceCard, ListItem, Table, TableRow, Tooltip |
 | **Data Entry** | Checkbox, FormField, Input, MessageComposer, Select, SelectMenu |
 | **Feedback** | Banner, BulkActionBar, Modal, NotificationBadge, Toast |
 | **Navigation** | Breadcrumb, Chip, ChipGroup, ListPagination, NavItem, PageHeader, SectionTitle, Sidebar, Stepper, StepperItem, TabItem, TablePagination, Tabs |

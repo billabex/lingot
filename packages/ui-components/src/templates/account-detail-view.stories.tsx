@@ -10,10 +10,10 @@ import {
   Users,
 } from "lucide-react";
 import { AgedBalance } from "../components/aged-balance";
-import { Avatar } from "../components/avatar";
 import { Badge } from "../components/badge";
 import { Button } from "../components/button";
 import { Card } from "../components/card";
+import { ContactCard } from "../components/contact-card";
 import { IconButton } from "../components/icon-button";
 import { InfoRow } from "../components/info-row";
 import { Link } from "../components/link";
@@ -293,36 +293,6 @@ const suiviSecondaryRow = css({
   marginTop: "md",
 });
 
-const contactRow = css({
-  display: "flex",
-  alignItems: "center",
-  gap: "lg",
-});
-
-const contactName = css({
-  fontSize: "body.sm",
-  lineHeight: "body.sm",
-  fontWeight: "medium",
-});
-
-const contactEmail = css({
-  fontSize: "caption.soft",
-  lineHeight: "caption.soft",
-  color: "text.tertiary",
-  overflow: "hidden",
-  textOverflow: "ellipsis",
-  whiteSpace: "nowrap",
-});
-
-const contactCountry = css({
-  fontSize: "micro",
-  lineHeight: "micro",
-  fontWeight: "semibold",
-  color: "text.tertiary",
-  letterSpacing: "0.04em",
-  marginTop: "xs",
-});
-
 function AccountDetailViewTemplate() {
   const sort: {
     col: "reference" | "amount" | "status" | "dueDate" | "type";
@@ -331,6 +301,7 @@ function AccountDetailViewTemplate() {
     col: "dueDate",
     dir: "asc",
   };
+  const openEditContactModal = () => {};
 
   return (
     <div className={shellPage}>
@@ -552,16 +523,12 @@ function AccountDetailViewTemplate() {
                 >
                   Contacts
                 </SectionTitle>
-                <div className={contactRow}>
-                  <Avatar initials="JS" label="Jaime Sánchez" />
-                  <div style={{ flex: 1, minWidth: 0 }}>
-                    <div className={contactName}>Jaime Sánchez</div>
-                    <div className={contactEmail}>
-                      jaime.sanchez@atida.com
-                    </div>
-                    <div className={contactCountry}>ES</div>
-                  </div>
-                </div>
+                <ContactCard
+                  name="Jaime Sánchez"
+                  email="jaime.sanchez@atida.com"
+                  language="ES"
+                  onClick={openEditContactModal}
+                />
               </div>
 
               {/* Informations */}

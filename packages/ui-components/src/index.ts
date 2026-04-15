@@ -188,7 +188,7 @@ export {
 
 // Modal
 export { Modal } from "./components/modal";
-export type { ModalProps } from "./components/modal";
+export type { ModalProps, ModalSize } from "./components/modal";
 export {
   modalRecipe,
   modalHeaderRecipe,

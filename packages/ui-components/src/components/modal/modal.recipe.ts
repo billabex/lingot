@@ -5,13 +5,25 @@ export const modalRecipe = cva({
     display: "flex",
     flexDirection: "column",
     alignItems: "flex-start",
-    width: "480px",
     bg: "bg.default",
     borderRadius: "lg",
     shadow: "lg",
     overflow: "hidden",
   },
+  variants: {
+    size: {
+      /** Compact width — confirmation dialogs with short body text. */
+      sm: { width: "360px" },
+      /** Default width — form modals with fields. */
+      md: { width: "480px" },
+    },
+  },
+  defaultVariants: {
+    size: "md",
+  },
 });
+
+export type ModalSize = "sm" | "md";
 
 export const modalHeaderRecipe = cva({
   base: {

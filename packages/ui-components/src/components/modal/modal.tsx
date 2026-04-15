@@ -5,11 +5,14 @@ import {
   modalTitleRecipe,
   modalContentRecipe,
   modalFooterRecipe,
+  type ModalSize,
 } from "./modal.recipe";
 
 export interface ModalProps extends HTMLAttributes<HTMLDivElement> {
   /** Modal title displayed in the header */
   title: string;
+  /** Width preset. `sm` (360px) for confirmations, `md` (480px, default) for forms. */
+  size?: ModalSize;
   /** Optional close button in the header */
   closeButton?: ReactNode;
   /** Optional footer content (e.g. action buttons) */
@@ -25,6 +28,7 @@ export interface ModalProps extends HTMLAttributes<HTMLDivElement> {
  */
 export function Modal({
   title,
+  size = "md",
   closeButton,
   footer,
   children,
@@ -35,7 +39,7 @@ export function Modal({
     <div
       role="dialog"
       aria-label={title}
-      className={`${modalRecipe()}${className ? ` ${className}` : ""}`}
+      className={`${modalRecipe({ size })}${className ? ` ${className}` : ""}`}
       {...props}
     >
       <div className={modalHeaderRecipe()}>

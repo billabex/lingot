@@ -55,4 +55,16 @@ describe("Modal", () => {
     render(<Modal title="Title" data-testid="modal">Content</Modal>);
     expect(screen.getByTestId("modal")).toBeTruthy();
   });
+
+  it("applies the sm size variant class", () => {
+    render(<Modal title="Title" size="sm">Content</Modal>);
+    const el = screen.getByRole("dialog");
+    expect(el.className).toMatch(/\bw_360px\b/);
+  });
+
+  it("applies the md (default) size variant class", () => {
+    render(<Modal title="Title">Content</Modal>);
+    const el = screen.getByRole("dialog");
+    expect(el.className).toMatch(/\bw_480px\b/);
+  });
 });

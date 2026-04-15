@@ -49,4 +49,9 @@ describe("Badge", () => {
     expect(container.innerHTML).toContain("bg_bg.subtle");
     expect(container.innerHTML).toContain("c_text.tertiary");
   });
+
+  it("applies compact typography when size='xs'", () => {
+    const { container } = render(<Badge size="xs">Pennylane</Badge>);
+    expect(container.innerHTML).toContain("fs_caption.xs");
+  });
 });

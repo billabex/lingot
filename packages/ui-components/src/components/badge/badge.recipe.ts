@@ -6,12 +6,23 @@ export const badgeRecipe = cva({
     alignItems: "center",
     justifyContent: "center",
     gap: "xs",
-    fontSize: "caption",
-    lineHeight: "caption",
     fontFamily: "body",
     whiteSpace: "nowrap",
   },
   variants: {
+    size: {
+      /** Default size — caption typography, standard padding. */
+      md: {
+        fontSize: "caption",
+        lineHeight: "caption",
+      },
+      /** Compact inline label — caption.xs typography, tighter padding.
+       *  Use for table source chips, inline tags, dense rows. */
+      xs: {
+        fontSize: "caption.xs",
+        lineHeight: "caption.xs",
+      },
+    },
     variant: {
       neutral: {
         bg: "bg.muted",
@@ -58,9 +69,22 @@ export const badgeRecipe = cva({
       },
     },
   },
+  compoundVariants: [
+    {
+      size: "xs",
+      shape: "square",
+      css: { paddingInline: "sm", paddingBlock: 0 },
+    },
+    {
+      size: "xs",
+      shape: "pill",
+      css: { paddingInline: "xs", paddingBlock: 0 },
+    },
+  ],
   defaultVariants: {
     variant: "neutral",
     shape: "pill",
+    size: "md",
   },
 });
 
@@ -73,3 +97,5 @@ export type BadgeVariant =
   | "count";
 
 export type BadgeShape = "pill" | "square";
+
+export type BadgeSize = "md" | "xs";

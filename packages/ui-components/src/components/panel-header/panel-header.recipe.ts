@@ -33,8 +33,8 @@ export type PanelHeaderVariant = "page" | "card";
 export const panelHeaderTitleRecipe = cva({
   base: {
     fontFamily: "body",
-    fontSize: "body",
-    lineHeight: "body",
+    fontSize: "headline.sm",
+    lineHeight: "headline.sm",
     fontWeight: "medium",
     color: "text.primary",
     whiteSpace: "nowrap",

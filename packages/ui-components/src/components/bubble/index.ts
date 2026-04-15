@@ -21,3 +21,6 @@ export {
   bubbleAttachmentIconRecipe,
   bubbleAttachmentNameRecipe,
 } from "./bubble-attachment.recipe";
+
+export { BubbleAttachmentGroup } from "./bubble-attachment-group";
+export type { BubbleAttachmentGroupProps } from "./bubble-attachment-group";

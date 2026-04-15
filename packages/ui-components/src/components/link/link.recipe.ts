@@ -4,9 +4,8 @@ export const linkRecipe = cva({
   base: {
     display: "inline-flex",
     alignItems: "center",
+    gap: "xs",
     fontFamily: "body",
-    fontSize: "body",
-    lineHeight: "body",
     fontWeight: "regular",
     cursor: "pointer",
     transition: "color 0.15s ease",
@@ -33,11 +32,31 @@ export const linkRecipe = cva({
           textDecoration: "underline",
         },
       },
+      tertiary: {
+        color: "text.tertiary",
+        textDecoration: "underline",
+        textUnderlineOffset: "2px",
+        _hover: {
+          color: "text.secondary",
+        },
+      },
+    },
+    size: {
+      md: {
+        fontSize: "body",
+        lineHeight: "body",
+      },
+      sm: {
+        fontSize: "body.sm",
+        lineHeight: "body.sm",
+      },
     },
   },
   defaultVariants: {
     variant: "default",
+    size: "md",
   },
 });
 
-export type LinkVariant = "default" | "subtle";
+export type LinkVariant = "default" | "subtle" | "tertiary";
+export type LinkSize = "md" | "sm";

@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Bubble } from "./bubble";
 import { BubbleGroup } from "./bubble-group";
 import { BubbleAttachment } from "./bubble-attachment";
+import { BubbleAttachmentGroup } from "./bubble-attachment-group";
 
 const meta = {
   title: "Data Display/Bubble",
@@ -55,10 +56,10 @@ export const UserGroupWithAttachments: Story = {
         Voici les contrats pour DOSFARMASHOP. Utilisez-les pour répondre au
         refus de Jaime. L'abonnement était actif de janvier 2024 à décembre
         2025.
-        <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginTop: 8 }}>
+        <BubbleAttachmentGroup style={{ marginTop: 8 }}>
           <BubbleAttachment name="Contrat-BREVO-2024.pdf" href="#" />
           <BubbleAttachment name="Confirmation-abonnement.pdf" href="#" />
-        </div>
+        </BubbleAttachmentGroup>
       </Bubble>
     </BubbleGroup>
   ),
@@ -77,10 +78,10 @@ export const Conversation: Story = {
         <Bubble>
           Voici les contrats pour DOSFARMASHOP. L'abonnement était actif de
           janvier 2024 à décembre 2025.
-          <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginTop: 8 }}>
+          <BubbleAttachmentGroup style={{ marginTop: 8 }}>
             <BubbleAttachment name="Contrat-BREVO-2024.pdf" href="#" />
             <BubbleAttachment name="Confirmation-abonnement.pdf" href="#" />
-          </div>
+          </BubbleAttachmentGroup>
         </Bubble>
       </BubbleGroup>
       <BubbleGroup side="agent" author="Amelia Miller" date="1 avr. 09:45">

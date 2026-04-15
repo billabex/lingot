@@ -53,6 +53,10 @@ export {
   bubbleAttachmentNameRecipe,
 } from "./components/bubble";
 
+// BubbleAttachmentGroup
+export { BubbleAttachmentGroup } from "./components/bubble";
+export type { BubbleAttachmentGroupProps } from "./components/bubble";
+
 // Card
 export { Card } from "./components/card";
 export type { CardProps, CardVariant } from "./components/card";
@@ -123,7 +127,7 @@ export { inputRecipe } from "./components/input";
 
 // Link
 export { Link } from "./components/link";
-export type { LinkProps, LinkVariant } from "./components/link";
+export type { LinkProps, LinkVariant, LinkSize } from "./components/link";
 export { linkRecipe } from "./components/link";
 
 // ListItem
@@ -274,6 +278,11 @@ export { stepperItemRecipe, stepperCircleRecipe } from "./components/stepper";
 export { TabItem } from "./components/tab-item";
 export type { TabItemProps } from "./components/tab-item";
 export { tabItemRecipe } from "./components/tab-item";
+
+// Tabs
+export { Tabs } from "./components/tab-item";
+export type { TabsProps } from "./components/tab-item";
+export { tabsRecipe } from "./components/tab-item";
 
 // Table
 export { Table } from "./components/table";

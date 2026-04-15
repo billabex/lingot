@@ -84,10 +84,14 @@ export const buttonRecipe = cva({
         lineHeight: "body.sm",
       },
     },
+    fullWidth: {
+      true: { width: "100%" },
+    },
   },
   defaultVariants: {
     variant: "primary",
     size: "medium",
+    fullWidth: false,
   },
 });
 

@@ -59,11 +59,15 @@ export type { BubbleAttachmentGroupProps } from "./components/bubble";
 
 // BulkActionBar
 export { BulkActionBar } from "./components/bulk-action-bar";
-export type { BulkActionBarProps } from "./components/bulk-action-bar";
+export type {
+  BulkActionBarProps,
+  BulkActionBarActionProps,
+} from "./components/bulk-action-bar";
 export {
   bulkActionBarRecipe,
   bulkActionBarCountRecipe,
   bulkActionBarActionsRecipe,
+  bulkActionBarActionRecipe,
   bulkActionBarCloseRecipe,
 } from "./components/bulk-action-bar";
 
@@ -318,6 +322,7 @@ export {
   tablePaginationInfoRecipe,
   tablePaginationControlsRecipe,
   tablePaginationButtonRecipe,
+  tablePaginationEllipsisRecipe,
 } from "./components/table-pagination";
 // Toast
 export { Toast } from "./components/toast";

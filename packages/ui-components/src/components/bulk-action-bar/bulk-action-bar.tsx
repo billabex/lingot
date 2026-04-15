@@ -1,8 +1,9 @@
-import type { HTMLAttributes, ReactNode } from "react";
+import type { ButtonHTMLAttributes, HTMLAttributes, ReactNode } from "react";
 import {
   bulkActionBarRecipe,
   bulkActionBarCountRecipe,
   bulkActionBarActionsRecipe,
+  bulkActionBarActionRecipe,
   bulkActionBarCloseRecipe,
 } from "./bulk-action-bar.recipe";
 
@@ -65,3 +66,30 @@ export function BulkActionBar({
     </div>
   );
 }
+
+export type BulkActionBarActionProps = ButtonHTMLAttributes<HTMLButtonElement>;
+
+/**
+ * Inverse-themed action button to render inside a `BulkActionBar`. Rendered as
+ * a native `<button>` with the bar's dark-on-dark styling (transparent bg,
+ * translucent white border, white label) — the DS `Button` variants assume a
+ * light background and do not work on the inverse surface.
+ */
+function BulkActionBarAction({
+  className,
+  type = "button",
+  children,
+  ...props
+}: BulkActionBarActionProps) {
+  return (
+    <button
+      type={type}
+      className={`${bulkActionBarActionRecipe()}${className ? ` ${className}` : ""}`}
+      {...props}
+    >
+      {children}
+    </button>
+  );
+}
+
+BulkActionBar.Action = BulkActionBarAction;

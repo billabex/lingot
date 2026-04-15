@@ -38,6 +38,41 @@ export const bulkActionBarActionsRecipe = cva({
   },
 });
 
+export const bulkActionBarActionRecipe = cva({
+  base: {
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: "sm",
+    paddingBlock: "sm",
+    paddingInline: "xl",
+    borderRadius: "xs",
+    borderWidth: "1px",
+    borderStyle: "solid",
+    borderColor: "rgba(255,255,255,0.2)",
+    bg: "transparent",
+    color: "text.inverse",
+    fontFamily: "body",
+    fontSize: "caption",
+    lineHeight: "caption",
+    fontWeight: "medium",
+    whiteSpace: "nowrap",
+    cursor: "pointer",
+    transition: "background 120ms ease",
+    _hover: { bg: "rgba(255,255,255,0.1)" },
+    _focusVisible: {
+      outline: "2px solid",
+      outlineColor: "border.focus",
+      outlineOffset: "1px",
+    },
+    _disabled: {
+      opacity: 0.5,
+      cursor: "default",
+      _hover: { bg: "transparent" },
+    },
+  },
+});
+
 export const bulkActionBarCloseRecipe = cva({
   base: {
     width: "1.5rem",

@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Button } from "../button";
 import { BulkActionBar } from "./bulk-action-bar";
 
 const meta = {
@@ -14,7 +13,7 @@ const meta = {
     count: "21 sélectionnés",
     closeLabel: "Effacer la sélection",
     onClose: () => {},
-    children: <Button size="small">Reprendre en interne</Button>,
+    children: <BulkActionBar.Action>Reprendre en interne</BulkActionBar.Action>,
   },
 } satisfies Meta<typeof BulkActionBar>;
 
@@ -37,8 +36,8 @@ export const MultipleActions: Story = {
   args: {
     children: (
       <>
-        <Button size="small">Reprendre en interne</Button>
-        <Button size="small">Exporter</Button>
+        <BulkActionBar.Action>Reprendre en interne</BulkActionBar.Action>
+        <BulkActionBar.Action>Exporter</BulkActionBar.Action>
       </>
     ),
   },

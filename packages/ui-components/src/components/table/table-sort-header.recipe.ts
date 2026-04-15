@@ -19,6 +19,7 @@ export const tableSortHeaderRecipe = cva({
     textAlign: "inherit",
     color: "inherit",
     verticalAlign: "baseline",
+    whiteSpace: "nowrap",
     _focusVisible: {
       outline: "2px solid",
       outlineColor: "border.focus",

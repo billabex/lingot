@@ -4,6 +4,7 @@ import {
   tablePaginationInfoRecipe,
   tablePaginationControlsRecipe,
   tablePaginationButtonRecipe,
+  tablePaginationEllipsisRecipe,
 } from "./table-pagination.recipe";
 
 export interface TablePaginationProps
@@ -57,7 +58,13 @@ export function TablePagination({
   const prevDisabled = currentPage <= 1;
   const nextDisabled = currentPage >= totalPages;
 
-  const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+  // Page-button set — matches the prototype: first 3, ellipsis, last.
+  // (The current page is always highlighted inside that set.)
+  const headPages = Array.from(
+    { length: Math.min(totalPages, 3) },
+    (_, i) => i + 1,
+  );
+  const showTail = totalPages > 3;
 
   return (
     <div
@@ -89,7 +96,7 @@ export function TablePagination({
             <path d="M7.5 2.5L4 6l3.5 3.5" />
           </svg>
         </button>
-        {pages.map((p) => (
+        {headPages.map((p) => (
           <button
             key={p}
             type="button"
@@ -101,6 +108,24 @@ export function TablePagination({
             {p}
           </button>
         ))}
+        {showTail && (
+          <>
+            <span className={tablePaginationEllipsisRecipe()} aria-hidden="true">
+              …
+            </span>
+            <button
+              type="button"
+              className={tablePaginationButtonRecipe({
+                active: totalPages === currentPage,
+              })}
+              aria-label={`Page ${totalPages}`}
+              aria-current={totalPages === currentPage ? "page" : undefined}
+              onClick={() => onChange(totalPages)}
+            >
+              {totalPages}
+            </button>
+          </>
+        )}
         <button
           type="button"
           className={tablePaginationButtonRecipe()}

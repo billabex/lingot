@@ -48,6 +48,22 @@ describe("TablePagination", () => {
     expect(onChange).toHaveBeenCalledWith(3);
   });
 
+  it("shows first 3 pages + ellipsis + last page when totalPages > 3", () => {
+    render(
+      <TablePagination
+        page={1}
+        total={250}
+        pageSize={25}
+        onChange={() => {}}
+      />,
+    );
+    expect(screen.getByRole("button", { name: "Page 1" })).toBeTruthy();
+    expect(screen.getByRole("button", { name: "Page 2" })).toBeTruthy();
+    expect(screen.getByRole("button", { name: "Page 3" })).toBeTruthy();
+    expect(screen.queryByRole("button", { name: "Page 4" })).toBeNull();
+    expect(screen.getByRole("button", { name: "Page 10" })).toBeTruthy();
+  });
+
   it("uses custom formatLabel when provided", () => {
     render(
       <TablePagination

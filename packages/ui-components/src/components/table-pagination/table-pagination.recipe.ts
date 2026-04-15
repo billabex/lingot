@@ -35,6 +35,21 @@ export const tablePaginationControlsRecipe = cva({
   },
 });
 
+export const tablePaginationEllipsisRecipe = cva({
+  base: {
+    width: "28px",
+    height: "28px",
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    fontFamily: "body",
+    fontSize: "caption",
+    lineHeight: "caption",
+    fontWeight: "medium",
+    color: "text.tertiary",
+  },
+});
+
 export const tablePaginationButtonRecipe = cva({
   base: {
     minWidth: "28px",

@@ -5,4 +5,5 @@ export {
   tablePaginationInfoRecipe,
   tablePaginationControlsRecipe,
   tablePaginationButtonRecipe,
+  tablePaginationEllipsisRecipe,
 } from "./table-pagination.recipe";

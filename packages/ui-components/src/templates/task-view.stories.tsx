@@ -1,13 +1,15 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 import { css } from "styled-system/css";
-import { X, CheckCircle2, Mail, Users } from "lucide-react";
+import { X, CheckCircle2, ExternalLink, Mail, Users } from "lucide-react";
 import { AgedBalance } from "../components/aged-balance";
 import { Avatar } from "../components/avatar";
 import { Badge } from "../components/badge";
+import { Bubble, BubbleAttachment, BubbleAttachmentGroup, BubbleGroup } from "../components/bubble";
 import { Button } from "../components/button";
+import { Card } from "../components/card";
 import { Chip, ChipGroup } from "../components/chip";
-import { IconButton } from "../components/icon-button";
+import { Link } from "../components/link";
 import { Input } from "../components/input";
 import { InvoiceCard } from "../components/invoice-card";
 import { ListItem } from "../components/list-item";
@@ -16,9 +18,7 @@ import { MessageComposer } from "../components/message-composer";
 import { PanelHeader } from "../components/panel-header";
 import { SectionTitle } from "../components/section-title";
 import { StatusDot } from "../components/status-dot";
-import { TabItem } from "../components/tab-item";
-import { Table } from "../components/table";
-import { TableRow } from "../components/table/table-row";
+import { TabItem, Tabs } from "../components/tab-item";
 import { Sidebar } from "../components/sidebar";
 import { NavItem } from "../components/nav-item";
 import { NotificationBadge } from "../components/notification-badge";
@@ -49,24 +49,52 @@ const tasks = [
   { company: "Pharma Direct SA", title: "Vérifier le bon de commande manquant", amount: "14 500 €", date: "27 mars 10:40" },
 ];
 
-const comms: Array<{
+type DiscussionMessage = {
+  side: "agent" | "user";
+  author: string;
   date: string;
-  subject: string;
-  status: { label: string; tone: "info" | "success" | "warning" };
-  statusDot: "info" | "success" | "warning";
-}> = [
-  { date: "25/03/2026 09:00", subject: "Rappel formel avec mise en demeure — Dernier avis avant contentieux", status: { label: "Planifiée", tone: "warning" }, statusDot: "warning" },
-  { date: "18/03/2026 10:42", subject: "Re: Rappel de paiement — FA00148823 — Contestation formelle", status: { label: "Reçue", tone: "success" }, statusDot: "success" },
-  { date: "17/03/2026 09:00", subject: "Rappel de paiement — FA00148823 — Montant impayé de 16 200 €", status: { label: "Envoyée", tone: "info" }, statusDot: "info" },
-  { date: "11/03/2026 15:30", subject: "Re: Rappel urgent — FA00148823 — Contestation de la dette", status: { label: "Reçue", tone: "success" }, statusDot: "success" },
-  { date: "10/03/2026 09:00", subject: "Rappel urgent — FA00148823 — Mise en demeure sous 10 jours", status: { label: "Envoyée", tone: "info" }, statusDot: "info" },
-  { date: "01/03/2026 09:00", subject: "Re: Suivi de votre dossier — Factures 2066639, 2105835 et SIB-SAS-ENT-5086", status: { label: "Envoyée", tone: "info" }, statusDot: "info" },
+  body: string;
+  attachments?: { name: string; href: string }[];
+};
+
+const discussion: DiscussionMessage[] = [
+  {
+    side: "agent",
+    author: "Amelia Miller",
+    date: "1 avr. 08:24",
+    body:
+      "J'ai analysé le ticket #4190686. Jaime Sánchez conteste 3 factures pour un total de 16 200 €. Il demande une preuve d'abonnement BREVO. Avez-vous les contrats ou confirmations d'abonnement pour DOSFARMASHOP ONLINE S.L. ?",
+  },
+  {
+    side: "user",
+    author: "Gilles SI",
+    date: "1 avr. 09:30",
+    body:
+      "Voici les contrats pour DOSFARMASHOP. Utilisez-les pour répondre au refus de Jaime. L'abonnement était actif de janvier 2024 à décembre 2025.",
+    attachments: [
+      { name: "Contrat-BREVO-2024.pdf", href: "#" },
+      { name: "Confirmation-abonnement.pdf", href: "#" },
+    ],
+  },
+  {
+    side: "agent",
+    author: "Amelia Miller",
+    date: "1 avr. 09:45",
+    body:
+      "Merci pour les documents. J'ai préparé une réponse formelle à Jaime incluant le contrat et la confirmation d'abonnement comme preuve. Je l'enverrai dans l'heure, sauf si vous souhaitez relire le brouillon avant.",
+  },
+  {
+    side: "user",
+    author: "Gilles SI",
+    date: "1 avr. 10:10",
+    body: "Envoyez directement, c'est bon.",
+  },
 ];
 
 /* Canonical company-logo tile — matches `Sidebar` story in the DS. */
 const logoTile = css({
-  width: "32px",
-  height: "32px",
+  width: "2rem",
+  height: "2rem",
   display: "inline-flex",
   alignItems: "center",
   justifyContent: "center",
@@ -83,33 +111,258 @@ const logoTile = css({
   _active: { bg: "neutral.500" },
 });
 
-const panel: React.CSSProperties = {
+/* ---------- shell — mirrors Templates/Tasks Shell ---------- */
+
+const shellPage = css({
+  display: "flex",
+  height: "100vh",
+  bg: "bg.subtle",
+  fontFamily: "body",
+  color: "text.primary",
+  fontSize: "body",
+  overflow: "hidden",
+});
+
+const shellRail = css({
+  flexShrink: 0,
+  bg: "bg.subtle",
+});
+
+const shellMain = css({
+  flex: 1,
+  display: "flex",
+  flexDirection: "column",
+  overflow: "hidden",
+  padding: "xl",
+  paddingLeft: "md",
+  minWidth: 0,
+});
+
+const shellCard = css({
+  flex: 1,
+  display: "flex",
+  borderRadius: "md",
+  borderWidth: "1px",
+  borderStyle: "solid",
+  borderColor: "border.default",
+  bg: "bg.default",
+  overflow: "hidden",
+  minHeight: 0,
+});
+
+const listPanel = css({
+  width: "17.5rem",
+  flexShrink: 0,
+  borderRightWidth: "1px",
+  borderRightStyle: "solid",
+  borderColor: "border.default",
   display: "flex",
   flexDirection: "column",
   minHeight: 0,
-};
+});
 
-const hr: React.CSSProperties = {
-  borderBottom: "1px solid var(--colors-border-default)",
-};
+const detailPanel = css({
+  flex: 1,
+  minWidth: 0,
+  display: "flex",
+  flexDirection: "column",
+});
+
+const contextPanel = css({
+  width: "18.75rem",
+  flexShrink: 0,
+  borderLeftWidth: "1px",
+  borderLeftStyle: "solid",
+  borderColor: "border.default",
+  bg: "bg.subtle",
+  overflowY: "auto",
+  display: "flex",
+  flexDirection: "column",
+  minHeight: 0,
+});
+
+const hrBottom = css({
+  borderBottomWidth: "1px",
+  borderBottomStyle: "solid",
+  borderColor: "border.default",
+});
+
+const hrTop = css({
+  borderTopWidth: "1px",
+  borderTopStyle: "solid",
+  borderColor: "border.default",
+});
+
+/* ---------- content blocks (token-based paddings) ---------- */
+
+const listSearchBlock = css({
+  paddingTop: "md",
+  paddingBottom: "md",
+  paddingX: "xl",
+  display: "flex",
+  flexDirection: "column",
+  gap: "md",
+});
+
+const listScroll = css({
+  flex: 1,
+  overflowY: "auto",
+  paddingX: "xl",
+});
+
+const detailSummaryBlock = css({
+  paddingTop: "xl",
+  paddingX: "2xl",
+  flexShrink: 0,
+});
+
+const detailTabsWrap = css({
+  paddingX: "2xl",
+  flexShrink: 0,
+});
+
+const detailDiscussionBlock = css({
+  flex: 1,
+  overflowY: "auto",
+  paddingX: "2xl",
+  paddingY: "xl",
+  display: "flex",
+  flexDirection: "column",
+  gap: "xl",
+});
+
+const detailComposerBlock = css({
+  paddingY: "lg",
+  paddingX: "2xl",
+  flexShrink: 0,
+});
+
+const contextBlock = css({
+  padding: "xl",
+  display: "flex",
+  flexDirection: "column",
+  gap: "2xl",
+});
+
+const section = css({
+  display: "flex",
+  flexDirection: "column",
+  gap: "lg",
+});
+
+/* ---------- typography helpers (DS tokens) ---------- */
+
+const textMeta = css({
+  fontSize: "body.sm",
+  lineHeight: "body.sm",
+  color: "text.tertiary",
+  marginBottom: "md",
+});
+
+const textDescription = css({
+  fontSize: "body",
+  lineHeight: "headline.sm",
+  color: "text.primary",
+  margin: 0,
+  marginBottom: "xl",
+});
+
+const textListMetaDate = css({
+  fontSize: "caption",
+  lineHeight: "caption",
+  color: "text.tertiary",
+});
+
+const textListMetaAmount = css({
+  fontSize: "caption",
+  lineHeight: "caption",
+  fontWeight: "medium",
+});
+
+const accountName = css({
+  fontSize: "headline.sm",
+  lineHeight: "headline.sm",
+  fontWeight: "medium",
+  color: "text.primary",
+});
+
+const accountActionRow = css({
+  marginTop: "xs",
+});
+
+const suiviLabel = css({
+  fontSize: "body.sm",
+  lineHeight: "body.sm",
+  fontWeight: "medium",
+});
+
+const suiviCard = css({
+  padding: "lg",
+});
+
+const suiviStatusRow = css({
+  display: "flex",
+  alignItems: "center",
+  gap: "md",
+});
+
+const suiviSub = css({
+  marginTop: "sm",
+  marginLeft: "xl",
+});
+
+const suiviActionsRow = css({
+  marginTop: "lg",
+  paddingTop: "lg",
+  borderTopWidth: "1px",
+  borderTopStyle: "solid",
+  borderColor: "border.subtle",
+});
+
+const suiviSecondaryRow = css({
+  textAlign: "center",
+  marginTop: "md",
+});
+
+const attachmentGroupSpacing = css({ marginTop: "md" });
+
+const contactName = css({
+  fontSize: "body.sm",
+  lineHeight: "body.sm",
+  fontWeight: "medium",
+});
+
+const contactEmail = css({
+  fontSize: "caption.soft",
+  lineHeight: "caption.soft",
+  color: "text.tertiary",
+  overflow: "hidden",
+  textOverflow: "ellipsis",
+  whiteSpace: "nowrap",
+});
+
+const contactCountry = css({
+  fontSize: "micro",
+  lineHeight: "micro",
+  fontWeight: "semibold",
+  color: "text.tertiary",
+  letterSpacing: "0.04em",
+  marginTop: "xs",
+});
+
+const contactRow = css({
+  display: "flex",
+  alignItems: "center",
+  gap: "lg",
+});
 
 function TaskViewInner() {
   const [message, setMessage] = useState("");
 
   return (
-      <div
-        style={{
-          display: "flex",
-          height: "100vh",
-          background: "var(--colors-bg-subtle)",
-          fontFamily: "var(--fonts-body)",
-          color: "var(--colors-text-primary)",
-          fontSize: 14,
-          overflow: "hidden",
-        }}
-      >
+      <div className={shellPage}>
         {/* 48px icon rail — Sidebar is transparent, wrapper owns the bg */}
-        <div style={{ flexShrink: 0, background: "var(--colors-bg-subtle)" }}>
+        <div className={shellRail}>
         <Sidebar
           header={
             <button
@@ -136,37 +389,18 @@ function TaskViewInner() {
         </div>
 
         {/* Main area — 16px padding around the card, 8px on the left (rail side) */}
-        <div
-          style={{
-            flex: 1,
-            display: "flex",
-            flexDirection: "column",
-            overflow: "hidden",
-            padding: "16px 16px 16px 8px",
-            minWidth: 0,
-          }}
-        >
-        <div
-          style={{
-            flex: 1,
-            borderRadius: 12,
-            border: "1px solid var(--colors-border-default)",
-            background: "var(--colors-bg-default)",
-            display: "flex",
-            overflow: "hidden",
-            minHeight: 0,
-          }}
-        >
+        <div className={shellMain}>
+        <div className={shellCard}>
           {/* =================== LEFT PANEL =================== */}
-          <section style={{ ...panel, width: 280, borderRight: "1px solid var(--colors-border-default)" }}>
-            <div style={hr}>
+          <section className={listPanel}>
+            <div className={hrBottom}>
               <PanelHeader variant="card">
                 <PanelHeader.Title>Tâches</PanelHeader.Title>
                 <Badge variant="count" shape="square">30</Badge>
               </PanelHeader>
             </div>
 
-            <div style={{ padding: "8px 16px 12px", display: "flex", flexDirection: "column", gap: 8 }}>
+            <div className={listSearchBlock}>
               <Input size="small" placeholder="Rechercher…" />
               <ChipGroup>
                 <Chip variant="filter" active>
@@ -177,7 +411,7 @@ function TaskViewInner() {
               </ChipGroup>
             </div>
 
-            <div style={{ flex: 1, overflowY: "auto" }}>
+            <div className={listScroll}>
               {tasks.map((t, i) => (
                 <ListItem
                   key={i}
@@ -188,15 +422,15 @@ function TaskViewInner() {
                   preview={t.title}
                   meta={
                     <div style={{ display: "flex", justifyContent: "space-between", width: "100%" }}>
-                      <span style={{ fontWeight: 500 }}>{t.amount}</span>
-                      <span style={{ color: "var(--colors-text-tertiary)" }}>{t.date}</span>
+                      <span className={textListMetaAmount}>{t.amount}</span>
+                      <span className={textListMetaDate}>{t.date}</span>
                     </div>
                   }
                 />
               ))}
             </div>
 
-            <div style={{ ...hr, borderBottom: 0, borderTop: "1px solid var(--colors-border-default)" }}>
+            <div className={hrTop}>
               <ListPagination
                 total={30}
                 pageSize={25}
@@ -208,9 +442,9 @@ function TaskViewInner() {
           </section>
 
           {/* =================== CENTER PANEL (no border — neighbours own theirs) =================== */}
-          <section style={{ ...panel, flex: 1, minWidth: 0 }}>
+          <section className={detailPanel}>
             {/* Header */}
-            <div style={hr}>
+            <div className={hrBottom}>
               <PanelHeader variant="page">
                 <PanelHeader.Title>Examiner le refus de Jaime</PanelHeader.Title>
                 <Badge variant="error" shape="pill">Action requise</Badge>
@@ -221,58 +455,44 @@ function TaskViewInner() {
               </PanelHeader>
             </div>
 
-            {/* Fixed task summary + tabs */}
-            <div style={{ padding: "16px 24px 0", flexShrink: 0 }}>
-              <div style={{ fontSize: 13, lineHeight: "18px", color: "var(--colors-text-tertiary)", marginBottom: 8 }}>
+            {/* Fixed task summary */}
+            <div className={detailSummaryBlock}>
+              <div className={textMeta}>
                 DOSFARMASHOP ONLINE S.L. · Amelia Miller · il y a 2h
               </div>
-              <p style={{ fontSize: 14, lineHeight: "24px", margin: 0, marginBottom: 16 }}>
-                Jaime Sánchez (<a href="#" style={{ color: "var(--colors-text-link)" }}>jaime.sanchez@atida.com</a>) a répondu au ticket #4190686, contestant la dette de 16 200 € pour les factures 2066639, 2105835 et SIB-SAS-ENT-5086 et demandant une preuve d'abonnement BREVO. Pourriez-vous vérifier nos dossiers pour DOSFARMASHOP ONLINE S.L. et fournir les contrats, confirmations d'abonnement ou documentation d'annulation liés à BREVO ? Dès réception, je préparerai une réponse formelle à Jaime Sánchez.
+              <p className={textDescription}>
+                Jaime Sánchez (<Link href="#">jaime.sanchez@atida.com</Link>) a répondu au ticket #4190686, contestant la dette de 16 200 € pour les factures 2066639, 2105835 et SIB-SAS-ENT-5086 et demandant une preuve d'abonnement BREVO. Pourriez-vous vérifier nos dossiers pour DOSFARMASHOP ONLINE S.L. et fournir les contrats, confirmations d'abonnement ou documentation d'annulation liés à BREVO ? Dès réception, je préparerai une réponse formelle à Jaime Sánchez.
               </p>
-              <div style={{ display: "flex", gap: 0, borderBottom: "1px solid var(--colors-border-default)" }}>
-                <TabItem active>Échanges avec votre agent</TabItem>
-                <TabItem>Communications</TabItem>
-              </div>
             </div>
 
-            {/* Comms table */}
-            <div style={{ flex: 1, overflowY: "auto", padding: "0 24px" }}>
-              <Table
-                density="compact"
-                header={
-                  <TableRow>
-                    <div style={{ flex: "0 0 140px", color: "var(--colors-text-tertiary)", fontSize: 12 }}>Date</div>
-                    <div style={{ flex: 1, color: "var(--colors-text-tertiary)", fontSize: 12 }}>Objet</div>
-                    <div style={{ flex: "0 0 90px", color: "var(--colors-text-tertiary)", fontSize: 12, textAlign: "right" }}>Statut</div>
-                  </TableRow>
-                }
-              >
-                {comms.map((c, i) => (
-                  <TableRow key={i}>
-                    <div style={{ flex: "0 0 140px", color: "var(--colors-text-tertiary)", fontSize: 12 }}>{c.date}</div>
-                    <div style={{ flex: 1, minWidth: 0, display: "flex", alignItems: "center", gap: 8 }}>
-                      <StatusDot size="small" tone={c.statusDot} />
-                      <span
-                        style={{
-                          fontSize: 13,
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                          whiteSpace: "nowrap",
-                        }}
-                      >
-                        {c.subject}
-                      </span>
-                    </div>
-                    <div style={{ flex: "0 0 90px", display: "flex", justifyContent: "flex-end" }}>
-                      <Badge variant={c.status.tone} shape="pill">{c.status.label}</Badge>
-                    </div>
-                  </TableRow>
-                ))}
-              </Table>
+            {/* Tab bar — border spans the content column */}
+            <div className={detailTabsWrap}>
+              <Tabs>
+                <TabItem active>Échanges avec votre agent</TabItem>
+                <TabItem>Communications</TabItem>
+              </Tabs>
+            </div>
+
+            {/* Discussion bubbles */}
+            <div className={detailDiscussionBlock}>
+              {discussion.map((m, i) => (
+                <BubbleGroup key={i} side={m.side} author={m.author} date={m.date}>
+                  <Bubble>
+                    {m.body}
+                    {m.attachments && (
+                      <BubbleAttachmentGroup className={attachmentGroupSpacing}>
+                        {m.attachments.map((a) => (
+                          <BubbleAttachment key={a.name} name={a.name} href={a.href} />
+                        ))}
+                      </BubbleAttachmentGroup>
+                    )}
+                  </Bubble>
+                </BubbleGroup>
+              ))}
             </div>
 
             {/* Composer */}
-            <div style={{ ...hr, borderBottom: 0, borderTop: "1px solid var(--colors-border-default)", padding: "12px 24px", flexShrink: 0 }}>
+            <div className={detailComposerBlock}>
               <MessageComposer
                 value={message}
                 onChange={setMessage}
@@ -283,150 +503,94 @@ function TaskViewInner() {
           </section>
 
           {/* =================== RIGHT PANEL =================== */}
-          <aside
-            style={{
-              width: 300,
-              flexShrink: 0,
-              borderLeft: "1px solid var(--colors-border-default)",
-              background: "var(--colors-bg-subtle)",
-              overflowY: "auto",
-              display: "flex",
-              flexDirection: "column",
-              minHeight: 0,
-            }}
-          >
-            <div style={{ padding: "24px 16px", display: "flex", flexDirection: "column", gap: 24 }}>
+          <aside className={contextPanel}>
+            <div className={contextBlock}>
 
             {/* Account header — block with margin-bottom, NOT a fixed-height PanelHeader */}
             <div>
-              <a
-                href="#"
-                style={{
-                  fontSize: 16,
-                  fontWeight: 500,
-                  lineHeight: "24px",
-                  color: "var(--colors-text-primary)",
-                  textDecoration: "none",
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: 6,
-                }}
-              >
-                DOSFARMASHOP ONLINE S.L.
-                <svg width={14} height={14} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
-                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                  <polyline points="15 3 21 3 21 9" />
-                  <line x1="10" y1="14" x2="21" y2="3" />
-                </svg>
-              </a>
-              <div style={{ fontSize: 12, color: "var(--colors-text-tertiary)", lineHeight: "16px", marginTop: 4 }}>
-                Créé le 12 février 2026
+              <div className={accountName}>DOSFARMASHOP ONLINE S.L.</div>
+              <div className={accountActionRow}>
+                <Link href="#" size="sm" rightIcon={<ExternalLink size={12} />}>
+                  Voir le compte client
+                </Link>
               </div>
             </div>
 
             {/* Encours */}
-            <div>
+            <div className={section}>
               <SectionTitle>Encours</SectionTitle>
-              <div style={{ marginTop: 8 }}>
-                <AgedBalance
-                  total="16 200 €"
-                  buckets={[
-                    { tone: "warning", label: "30-60j", value: 20 },
-                    { tone: "danger", label: "60-90j", value: 80 },
-                  ]}
-                />
-              </div>
+              <AgedBalance
+                total="16 200 €"
+                buckets={[
+                  { tone: "warning", label: "30-60j", value: 20 },
+                  { tone: "danger", label: "60-90j", value: 80 },
+                ]}
+              />
             </div>
 
             {/* Suivi */}
-            <div>
+            <div className={section}>
               <SectionTitle>Suivi</SectionTitle>
-              <div style={{ marginTop: 8, background: "var(--colors-bg-default)", border: "1px solid var(--colors-border-default)", borderRadius: 8, padding: 12 }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+              <Card className={suiviCard}>
+                <div className={suiviStatusRow}>
                   <StatusDot tone="success" />
-                  <span style={{ fontSize: 13, fontWeight: 500 }}>Confié à l'agent</span>
+                  <span className={suiviLabel}>Confié à l'agent</span>
                 </div>
-                <div style={{ fontSize: 12, color: "var(--colors-text-tertiary)", marginTop: 4, marginLeft: 16 }}>
-                  Relances en cours
+                <div className={suiviSub}>
+                  <Badge variant="success" shape="pill">Relances en cours</Badge>
                 </div>
-                <div style={{ marginTop: 12, paddingTop: 12, borderTop: "1px solid var(--colors-border-subtle)" }}>
-                  <Button variant="secondary" size="small" style={{ width: "100%", justifyContent: "center" }}>
+                <div className={suiviActionsRow}>
+                  <Button variant="secondary" size="small" fullWidth>
                     Suspendre les relances
                   </Button>
                 </div>
-                <div style={{ textAlign: "center", marginTop: 8 }}>
-                  <a
-                    href="#"
-                    style={{
-                      fontSize: 12,
-                      color: "var(--colors-text-tertiary)",
-                      textDecoration: "underline",
-                      textUnderlineOffset: 2,
-                    }}
-                  >
+                <div className={suiviSecondaryRow}>
+                  <Link href="#" variant="tertiary" size="sm">
                     Reprendre en interne
-                  </a>
+                  </Link>
                 </div>
-              </div>
+              </Card>
             </div>
 
             {/* Contacts */}
-            <div>
-              <SectionTitle
-                trailing={
-                  <IconButton
-                    size="small"
-                    aria-label="Ajouter un contact"
-                    icon={
-                      <svg viewBox="0 0 16 16" width={12} height={12} fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round">
-                        <path d="M8 3v10M3 8h10" />
-                      </svg>
-                    }
-                  />
-                }
-              >
-                Contacts
-              </SectionTitle>
-              <div style={{ marginTop: 8, display: "flex", alignItems: "center", gap: 12, padding: 8 }}>
+            <div className={section}>
+              <SectionTitle>Contacts</SectionTitle>
+              <div className={contactRow}>
                 <Avatar initials="JS" label="Jaime Sánchez" />
                 <div style={{ flex: 1, minWidth: 0 }}>
-                  <div style={{ fontSize: 13, fontWeight: 500 }}>Jaime Sánchez</div>
-                  <div style={{ fontSize: 12, color: "var(--colors-text-tertiary)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                  <div className={contactName}>Jaime Sánchez</div>
+                  <div className={contactEmail}>
                     jaime.sanchez@atida.com
                   </div>
+                  <div className={contactCountry}>ES</div>
                 </div>
-                <span style={{ fontSize: 10, fontWeight: 600, color: "var(--colors-text-tertiary)", letterSpacing: "0.04em" }}>
-                  ES
-                </span>
               </div>
             </div>
 
             {/* Facturation */}
-            <div>
+            <div className={section}>
               <SectionTitle>Facturation</SectionTitle>
-              <div style={{ marginTop: 4 }}>
-                <InvoiceCard
-                  reference="INV-2066639"
-                  status={{ label: "En retard", tone: "error" }}
-                  amount="8 100 €"
-                  dueDate={{ label: "Éch. 24 jan. 2026", tone: "danger" }}
-                  meta="Payé : 0 €"
-                />
-                <InvoiceCard
-                  reference="INV-2105835"
-                  status={{ label: "Émise", tone: "info" }}
-                  amount="5 200 €"
-                  dueDate={{ label: "Éch. 8 fév. 2026", tone: "danger" }}
-                  meta="Payé : 2 000 €"
-                />
-                <InvoiceCard
-                  reference="SIB-SAS-ENT-5086"
-                  status={{ label: "En retard", tone: "error" }}
-                  amount="2 900 €"
-                  dueDate={{ label: "Éch. 2 mars 2026", tone: "warning" }}
-                  meta="Payé : 0 €"
-                />
-              </div>
+              <InvoiceCard
+                reference="INV-2066639"
+                status={{ label: "En retard", tone: "error" }}
+                amount="8 100 €"
+                dueDate={{ label: "Éch. 24 jan. 2026", tone: "danger" }}
+                meta="Payé : 0 €"
+              />
+              <InvoiceCard
+                reference="INV-2105835"
+                status={{ label: "Émise", tone: "info" }}
+                amount="5 200 €"
+                dueDate={{ label: "Éch. 8 fév. 2026", tone: "danger" }}
+                meta="Payé : 2 000 €"
+              />
+              <InvoiceCard
+                reference="SIB-SAS-ENT-5086"
+                status={{ label: "En retard", tone: "error" }}
+                amount="2 900 €"
+                dueDate={{ label: "Éch. 2 mars 2026", tone: "warning" }}
+                meta="Payé : 0 €"
+              />
             </div>
             </div>
           </aside>

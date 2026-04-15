@@ -19,12 +19,20 @@ import { PanelHeader } from "../components/panel-header";
 import { SectionTitle } from "../components/section-title";
 import { StatusDot } from "../components/status-dot";
 import { TabItem, Tabs } from "../components/tab-item";
+import { Table } from "../components/table/table";
+import { TableRow } from "../components/table/table-row";
+import {
+  TableSortHeader,
+  type TableSortDirection,
+} from "../components/table/table-sort-header";
 import { Sidebar } from "../components/sidebar";
 import { NavItem } from "../components/nav-item";
 import { NotificationBadge } from "../components/notification-badge";
 
-function TaskViewTemplate() {
-  return <TaskViewInner />;
+type TaskTab = "echanges" | "comms";
+
+function TaskViewTemplate({ activeTab = "echanges" }: { activeTab?: TaskTab }) {
+  return <TaskViewInner activeTab={activeTab} />;
 }
 
 const meta = {
@@ -37,6 +45,11 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {};
+
+/** Communications tab active — center panel shows the comm log table. */
+export const WithCommunicationsTab: Story = {
+  args: { activeTab: "comms" },
+};
 
 const tasks = [
   { company: "DOSFARMASHOP", title: "Examiner le refus de Jaime", amount: "16 200 €", date: "1 avr. 10:24", active: true },
@@ -90,6 +103,82 @@ const discussion: DiscussionMessage[] = [
     body: "Envoyez directement, c'est bon.",
   },
 ];
+
+type LogDirection = "in" | "out" | "planned";
+type LogStatus = "Planifiée" | "Reçue" | "Envoyée";
+
+type LogRow = {
+  id: string;
+  direction: LogDirection;
+  date: string;
+  subject: string;
+  status: LogStatus;
+};
+
+const log: LogRow[] = [
+  {
+    id: "13",
+    direction: "planned",
+    date: "25/03/2026 09:00",
+    subject:
+      "Rappel formel avec mise en demeure — Dernier avis avant contentieux",
+    status: "Planifiée",
+  },
+  {
+    id: "0",
+    direction: "in",
+    date: "18/03/2026 10:42",
+    subject: "Re: Rappel de paiement — FA00148823 — Contestation formelle",
+    status: "Reçue",
+  },
+  {
+    id: "3",
+    direction: "out",
+    date: "17/03/2026 09:00",
+    subject: "Rappel de paiement — FA00148823 — Montant impayé de 16 200 €",
+    status: "Envoyée",
+  },
+  {
+    id: "12",
+    direction: "in",
+    date: "11/03/2026 15:30",
+    subject: "Re: Rappel urgent — FA00148823 — Contestation de la dette",
+    status: "Reçue",
+  },
+  {
+    id: "11",
+    direction: "out",
+    date: "10/03/2026 09:00",
+    subject: "Rappel urgent — FA00148823 — Mise en demeure sous 10 jours",
+    status: "Envoyée",
+  },
+  {
+    id: "10",
+    direction: "out",
+    date: "01/03/2026 09:00",
+    subject:
+      "Re: Suivi de votre dossier — Factures 2066639, 2105835 et SIB-SAS-ENT-5086",
+    status: "Envoyée",
+  },
+];
+
+const directionGlyph: Record<LogDirection, string> = {
+  in: "↓",
+  out: "↑",
+  planned: "⏱",
+};
+
+const directionAccent: Record<LogDirection, "success" | "info" | "warning"> = {
+  in: "success",
+  out: "info",
+  planned: "warning",
+};
+
+const statusVariant: Record<LogStatus, "warning" | "success" | "info"> = {
+  Planifiée: "warning",
+  Reçue: "success",
+  Envoyée: "info",
+};
 
 /* Canonical company-logo tile — matches `Sidebar` story in the DS. */
 const logoTile = css({
@@ -356,8 +445,46 @@ const contactRow = css({
   gap: "lg",
 });
 
-function TaskViewInner() {
+/* ---------- comms tab — table column layout (mirrors Comms View) ---------- */
+
+const detailCommsBlock = css({
+  flex: 1,
+  overflowY: "auto",
+  paddingX: "2xl",
+  paddingY: "xl",
+});
+
+const col = {
+  channel: { width: 30, paddingRight: 4 },
+  direction: { width: 26, paddingRight: 10 },
+  date: { width: 140, paddingRight: 10 },
+  subject: { flex: 1, paddingRight: 10 },
+  status: { width: 90, textAlign: "right" as const },
+};
+
+const cellChannel = css({ display: "inline-flex", color: "text.tertiary" });
+const cellDirectionBase = css({
+  display: "inline-flex",
+  fontSize: "body.sm",
+  fontWeight: "semibold",
+});
+const cellDirectionColor: Record<LogDirection, string> = {
+  in: css({ color: "status.success" }),
+  out: css({ color: "status.info" }),
+  planned: css({ color: "status.warning" }),
+};
+const cellDate = css({
+  fontSize: "body.sm",
+  lineHeight: "body.sm",
+  color: "text.secondary",
+});
+
+function TaskViewInner({ activeTab }: { activeTab: TaskTab }) {
   const [message, setMessage] = useState("");
+  const sort: { col: "date" | "subject" | "status"; dir: TableSortDirection } = {
+    col: "date",
+    dir: "desc",
+  };
 
   return (
       <div className={shellPage}>
@@ -468,28 +595,92 @@ function TaskViewInner() {
             {/* Tab bar — border spans the content column */}
             <div className={detailTabsWrap}>
               <Tabs>
-                <TabItem active>Échanges avec votre agent</TabItem>
-                <TabItem>Communications</TabItem>
+                <TabItem active={activeTab === "echanges"}>
+                  Échanges avec votre agent
+                </TabItem>
+                <TabItem active={activeTab === "comms"}>Communications</TabItem>
               </Tabs>
             </div>
 
-            {/* Discussion bubbles */}
-            <div className={detailDiscussionBlock}>
-              {discussion.map((m, i) => (
-                <BubbleGroup key={i} side={m.side} author={m.author} date={m.date}>
-                  <Bubble>
-                    {m.body}
-                    {m.attachments && (
-                      <BubbleAttachmentGroup className={attachmentGroupSpacing}>
-                        {m.attachments.map((a) => (
-                          <BubbleAttachment key={a.name} name={a.name} href={a.href} />
-                        ))}
-                      </BubbleAttachmentGroup>
-                    )}
-                  </Bubble>
-                </BubbleGroup>
-              ))}
-            </div>
+            {activeTab === "echanges" ? (
+              /* Discussion bubbles */
+              <div className={detailDiscussionBlock}>
+                {discussion.map((m, i) => (
+                  <BubbleGroup key={i} side={m.side} author={m.author} date={m.date}>
+                    <Bubble>
+                      {m.body}
+                      {m.attachments && (
+                        <BubbleAttachmentGroup className={attachmentGroupSpacing}>
+                          {m.attachments.map((a) => (
+                            <BubbleAttachment key={a.name} name={a.name} href={a.href} />
+                          ))}
+                        </BubbleAttachmentGroup>
+                      )}
+                    </Bubble>
+                  </BubbleGroup>
+                ))}
+              </div>
+            ) : (
+              /* Comm log table */
+              <div className={detailCommsBlock}>
+                <Table
+                  density="compact"
+                  header={
+                    <>
+                      <span style={col.channel} />
+                      <span style={col.direction} />
+                      <span style={col.date}>
+                        <TableSortHeader
+                          active={sort.col === "date"}
+                          direction={sort.col === "date" ? sort.dir : "desc"}
+                        >
+                          Date
+                        </TableSortHeader>
+                      </span>
+                      <span style={col.subject}>
+                        <TableSortHeader
+                          active={sort.col === "subject"}
+                          direction={sort.col === "subject" ? sort.dir : "desc"}
+                        >
+                          Objet
+                        </TableSortHeader>
+                      </span>
+                      <span style={col.status}>
+                        <TableSortHeader
+                          active={sort.col === "status"}
+                          direction={sort.col === "status" ? sort.dir : "desc"}
+                        >
+                          Statut
+                        </TableSortHeader>
+                      </span>
+                    </>
+                  }
+                >
+                  {log.map((row) => (
+                    <TableRow key={row.id} accent={directionAccent[row.direction]}>
+                      <span style={col.channel} className={cellChannel}>
+                        <Mail size={14} />
+                      </span>
+                      <span
+                        style={col.direction}
+                        className={`${cellDirectionBase} ${cellDirectionColor[row.direction]}`}
+                      >
+                        {directionGlyph[row.direction]}
+                      </span>
+                      <span style={col.date} className={cellDate}>
+                        {row.date}
+                      </span>
+                      <span style={col.subject}>{row.subject}</span>
+                      <span style={col.status}>
+                        <Badge variant={statusVariant[row.status]}>
+                          {row.status}
+                        </Badge>
+                      </span>
+                    </TableRow>
+                  ))}
+                </Table>
+              </div>
+            )}
 
             {/* Composer */}
             <div className={detailComposerBlock}>

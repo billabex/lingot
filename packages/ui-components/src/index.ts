@@ -271,6 +271,18 @@ export { Select } from "./components/select";
 export type { SelectProps } from "./components/select";
 export { selectRecipe } from "./components/select";
 
+// SelectMenu
+export { SelectMenu } from "./components/select-menu";
+export type { SelectMenuProps, SelectMenuOption } from "./components/select-menu";
+export {
+  selectMenuWrapperRecipe,
+  selectMenuLabelRecipe,
+  selectMenuContainerRecipe,
+  selectMenuTriggerRecipe,
+  selectMenuChevronRecipe,
+  selectMenuPanelRecipe,
+} from "./components/select-menu";
+
 // Sidebar
 export { Sidebar } from "./components/sidebar";
 export type { SidebarProps } from "./components/sidebar";

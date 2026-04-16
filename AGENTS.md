@@ -208,6 +208,7 @@ apps/docs/                          # Storybook (component documentation)
 | `Button` | `button/` | Primary action trigger |
 | `Card` | `card/` | Content container with optional header/footer |
 | `Checkbox` | `checkbox/` | Boolean toggle input |
+| `DetailNav` | `detail-nav/` | Prev / position / Next record navigation for detail views |
 | `Divider` | `divider/` | Horizontal or vertical separator |
 | `EmptyState` | `empty-state/` | Placeholder for empty lists/views |
 | `FormField` | `form-field/` | Label + input + helper/error wrapper |
@@ -254,5 +255,5 @@ Stories are organized by function, not alphabetically:
 | **Data Display** | Badge, Bubble, BubbleAttachment, BubbleAttachmentGroup, BubbleGroup, Card, ContactCard, Divider, EmptyState, InfoRow, InvoiceCard, ListItem, Table, TableRow, Tooltip |
 | **Data Entry** | Checkbox, FormField, Input, MessageComposer, Select, SelectMenu |
 | **Feedback** | Banner, BulkActionBar, Modal, NotificationBadge, Toast |
-| **Navigation** | Breadcrumb, Chip, ChipGroup, ListPagination, NavItem, PageHeader, SectionTitle, Sidebar, Stepper, StepperItem, TabItem, TablePagination, Tabs |
+| **Navigation** | Breadcrumb, Chip, ChipGroup, DetailNav, ListPagination, NavItem, PageHeader, SectionTitle, Sidebar, Stepper, StepperItem, TabItem, TablePagination, Tabs |
 | **Layout** | DropdownItem, DropdownMenu, FilterRow, PanelHeader |

@@ -80,6 +80,15 @@ export { Checkbox } from "./components/checkbox";
 export type { CheckboxProps } from "./components/checkbox";
 export { checkboxRecipe, checkboxInputRecipe } from "./components/checkbox";
 
+// DetailNav
+export { DetailNav } from "./components/detail-nav";
+export type { DetailNavProps } from "./components/detail-nav";
+export {
+  detailNavRecipe,
+  detailNavButtonRecipe,
+  detailNavPositionRecipe,
+} from "./components/detail-nav";
+
 // Divider
 export { Divider } from "./components/divider";
 export type { DividerProps, DividerOrientation } from "./components/divider";

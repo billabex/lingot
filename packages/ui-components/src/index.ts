@@ -211,7 +211,7 @@ export { notificationBadgeRecipe } from "./components/notification-badge";
 // PageHeader
 export { PageHeader } from "./components/page-header";
 export type { PageHeaderProps } from "./components/page-header";
-export { pageHeaderRecipe } from "./components/page-header";
+export { pageHeaderRecipe, pageHeaderTitleRecipe } from "./components/page-header";
 // PanelHeader
 export { PanelHeader } from "./components/panel-header";
 export type {

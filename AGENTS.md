@@ -208,6 +208,7 @@ apps/docs/                          # Storybook (component documentation)
 | `Button` | `button/` | Primary action trigger |
 | `Card` | `card/` | Content container with optional header/footer |
 | `Checkbox` | `checkbox/` | Boolean toggle input |
+| `ContactCard` | `contact-card/` | Contact summary — name, email, language + initials avatar; optional clickable |
 | `DetailNav` | `detail-nav/` | Prev / position / Next record navigation for detail views |
 | `Divider` | `divider/` | Horizontal or vertical separator |
 | `EmptyState` | `empty-state/` | Placeholder for empty lists/views |

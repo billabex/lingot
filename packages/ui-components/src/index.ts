@@ -303,6 +303,20 @@ export {
   selectMenuPanelRecipe,
 } from "./components/select-menu";
 
+// StatCard
+export { StatCard } from "./components/stat-card";
+export type { StatCardProps } from "./components/stat-card";
+export {
+  statCardRecipe,
+  statCardLabelRecipe,
+  statCardValueRecipe,
+} from "./components/stat-card";
+
+// StatCardGroup
+export { StatCardGroup } from "./components/stat-card";
+export type { StatCardGroupProps } from "./components/stat-card";
+export { statCardGroupRecipe } from "./components/stat-card";
+
 // Sidebar
 export { Sidebar } from "./components/sidebar";
 export type { SidebarProps } from "./components/sidebar";

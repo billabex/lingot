@@ -228,6 +228,8 @@ apps/docs/                          # Storybook (component documentation)
 | `PanelHeader` | `panel-header/` | Panel top bar (48 px) — `variant="page"` (padding.page, gap md — center panels) or `"card"` (padding.card, space-between — left list / right aside) |
 | `SectionTitle` | `section-title/` | Collapsible section heading |
 | `Select` | `select/` | Dropdown select input |
+| `StatCard` | `stat-card/` | KPI cell — small uppercase label above a prominent value; must live inside `StatCardGroup` |
+| `StatCardGroup` | `stat-card/` | Bordered `bg.subtle` row laying out equal-width `StatCard` cells |
 | `Sidebar` | `sidebar/` | App-level 48 px icon rail — transparent background, header / content / footer slots |
 | `TabItem` | `tab-item/` | Individual tab trigger |
 | `Tabs` | `tab-item/` | Tab bar container — flex row with bottom border, wraps `TabItem`s |
@@ -252,7 +254,7 @@ Stories are organized by function, not alphabetically:
 | Category | Components |
 |----------|------------|
 | **Actions** | Button, IconButton, Link, Toggle |
-| **Data Display** | Badge, Bubble, BubbleAttachment, BubbleAttachmentGroup, BubbleGroup, Card, ContactCard, Divider, EmptyState, InfoRow, InvoiceCard, ListItem, Table, TableRow, Tooltip |
+| **Data Display** | Badge, Bubble, BubbleAttachment, BubbleAttachmentGroup, BubbleGroup, Card, ContactCard, Divider, EmptyState, InfoRow, InvoiceCard, ListItem, StatCard, StatCardGroup, Table, TableRow, Tooltip |
 | **Data Entry** | Checkbox, FormField, Input, MessageComposer, Select, SelectMenu |
 | **Feedback** | Banner, BulkActionBar, Modal, NotificationBadge, Toast |
 | **Navigation** | Breadcrumb, Chip, ChipGroup, DetailNav, ListPagination, NavItem, PageHeader, SectionTitle, Sidebar, Stepper, StepperItem, TabItem, TablePagination, Tabs |

@@ -1,0 +1,294 @@
+import { useState } from "react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import { css } from "styled-system/css";
+import {
+  CheckCircle2,
+  Download,
+  Mail,
+  MoreVertical,
+  Pencil,
+  Trash2,
+  Users,
+} from "lucide-react";
+import { Badge } from "../components/badge";
+import { Breadcrumb } from "../components/breadcrumb";
+import { Button } from "../components/button";
+import { DetailNav } from "../components/detail-nav";
+import { Divider } from "../components/divider";
+import { DropdownItem, DropdownMenu } from "../components/dropdown";
+import { IconButton } from "../components/icon-button";
+import { InfoRow } from "../components/info-row";
+import { NavItem } from "../components/nav-item";
+import { PageHeader } from "../components/page-header";
+import { Sidebar } from "../components/sidebar";
+import { StatCard, StatCardGroup } from "../components/stat-card";
+
+type InvoiceSource = "connector" | "manual";
+
+const meta = {
+  title: "Templates/Invoice Detail View",
+  component: InvoiceDetailViewTemplate,
+  parameters: { layout: "fullscreen" },
+  tags: [],
+  args: { source: "connector" satisfies InvoiceSource },
+} satisfies Meta<typeof InvoiceDetailViewTemplate>;
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {};
+
+export const ManualImport: Story = {
+  args: { source: "manual" },
+};
+
+/* ---------- shell — mirrors other account templates ---------- */
+
+const logoTile = css({
+  width: "2rem",
+  height: "2rem",
+  display: "inline-flex",
+  alignItems: "center",
+  justifyContent: "center",
+  bg: "action.primary",
+  color: "text.inverse",
+  borderRadius: "sm",
+  fontFamily: "body",
+  fontWeight: "semibold",
+  fontSize: "caption",
+  cursor: "pointer",
+  border: "none",
+  transition: "background 120ms ease",
+  _hover: { bg: "action.primaryHover" },
+  _active: { bg: "neutral.500" },
+});
+
+const shellPage = css({
+  display: "flex",
+  height: "100vh",
+  bg: "bg.subtle",
+  fontFamily: "body",
+  color: "text.primary",
+  fontSize: "body",
+  overflow: "hidden",
+});
+
+const shellRail = css({
+  flexShrink: 0,
+  bg: "bg.subtle",
+});
+
+const shellMain = css({
+  flex: 1,
+  display: "flex",
+  flexDirection: "column",
+  overflow: "hidden",
+  padding: "xl",
+  paddingLeft: "md",
+  minWidth: 0,
+});
+
+const docCard = css({
+  flex: 1,
+  display: "flex",
+  flexDirection: "column",
+  borderRadius: "md",
+  borderWidth: "1px",
+  borderStyle: "solid",
+  borderColor: "border.default",
+  bg: "bg.default",
+  overflowY: "auto",
+  minHeight: 0,
+});
+
+const docInner = css({
+  maxWidth: "45rem", // 720px — matches the prototype's reading-width container
+  width: "100%",
+  margin: "0 auto",
+  paddingBlock: "padding.page",
+  paddingInline: "3xl",
+  display: "flex",
+  flexDirection: "column",
+  gap: "xl",
+});
+
+const statGroupWrap = css({ marginBlock: "lg" });
+
+const detailGrid = css({
+  display: "grid",
+  gridTemplateColumns: "1fr 1fr",
+  gap: "3xl",
+});
+
+const detailCol = css({
+  display: "flex",
+  flexDirection: "column",
+  gap: "md",
+});
+
+const dangerValue = css({ color: "status.error", fontWeight: "semibold" });
+
+const totalValue = css({ fontWeight: "semibold" });
+
+const actionsWrap = css({
+  position: "relative",
+  display: "inline-flex",
+  alignItems: "center",
+  gap: "sm",
+});
+
+const overflowMenuWrap = css({
+  position: "absolute",
+  top: "calc(100% + 4px)",
+  right: 0,
+  zIndex: 10,
+  minWidth: "14rem",
+});
+
+interface InvoiceDetailViewTemplateProps {
+  source?: InvoiceSource;
+}
+
+function InvoiceDetailViewTemplate({
+  source = "connector",
+}: InvoiceDetailViewTemplateProps) {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const toggleMenu = () => setMenuOpen((open) => !open);
+
+  const sourceValue = (
+    <Badge variant="neutral">
+      {source === "connector" ? "Pennylane" : "Aucune"}
+    </Badge>
+  );
+
+  return (
+    <div className={shellPage}>
+      <div className={shellRail}>
+        <Sidebar
+          header={
+            <button
+              type="button"
+              className={logoTile}
+              aria-label="Changer d'entreprise"
+              aria-haspopup="menu"
+            >
+              B
+            </button>
+          }
+        >
+          <NavItem variant="icon" aria-label="Tâches">
+            <CheckCircle2 size={16} />
+          </NavItem>
+          <NavItem variant="icon" aria-label="Communications">
+            <Mail size={16} />
+          </NavItem>
+          <NavItem variant="icon" active aria-label="Comptes clients">
+            <Users size={16} />
+          </NavItem>
+        </Sidebar>
+      </div>
+
+      <div className={shellMain}>
+        <div className={docCard}>
+          <div className={docInner}>
+            <Breadcrumb
+              separator="/"
+              items={[
+                { label: "DOSFARMASHOP ONLINE S.L.", href: "#" },
+                { label: "INV-2066639" },
+              ]}
+            />
+
+            <PageHeader
+              title="Facture INV-2066639"
+              actions={
+                <div className={actionsWrap}>
+                  <Button
+                    variant="secondary"
+                    size="small"
+                    leftIcon={<Download size={14} />}
+                  >
+                    Télécharger le PDF
+                  </Button>
+                  {source === "manual" && (
+                    <>
+                      <IconButton
+                        size="small"
+                        aria-label="Plus d'actions"
+                        aria-haspopup="menu"
+                        aria-expanded={menuOpen}
+                        onClick={toggleMenu}
+                        icon={<MoreVertical size={16} />}
+                      />
+                      {menuOpen && (
+                        <div className={overflowMenuWrap}>
+                          <DropdownMenu>
+                            <DropdownItem leftIcon={<Pencil size={16} />}>
+                              Mettre à jour le montant payé
+                            </DropdownItem>
+                            <Divider />
+                            <DropdownItem leftIcon={<Trash2 size={16} />}>
+                              Supprimer la facture
+                            </DropdownItem>
+                          </DropdownMenu>
+                        </div>
+                      )}
+                    </>
+                  )}
+                </div>
+              }
+            />
+
+            <DetailNav
+              current={1}
+              total={4}
+              prevLabel="Précédent"
+              nextLabel="Suivant"
+            />
+
+            <div className={statGroupWrap}>
+              <StatCardGroup>
+                <StatCard label="Statut de la facture">
+                  <Badge variant="error">En retard</Badge>
+                </StatCard>
+                <StatCard label="Statut du paiement">
+                  <Badge variant="error">Non payé</Badge>
+                </StatCard>
+                <StatCard label="Montant total">8 100,00 €</StatCard>
+                <StatCard label="Solde restant">
+                  <span className={dangerValue}>8 100,00 €</span>
+                </StatCard>
+              </StatCardGroup>
+            </div>
+
+            <div className={detailGrid}>
+              <div className={detailCol}>
+                <InfoRow label="Date d'émission" value="10/01/2026" />
+                <InfoRow label="Date d'échéance" value="10/01/2026" />
+                <InfoRow label="Sous-total" value="6 750,00 €" />
+                <InfoRow label="Montant des taxes" value="1 350,00 €" />
+                <InfoRow
+                  label="Montant total"
+                  value={<span className={totalValue}>8 100,00 €</span>}
+                />
+                <InfoRow label="Montant payé" value="0,00 €" />
+                <InfoRow label="Montant du crédit" value="0,00 €" />
+                <Divider />
+                <InfoRow
+                  label="Solde restant"
+                  value={<span className={dangerValue}>8 100,00 €</span>}
+                />
+              </div>
+
+              <div className={detailCol}>
+                <InfoRow label="Source" value={sourceValue} />
+                <InfoRow label="N° de bon de commande" value="—" />
+                <InfoRow label="Compte" value="DOSFARMASHOP ONLINE S.L." />
+                <InfoRow label="Devise" value="EUR" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

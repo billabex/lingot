@@ -227,7 +227,8 @@ apps/docs/                          # Storybook (component documentation)
 | `MessageComposer` | `message-composer/` | Auto-growing textarea with attach + send toolbar — Cmd/Ctrl+Enter submits |
 | `NotificationBadge` | `notification-badge/` | Overlay count pill for icons (unread counts, etc.) |
 | `PanelHeader` | `panel-header/` | Panel top bar (48 px) — `variant="page"` (padding.page, gap md — center panels) or `"card"` (padding.card, space-between — left list / right aside) |
-| `SectionTitle` | `section-title/` | Collapsible section heading |
+| `SectionHeader` | `section-header/` | Page-section heading — bold h2 + divider + optional description + optional trailing action slot |
+| `SectionTitle` | `section-title/` | Small uppercase micro-heading for inside panels |
 | `Select` | `select/` | Dropdown select input |
 | `SettingsRow` | `settings-row/` | Settings row — label + optional description + value + trailing action slot |
 | `StatCard` | `stat-card/` | KPI cell — small uppercase label above a prominent value; must live inside `StatCardGroup` |
@@ -259,5 +260,5 @@ Stories are organized by function, not alphabetically:
 | **Data Display** | Badge, Bubble, BubbleAttachment, BubbleAttachmentGroup, BubbleGroup, Card, ContactCard, Divider, EmptyState, InfoRow, InvoiceCard, ListItem, SettingsRow, StatCard, StatCardGroup, Table, TableRow, Tooltip |
 | **Data Entry** | Checkbox, FormField, Input, MessageComposer, Select, SelectMenu |
 | **Feedback** | Banner, BulkActionBar, Modal, NotificationBadge, Toast |
-| **Navigation** | Breadcrumb, Chip, ChipGroup, DetailNav, ListPagination, NavItem, PageHeader, SectionTitle, Sidebar, Stepper, StepperItem, TabItem, TablePagination, Tabs |
+| **Navigation** | Breadcrumb, Chip, ChipGroup, DetailNav, ListPagination, NavItem, PageHeader, SectionHeader, SectionTitle, Sidebar, Stepper, StepperItem, TabItem, TablePagination, Tabs |
 | **Layout** | DropdownItem, DropdownMenu, FilterRow, PanelHeader |

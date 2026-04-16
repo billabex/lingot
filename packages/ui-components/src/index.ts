@@ -234,6 +234,17 @@ export {
   panelHeaderTitleRecipe,
   panelHeaderSpacerRecipe,
 } from "./components/panel-header";
+// SectionHeader
+export { SectionHeader } from "./components/section-header";
+export type { SectionHeaderProps } from "./components/section-header";
+export {
+  sectionHeaderRecipe,
+  sectionHeaderTitleRowRecipe,
+  sectionHeaderTitleRecipe,
+  sectionHeaderTrailingRecipe,
+  sectionHeaderDescriptionRecipe,
+} from "./components/section-header";
+
 // SectionTitle
 export { SectionTitle } from "./components/section-title";
 export type { SectionTitleProps } from "./components/section-title";

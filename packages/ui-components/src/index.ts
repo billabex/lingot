@@ -239,6 +239,18 @@ export { SectionTitle } from "./components/section-title";
 export type { SectionTitleProps } from "./components/section-title";
 export { sectionTitleRecipe, sectionTitleTrailingRecipe } from "./components/section-title";
 
+// SettingsRow
+export { SettingsRow } from "./components/settings-row";
+export type { SettingsRowProps } from "./components/settings-row";
+export {
+  settingsRowRecipe,
+  settingsRowBodyRecipe,
+  settingsRowLabelRecipe,
+  settingsRowDescriptionRecipe,
+  settingsRowValueRecipe,
+  settingsRowTrailingRecipe,
+} from "./components/settings-row";
+
 // Avatar
 export { Avatar } from "./components/avatar";
 export type { AvatarProps, AvatarSize } from "./components/avatar";

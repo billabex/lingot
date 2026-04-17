@@ -1,11 +1,12 @@
 import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { css } from "styled-system/css";
-import { CheckCircle2, Mail, MoreVertical, Trash2, Users } from "lucide-react";
+import { CheckCircle2, Mail, Trash2, Users } from "lucide-react";
 import { Badge } from "../components/badge";
 import { Button } from "../components/button";
 import { Divider } from "../components/divider";
-import { DropdownItem, DropdownMenu } from "../components/dropdown";
+import { DropdownItem } from "../components/dropdown";
+import { OverflowMenu } from "../components/overflow-menu";
 import { IconButton } from "../components/icon-button";
 import { NavItem } from "../components/nav-item";
 import { PageHeader } from "../components/page-header";
@@ -116,21 +117,6 @@ const tableCol = {
   created: { width: "10rem", paddingRight: 16 },
   actions: { width: "3rem", textAlign: "right" as const },
 };
-
-const rowActionsWrap = css({
-  position: "relative",
-  display: "inline-flex",
-  alignItems: "center",
-  justifyContent: "flex-end",
-});
-
-const rowActionsMenu = css({
-  position: "absolute",
-  top: "calc(100% + 4px)",
-  right: 0,
-  zIndex: 10,
-  minWidth: "12rem",
-});
 
 const memberCol = {
   email: { flex: 1, paddingRight: 16 },
@@ -388,8 +374,6 @@ const connections: { id: string; name: string; created: string }[] = [
 ];
 
 function ConnectionsPanel() {
-  const [openMenuId, setOpenMenuId] = useState<string | null>(null);
-
   return (
     <>
       <SectionHeader
@@ -417,45 +401,26 @@ function ConnectionsPanel() {
           </>
         }
       >
-        {connections.map((connection) => {
-          const open = openMenuId === connection.id;
-          return (
-            <TableRow key={connection.id}>
-              <span style={tableCol.name} className={tableCellPrimary}>
-                {connection.name}
-              </span>
-              <span style={tableCol.status}>
-                <Badge variant="success">Active</Badge>
-              </span>
-              <span style={tableCol.created} className={tableCellMuted}>
-                {connection.created}
-              </span>
-              <span style={tableCol.actions}>
-                <span className={rowActionsWrap}>
-                  <IconButton
-                    size="small"
-                    aria-label={`Actions pour ${connection.name}`}
-                    aria-haspopup="menu"
-                    aria-expanded={open}
-                    onClick={() =>
-                      setOpenMenuId(open ? null : connection.id)
-                    }
-                    icon={<MoreVertical size={16} />}
-                  />
-                  {open && (
-                    <span className={rowActionsMenu}>
-                      <DropdownMenu>
-                        <DropdownItem>Révoquer l'accès</DropdownItem>
-                        <Divider />
-                        <DropdownItem>Supprimer la connexion</DropdownItem>
-                      </DropdownMenu>
-                    </span>
-                  )}
-                </span>
-              </span>
-            </TableRow>
-          );
-        })}
+        {connections.map((connection) => (
+          <TableRow key={connection.id}>
+            <span style={tableCol.name} className={tableCellPrimary}>
+              {connection.name}
+            </span>
+            <span style={tableCol.status}>
+              <Badge variant="success">Active</Badge>
+            </span>
+            <span style={tableCol.created} className={tableCellMuted}>
+              {connection.created}
+            </span>
+            <span style={tableCol.actions}>
+              <OverflowMenu label={`Actions pour ${connection.name}`}>
+                <DropdownItem>Révoquer l'accès</DropdownItem>
+                <Divider />
+                <DropdownItem>Supprimer la connexion</DropdownItem>
+              </OverflowMenu>
+            </span>
+          </TableRow>
+        ))}
       </Table>
     </>
   );

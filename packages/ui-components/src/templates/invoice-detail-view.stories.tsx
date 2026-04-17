@@ -9,7 +9,6 @@ import {
   Users,
 } from "lucide-react";
 import { Badge } from "../components/badge";
-import { Breadcrumb } from "../components/breadcrumb";
 import { Button } from "../components/button";
 import { DetailNav } from "../components/detail-nav";
 import { Divider } from "../components/divider";
@@ -107,15 +106,11 @@ function InvoiceDetailViewTemplate({
       <div className={shellMain}>
         <div className={shellDoc}>
           <div className={shellDocInner}>
-            <Breadcrumb
-              separator="/"
-              items={[
+            <PageHeader
+              breadcrumb={[
                 { label: "DOSFARMASHOP ONLINE S.L.", href: "#" },
                 { label: "INV-2066639" },
               ]}
-            />
-
-            <PageHeader
               title="Facture INV-2066639"
               actions={
                 <div className={actionsWrap}>

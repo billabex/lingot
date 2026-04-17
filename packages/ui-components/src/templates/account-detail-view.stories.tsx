@@ -2,7 +2,6 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { css } from "styled-system/css";
 import {
   CheckCircle2,
-  ChevronLeft,
   ChevronRight,
   Mail,
   Pencil,
@@ -11,6 +10,7 @@ import {
 } from "lucide-react";
 import { AgedBalance } from "../components/aged-balance";
 import { Badge } from "../components/badge";
+import { Breadcrumb } from "../components/breadcrumb";
 import { Button } from "../components/button";
 import { Card } from "../components/card";
 import { ContactCard } from "../components/contact-card";
@@ -126,11 +126,6 @@ const hrBottom = css({
 });
 
 /* ---------- header pieces ---------- */
-
-const headerSeparator = css({
-  color: "text.tertiary",
-  fontSize: "body.sm",
-});
 
 const headerLinks = css({
   display: "inline-flex",
@@ -277,16 +272,15 @@ function AccountDetailViewTemplate() {
         <div className={shellCard}>
           {/* =================== CENTER PANEL =================== */}
           <section className={detailPanel}>
-            {/* Header — back link + separator + title + trailing links */}
+            {/* Header — single-row panel header: breadcrumb + trailing quick-links, bordered. */}
             <div className={hrBottom}>
               <PanelHeader variant="page">
-                <Link href="#" size="sm" leftIcon={<ChevronLeft size={14} />}>
-                  Comptes clients
-                </Link>
-                <span className={headerSeparator} aria-hidden="true">
-                  /
-                </span>
-                <PanelHeader.Title>DOSFARMASHOP ONLINE S.L.</PanelHeader.Title>
+                <Breadcrumb
+                  items={[
+                    { label: "Comptes clients", href: "#" },
+                    { label: "DOSFARMASHOP ONLINE S.L." },
+                  ]}
+                />
                 <PanelHeader.Spacer />
                 <span className={headerLinks}>
                   <Link

@@ -261,4 +261,4 @@ Stories are organized by function, not alphabetically:
 | **Data Entry** | Checkbox, FormField, Input, MessageComposer, Select, SelectMenu |
 | **Feedback** | Banner, BulkActionBar, Modal, NotificationBadge, Toast |
 | **Navigation** | Breadcrumb, Chip, ChipGroup, DetailNav, ListPagination, NavItem, PageHeader, SectionHeader, SectionTitle, Sidebar, Stepper, StepperItem, TabItem, TablePagination, Tabs |
-| **Layout** | DropdownItem, DropdownMenu, FilterRow, PanelHeader |
+| **Layout** | DropdownItem, DropdownMenu, FilterRow, OverflowMenu, PanelHeader |

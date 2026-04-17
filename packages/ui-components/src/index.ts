@@ -217,6 +217,10 @@ export { NotificationBadge } from "./components/notification-badge";
 export type { NotificationBadgeProps } from "./components/notification-badge";
 export { notificationBadgeRecipe } from "./components/notification-badge";
 
+// OverflowMenu
+export { OverflowMenu } from "./components/overflow-menu";
+export type { OverflowMenuProps, OverflowMenuAlign } from "./components/overflow-menu";
+
 // PageHeader
 export { PageHeader } from "./components/page-header";
 export type { PageHeaderProps } from "./components/page-header";

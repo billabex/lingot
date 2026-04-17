@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { css } from "styled-system/css";
-import { CheckCircle2, Mail, Pause, Users } from "lucide-react";
+import { CheckCircle2, Mail, Pause, Plus, Users } from "lucide-react";
 import { Badge } from "../components/badge";
 import { BulkActionBar } from "../components/bulk-action-bar";
 import { Button } from "../components/button";
@@ -343,6 +343,14 @@ function AccountsViewInner({ selectedIds }: { selectedIds: string[] }) {
               <Badge variant="count" shape="square">
                 {TOTAL_ACCOUNTS}
               </Badge>
+              <PanelHeader.Spacer />
+              <Button
+                variant="primary"
+                size="small"
+                leftIcon={<Plus size={14} />}
+              >
+                Ajouter un compte
+              </Button>
             </PanelHeader>
 
             {/* Controls row — search + filters + pause-all */}

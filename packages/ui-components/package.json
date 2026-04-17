@@ -20,7 +20,7 @@
   ],
   "scripts": {
     "codegen": "pnpm --filter @billabex/ui-preset build && panda codegen && panda cssgen --outfile styled-system/styles.css",
-    "build": "pnpm --filter @billabex/ui-preset build && panda codegen && panda cssgen --outfile styled-system/styles.css && vite build",
+    "build": "pnpm --filter @billabex/ui-preset build && panda codegen && panda cssgen --outfile styled-system/styles.css && vite build && cp styled-system/styles.css dist/styles.css",
     "build:ship": "pnpm --filter @billabex/ui-preset build && panda ship --outfile dist/panda.buildinfo.json",
     "test": "vitest run",
     "test:watch": "vitest",

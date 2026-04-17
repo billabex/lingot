@@ -30,7 +30,7 @@ import { Select } from "../components/select";
 import { SectionHeader } from "../components/section-header";
 import { Sidebar } from "../components/sidebar";
 import { Stepper } from "../components/stepper/stepper";
-import { StepperItem } from "../components/stepper/stepper-item";
+import { StepperItem, type StepperItemState } from "../components/stepper/stepper-item";
 import { logoTile, shellMain, shellPage, shellRail } from "./_shell";
 
 type Step = "upload" | "processing" | "account" | "contact" | "invoice";
@@ -38,24 +38,10 @@ type MatchMode = "new" | "existing";
 
 interface AccountCreateViewTemplateProps {
   step?: Step;
-  /** Account match — controls the account-step detection row. */
+  /** Account OCR match — `new` shows the full form; `existing` shows a picker with a ghost escape. */
   accountMatch?: MatchMode;
-  /** Contact match — controls the contact-step detection row. */
+  /** Contact OCR match — `new` shows the full form; `existing` shows a picker with a ghost escape. */
   contactMatch?: MatchMode;
-}
-
-function AccountCreateViewTemplate({
-  step = "account",
-  accountMatch = "new",
-  contactMatch = "new",
-}: AccountCreateViewTemplateProps) {
-  return (
-    <AccountCreateViewInner
-      step={step}
-      accountMatch={accountMatch}
-      contactMatch={contactMatch}
-    />
-  );
 }
 
 const meta = {
@@ -136,13 +122,6 @@ const wizardTopBar = css({
   borderColor: "border.default",
 });
 
-const wizardTitle = css({
-  fontSize: "body",
-  lineHeight: "body",
-  fontWeight: "semibold",
-  color: "text.primary",
-  margin: 0,
-});
 
 const stepperBar = css({
   display: "flex",
@@ -179,17 +158,6 @@ const formInner = css({
   gap: "xl",
 });
 
-const previewColumn = css({
-  flex: "1 1 0",
-  display: "flex",
-  flexDirection: "column",
-  borderLeftWidth: "1px",
-  borderLeftStyle: "solid",
-  borderColor: "border.default",
-  minHeight: 0,
-  overflow: "hidden",
-});
-
 const wizardFooter = css({
   display: "flex",
   alignItems: "center",
@@ -220,6 +188,14 @@ const uploadCenter = css({
   justifyContent: "center",
   padding: "3xl",
   minHeight: 0,
+});
+
+const dropzoneTitle = css({
+  fontSize: "body",
+  lineHeight: "body",
+  fontWeight: "semibold",
+  color: "text.primary",
+  margin: 0,
 });
 
 const dropzone = css({
@@ -296,42 +272,39 @@ const processingSub = css({
 
 /* ---------- stepper ---------- */
 
-function WizardStepper({ step }: { step: Step }) {
-  const accountState =
-    step === "account"
-      ? "active"
-      : step === "contact" || step === "invoice"
-        ? "completed"
-        : "upcoming";
-  const contactState =
-    step === "contact"
-      ? "active"
-      : step === "invoice"
-        ? "completed"
-        : "upcoming";
-  const invoiceState = step === "invoice" ? "active" : "upcoming";
+const WIZARD_STEPS = [
+  { key: "account", label: "Compte" },
+  { key: "contact", label: "Contact" },
+  { key: "invoice", label: "Facture" },
+] as const;
 
+function stepState(current: Step, target: (typeof WIZARD_STEPS)[number]["key"]): StepperItemState {
+  const currentIdx = WIZARD_STEPS.findIndex((s) => s.key === current);
+  const targetIdx = WIZARD_STEPS.findIndex((s) => s.key === target);
+  if (currentIdx === -1) return "upcoming"; // upload / processing
+  if (targetIdx < currentIdx) return "completed";
+  if (targetIdx === currentIdx) return "active";
+  return "upcoming";
+}
+
+function WizardStepper({ step }: { step: Step }) {
   return (
     <Stepper>
-      <StepperItem state={accountState} stepNumber={1}>
-        Compte
-      </StepperItem>
-      <StepperItem state={contactState} stepNumber={2}>
-        Contact
-      </StepperItem>
-      <StepperItem state={invoiceState} stepNumber={3}>
-        Facture
-      </StepperItem>
+      {WIZARD_STEPS.map((s, i) => (
+        <StepperItem key={s.key} state={stepState(step, s.key)} stepNumber={i + 1}>
+          {s.label}
+        </StepperItem>
+      ))}
     </Stepper>
   );
 }
 
 /* ---------- form steps ----------
  * Each step has two shapes depending on the OCR match:
- *   - "new": full form visible, fields required.
- *   - "existing": fields hidden, a pre-selected picker shows the matched
- *     record, and a ghost button lets the user fall back to creating a new
- *     one instead. Same pattern for Account and Contact for consistency.
+ *   - `new`      — full form visible.
+ *   - `existing` — form hidden; a pre-selected picker shows the matched
+ *                  record and a ghost button lets the user fall back to
+ *                  creating a new one. Same pattern for Account and Contact.
  */
 
 function AccountStep({ match }: { match: MatchMode }) {
@@ -499,19 +472,20 @@ function InvoiceStep() {
 }
 
 /* ---------- PDF viewer mock ----------
- * Mimics a classic in-browser PDF viewer (Chrome's built-in) with a dark
- * toolbar and a centered invoice sheet. Used to anchor the OCR'd content
- * side-by-side with the form during the wizard.
+ * Mimics Chrome's built-in PDF viewer — dark toolbar + centered invoice
+ * sheet — so the OCR'd document sits next to the form during the wizard.
+ * The viewer is foreign chrome outside the Billabex palette, so the cool
+ * hardcoded grays are intentional and scoped to this fixture.
  */
 
-/* The PDF viewer imitates Chrome's built-in viewer chrome, which lives
- * outside the Billabex palette — hardcoded cool grays are intentional. */
-
 const pdfViewer = css({
-  flex: 1,
+  flex: "1 1 0",
   display: "flex",
   flexDirection: "column",
   bg: "#525659",
+  borderLeftWidth: "1px",
+  borderLeftStyle: "solid",
+  borderColor: "border.default",
   overflow: "hidden",
   minHeight: 0,
 });
@@ -835,15 +809,11 @@ function WizardFooter({ step }: { step: Step }) {
 
 /* ---------- main template ---------- */
 
-function AccountCreateViewInner({
-  step,
-  accountMatch,
-  contactMatch,
-}: {
-  step: Step;
-  accountMatch: MatchMode;
-  contactMatch: MatchMode;
-}) {
+function AccountCreateViewTemplate({
+  step = "account",
+  accountMatch = "new",
+  contactMatch = "new",
+}: AccountCreateViewTemplateProps) {
   const showStepper = step !== "upload";
   const showFooter = step !== "upload";
 
@@ -899,7 +869,7 @@ function AccountCreateViewInner({
           {step === "upload" ? (
             <div className={uploadCenter}>
               <div className={dropzone}>
-                <h2 className={wizardTitle}>Ajouter un compte</h2>
+                <h2 className={dropzoneTitle}>Ajouter un compte</h2>
                 <span className={dropzoneIcon}>
                   <Paperclip size={24} />
                 </span>
@@ -935,9 +905,7 @@ function AccountCreateViewInner({
                   )}
                 </div>
               </div>
-              <div className={previewColumn}>
-                <PdfPreview />
-              </div>
+              <PdfPreview />
             </div>
           )}
 

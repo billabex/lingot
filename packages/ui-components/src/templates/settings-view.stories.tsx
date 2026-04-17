@@ -4,10 +4,7 @@ import { css } from "styled-system/css";
 import { CheckCircle2, Mail, Trash2, Users, X } from "lucide-react";
 import { Badge } from "../components/badge";
 import { Button } from "../components/button";
-import { Divider } from "../components/divider";
-import { DropdownItem } from "../components/dropdown";
 import { FormField } from "../components/form-field";
-import { OverflowMenu } from "../components/overflow-menu";
 import { IconButton } from "../components/icon-button";
 import { Input } from "../components/input";
 import { Modal } from "../components/modal";
@@ -52,9 +49,9 @@ const rowStack = css({ display: "flex", flexDirection: "column" });
 
 const tableCol = {
   name: { flex: 1, paddingRight: 16 },
-  status: { width: "8rem", paddingRight: 16 },
+  status: { width: "10rem", paddingRight: 16 },
   created: { width: "10rem", paddingRight: 16 },
-  actions: { width: "3rem", textAlign: "right" as const },
+  actions: { width: "auto", whiteSpace: "nowrap" as const, textAlign: "right" as const },
 };
 
 const memberCol = {
@@ -371,9 +368,31 @@ function MembersPanel({ inviteModalOpen = false }: { inviteModalOpen?: boolean }
 
 /* ---------- Connexions tab ---------- */
 
-const connections: { id: string; name: string; created: string }[] = [
-  { id: "pennylane", name: "Pennylane", created: "16/03/2026 15:25" },
+type ConnectionStatus = "active" | "error" | "incomplete";
+
+const connections: {
+  id: string;
+  name: string;
+  created: string;
+  status: ConnectionStatus;
+}[] = [
+  { id: "pennylane", name: "Pennylane", created: "16/03/2026 15:25", status: "active" },
+  { id: "zoho", name: "Zoho Books", created: "14/04/2026 09:42", status: "error" },
+  { id: "draft", name: "Pennylane", created: "17/04/2026 11:08", status: "incomplete" },
 ];
+
+const rowActionsCell = css({
+  display: "inline-flex",
+  alignItems: "center",
+  justifyContent: "flex-end",
+  gap: "sm",
+});
+
+function statusBadge(status: ConnectionStatus) {
+  if (status === "active") return <Badge variant="success">Active</Badge>;
+  if (status === "error") return <Badge variant="error">Erreur</Badge>;
+  return <Badge variant="warning">Incomplète</Badge>;
+}
 
 function ConnectionsPanel() {
   return (
@@ -408,18 +427,23 @@ function ConnectionsPanel() {
             <span style={tableCol.name} className={tableCellPrimary}>
               {connection.name}
             </span>
-            <span style={tableCol.status}>
-              <Badge variant="success">Active</Badge>
-            </span>
+            <span style={tableCol.status}>{statusBadge(connection.status)}</span>
             <span style={tableCol.created} className={tableCellMuted}>
               {connection.created}
             </span>
             <span style={tableCol.actions}>
-              <OverflowMenu label={`Actions pour ${connection.name}`}>
-                <DropdownItem>Révoquer l'accès</DropdownItem>
-                <Divider />
-                <DropdownItem>Supprimer la connexion</DropdownItem>
-              </OverflowMenu>
+              <span className={rowActionsCell}>
+                {connection.status === "incomplete" && (
+                  <Button variant="secondary" size="small">
+                    Reprendre l'activation
+                  </Button>
+                )}
+                <IconButton
+                  size="small"
+                  aria-label={`Supprimer ${connection.name}`}
+                  icon={<Trash2 size={14} />}
+                />
+              </span>
             </span>
           </TableRow>
         ))}

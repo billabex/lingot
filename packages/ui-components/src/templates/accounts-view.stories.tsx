@@ -228,9 +228,8 @@ const controlsBlock = css({
   gap: "md",
 });
 
-const controlsSpacer = css({ flex: 1 });
-
 const searchField = css({ width: "17.5rem", flexShrink: 0 });
+const controlsSpacer = css({ flex: 1 });
 
 const tableScroll = css({
   flex: 1,
@@ -343,17 +342,9 @@ function AccountsViewInner({ selectedIds }: { selectedIds: string[] }) {
               <Badge variant="count" shape="square">
                 {TOTAL_ACCOUNTS}
               </Badge>
-              <PanelHeader.Spacer />
-              <Button
-                variant="primary"
-                size="small"
-                leftIcon={<Plus size={14} />}
-              >
-                Ajouter un compte
-              </Button>
             </PanelHeader>
 
-            {/* Controls row — search + filters + pause-all */}
+            {/* Controls row — search + filters + trailing actions */}
             <div className={`${controlsBlock} ${hrBottom}`}>
               <span className={searchField}>
                 <Input
@@ -374,6 +365,13 @@ function AccountsViewInner({ selectedIds }: { selectedIds: string[] }) {
                 leftIcon={<Pause size={14} />}
               >
                 Suspendre toutes les relances
+              </Button>
+              <Button
+                variant="primary"
+                size="small"
+                leftIcon={<Plus size={14} />}
+              >
+                Ajouter un compte
               </Button>
             </div>
 

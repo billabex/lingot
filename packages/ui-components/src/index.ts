@@ -352,6 +352,11 @@ export {
   sidebarHeaderRecipe,
   sidebarContentRecipe,
 } from "./components/sidebar";
+
+// Spinner
+export { Spinner } from "./components/spinner";
+export type { SpinnerProps, SpinnerSize } from "./components/spinner";
+export { spinnerRecipe } from "./components/spinner";
 // Stepper
 export { Stepper } from "./components/stepper";
 export type { StepperProps } from "./components/stepper";

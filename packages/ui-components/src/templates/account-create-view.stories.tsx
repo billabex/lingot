@@ -3,7 +3,6 @@ import { css } from "styled-system/css";
 import {
   CheckCircle2,
   Download,
-  Loader2,
   Mail,
   Maximize,
   Menu,
@@ -29,6 +28,7 @@ import { NavItem } from "../components/nav-item";
 import { Select } from "../components/select";
 import { SectionHeader } from "../components/section-header";
 import { Sidebar } from "../components/sidebar";
+import { Spinner } from "../components/spinner";
 import { Stepper } from "../components/stepper/stepper";
 import { StepperItem, type StepperItemState } from "../components/stepper/stepper-item";
 import { logoTile, shellMain, shellPage, shellRail } from "./_shell";
@@ -243,17 +243,6 @@ const processingCenter = css({
   padding: "3xl",
 });
 
-const spinner = css({
-  color: "text.tertiary",
-  animation: "accountCreateSpin 1s linear infinite",
-});
-
-const spinKeyframes = `
-  @keyframes accountCreateSpin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-  }
-`;
 
 const processingHeadline = css({
   fontSize: "body",
@@ -887,8 +876,7 @@ function AccountCreateViewTemplate({
                 <div className={formInner}>
                   {step === "processing" ? (
                     <div className={processingCenter}>
-                      <style>{spinKeyframes}</style>
-                      <Loader2 size={32} className={spinner} />
+                      <Spinner size="large" label="Vérification de votre fichier" />
                       <h2 className={processingHeadline}>
                         Vérification de votre fichier…
                       </h2>

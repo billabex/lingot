@@ -67,11 +67,13 @@ const meta = {
       options: ["none", "success", "info", "warning", "error"],
     },
     selected: { control: "boolean" },
+    interactive: { control: "boolean" },
   },
   args: {
     density: "normal",
     accent: "success",
     selected: false,
+    interactive: false,
     children: sampleChildren("success"),
   },
 } satisfies Meta<typeof TableRow>;
@@ -109,7 +111,28 @@ export const Accents: Story = {
   ),
 };
 
-/** Interactive — click the row to toggle selected + reveal a `TableRowDetail` sibling. */
+/** Interactive — cursor pointer, focusable (Tab), focus-visible ring, Enter/Space activate the row's `onClick`. Use for rows that navigate to a detail view. In-row action buttons must call `e.stopPropagation()` in their handlers. */
+export const Interactive: Story = {
+  args: { interactive: true, accent: "info" },
+  render: (args) => {
+    const [count, setCount] = useState(0);
+    return (
+      <div>
+        <TableRow {...args} onClick={() => setCount((c) => c + 1)}>
+          {sampleChildren(
+            "info",
+            "↑",
+            "13/04/2026 17:05",
+            `Activated ${count} time${count === 1 ? "" : "s"} — click, Enter, or Space`,
+            { label: "Envoyé", variant: "info" },
+          )}
+        </TableRow>
+      </div>
+    );
+  },
+};
+
+/** Interactive + detail — click the row to toggle a `TableRowDetail` sibling open. */
 export const WithDetail: Story = {
   parameters: { controls: { include: ["density"] } },
   render: (args) => {
@@ -118,10 +141,10 @@ export const WithDetail: Story = {
       <div>
         <TableRow
           {...args}
+          interactive
           selected={open}
           accent="info"
           onClick={() => setOpen((v) => !v)}
-          style={{ cursor: "pointer" }}
         >
           {sampleChildren(
             "info",

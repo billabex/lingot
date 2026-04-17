@@ -46,6 +46,18 @@ export const tableRowRecipe = cva({
       warning: {},
       error: {},
     },
+    interactive: {
+      true: {
+        cursor: "pointer",
+        _focusVisible: {
+          outline: "none",
+          ring: "2px",
+          ringColor: "border.focus",
+          ringOffset: "-2px",
+        },
+      },
+      false: {},
+    },
   },
   compoundVariants: [
     { selected: true, accent: "success", css: { borderLeftColor: "status.success" } },
@@ -57,6 +69,7 @@ export const tableRowRecipe = cva({
     density: "normal",
     selected: false,
     accent: "none",
+    interactive: false,
   },
 });
 

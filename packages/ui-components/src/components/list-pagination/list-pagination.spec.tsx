@@ -72,4 +72,28 @@ describe("ListPagination", () => {
     );
     expect(screen.getByText("0–0 of 0")).toBeTruthy();
   });
+
+  it("renders as a nav landmark with a default aria-label", () => {
+    render(
+      <ListPagination page={1} total={30} pageSize={25} onChange={() => {}} />
+    );
+    const nav = screen.getByRole("navigation");
+    expect(nav.tagName).toBe("NAV");
+    expect(nav.getAttribute("aria-label")).toBe("Pagination");
+  });
+
+  it("uses a consumer-provided aria-label", () => {
+    render(
+      <ListPagination
+        page={1}
+        total={30}
+        pageSize={25}
+        onChange={() => {}}
+        aria-label="Activity pagination"
+      />
+    );
+    expect(
+      screen.getByRole("navigation", { name: "Activity pagination" }),
+    ).toBeTruthy();
+  });
 });

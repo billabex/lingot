@@ -8,7 +8,7 @@ import {
 } from "./table-pagination.recipe";
 
 export interface TablePaginationProps
-  extends Omit<HTMLAttributes<HTMLDivElement>, "onChange"> {
+  extends Omit<HTMLAttributes<HTMLElement>, "onChange"> {
   /** Current page, 1-indexed. */
   page: number;
   /** Total number of items across all pages. */
@@ -46,6 +46,7 @@ export function TablePagination({
   prevLabel = "Previous page",
   nextLabel = "Next page",
   className,
+  "aria-label": ariaLabel = "Pagination",
   ...rest
 }: TablePaginationProps) {
   const safeTotal = Math.max(0, total);
@@ -67,7 +68,8 @@ export function TablePagination({
   const showTail = totalPages > 3;
 
   return (
-    <div
+    <nav
+      aria-label={ariaLabel}
       className={`${tablePaginationRecipe()}${className ? ` ${className}` : ""}`}
       {...rest}
     >
@@ -148,6 +150,6 @@ export function TablePagination({
           </svg>
         </button>
       </div>
-    </div>
+    </nav>
   );
 }

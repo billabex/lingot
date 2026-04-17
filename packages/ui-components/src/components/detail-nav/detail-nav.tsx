@@ -5,7 +5,7 @@ import {
   detailNavPositionRecipe,
 } from "./detail-nav.recipe";
 
-export interface DetailNavProps extends HTMLAttributes<HTMLDivElement> {
+export interface DetailNavProps extends HTMLAttributes<HTMLElement> {
   /** Current position, 1-indexed. */
   current: number;
   /** Total number of records. */
@@ -75,6 +75,7 @@ export function DetailNav({
   nextLabel = "Next",
   formatPosition = defaultFormatPosition,
   className,
+  "aria-label": ariaLabel = "Record navigation",
   ...rest
 }: DetailNavProps) {
   const safeTotal = Math.max(0, total);
@@ -84,7 +85,8 @@ export function DetailNav({
   const nextDisabled = safeCurrent >= safeTotal;
 
   return (
-    <div
+    <nav
+      aria-label={ariaLabel}
       className={`${detailNavRecipe()}${className ? ` ${className}` : ""}`}
       {...rest}
     >
@@ -109,6 +111,6 @@ export function DetailNav({
         {nextLabel}
         <ChevronRight />
       </button>
-    </div>
+    </nav>
   );
 }

@@ -93,4 +93,20 @@ describe("DetailNav", () => {
     );
     expect(container.firstElementChild!.className).toContain("custom-nav");
   });
+
+  it("renders as a nav landmark with a default aria-label", () => {
+    render(<DetailNav current={1} total={3} />);
+    const nav = screen.getByRole("navigation");
+    expect(nav.tagName).toBe("NAV");
+    expect(nav.getAttribute("aria-label")).toBe("Record navigation");
+  });
+
+  it("uses a consumer-provided aria-label", () => {
+    render(
+      <DetailNav current={1} total={3} aria-label="Invoice navigation" />,
+    );
+    expect(
+      screen.getByRole("navigation", { name: "Invoice navigation" }),
+    ).toBeTruthy();
+  });
 });

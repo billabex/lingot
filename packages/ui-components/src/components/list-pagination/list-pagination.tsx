@@ -6,7 +6,7 @@ import {
 } from "./list-pagination.recipe";
 
 export interface ListPaginationProps
-  extends Omit<HTMLAttributes<HTMLDivElement>, "onChange"> {
+  extends Omit<HTMLAttributes<HTMLElement>, "onChange"> {
   /** Current page, 1-indexed. */
   page: number;
   /** Total number of items across all pages. */
@@ -41,6 +41,7 @@ export function ListPagination({
   prevLabel = "Previous page",
   nextLabel = "Next page",
   className,
+  "aria-label": ariaLabel = "Pagination",
   ...rest
 }: ListPaginationProps) {
   const safeTotal = Math.max(0, total);
@@ -54,7 +55,8 @@ export function ListPagination({
   const nextDisabled = currentPage >= totalPages;
 
   return (
-    <div
+    <nav
+      aria-label={ariaLabel}
       className={`${listPaginationRecipe()}${className ? ` ${className}` : ""}`}
       {...rest}
     >
@@ -103,6 +105,6 @@ export function ListPagination({
           <path d="M4.5 2.5L8 6l-3.5 3.5" />
         </svg>
       </button>
-    </div>
+    </nav>
   );
 }

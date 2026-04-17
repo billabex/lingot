@@ -76,4 +76,28 @@ describe("TablePagination", () => {
     );
     expect(screen.getByText("1–25 sur 60 comptes")).toBeTruthy();
   });
+
+  it("renders as a nav landmark with a default aria-label", () => {
+    render(
+      <TablePagination page={1} total={60} pageSize={25} onChange={() => {}} />,
+    );
+    const nav = screen.getByRole("navigation");
+    expect(nav.tagName).toBe("NAV");
+    expect(nav.getAttribute("aria-label")).toBe("Pagination");
+  });
+
+  it("uses a consumer-provided aria-label", () => {
+    render(
+      <TablePagination
+        page={1}
+        total={60}
+        pageSize={25}
+        onChange={() => {}}
+        aria-label="Accounts pagination"
+      />,
+    );
+    expect(
+      screen.getByRole("navigation", { name: "Accounts pagination" }),
+    ).toBeTruthy();
+  });
 });

@@ -1,13 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { css } from "styled-system/css";
-import {
-  CheckCircle2,
-  Loader2,
-  Mail,
-  Users,
-  X,
-  XCircle,
-} from "lucide-react";
+import { CheckCircle2, Mail, Users, X } from "lucide-react";
 import { Avatar } from "../components/avatar";
 import { Banner } from "../components/banner";
 import { Breadcrumb } from "../components/breadcrumb";
@@ -16,11 +9,14 @@ import { Card } from "../components/card";
 import { FormField } from "../components/form-field";
 import { IconButton } from "../components/icon-button";
 import { NavItem } from "../components/nav-item";
+import { SectionHeader } from "../components/section-header";
 import { SelectMenu } from "../components/select-menu";
 import { Sidebar } from "../components/sidebar";
+import { Spinner } from "../components/spinner";
 import { Stepper } from "../components/stepper/stepper";
 import { StepperItem, type StepperItemState } from "../components/stepper/stepper-item";
 import { Toggle } from "../components/toggle";
+import { OAuthPermissionsPanel } from "./_permissions";
 import { logoTile, shellMain, shellPage, shellRail } from "./_shell";
 
 type Step = "selection" | "connection" | "configuration" | "syncing";
@@ -191,22 +187,10 @@ function WizardStepper({ step }: { step: Step }) {
   );
 }
 
-/* ---------- step headings ---------- */
-
-const stepTitle = css({
-  fontSize: "headline.sm",
-  lineHeight: "headline.sm",
-  fontWeight: "semibold",
-  color: "text.primary",
-  margin: 0,
-});
-
-const stepSubtitle = css({
-  fontSize: "body.sm",
-  lineHeight: "body.sm",
-  color: "text.secondary",
-  margin: 0,
-});
+const CONNECTOR_NAMES: Record<Connector, string> = {
+  pennylane: "Pennylane",
+  zoho: "Zoho Books",
+};
 
 /* ---------- Selection step ---------- */
 
@@ -214,24 +198,14 @@ const connectorGrid = css({
   display: "grid",
   gridTemplateColumns: "1fr 1fr",
   gap: "lg",
-  alignItems: "stretch",
 });
 
 const connectorCardInner = css({
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
-  gap: "md",
-  padding: "xl",
-  height: "100%",
-});
-
-const connectorIdentity = css({
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
   gap: "sm",
-  paddingBlock: "md",
+  padding: "2xl",
 });
 
 const connectorName = css({
@@ -239,15 +213,6 @@ const connectorName = css({
   lineHeight: "body",
   fontWeight: "semibold",
   color: "text.primary",
-});
-
-const connectorExtras = css({
-  width: "100%",
-  marginTop: "auto",
-  paddingTop: "md",
-  borderTopWidth: "1px",
-  borderTopStyle: "solid",
-  borderColor: "border.default",
 });
 
 const CONNECTORS = [
@@ -280,12 +245,10 @@ const ORGANISATION_OPTIONS: Record<Connector, { value: string; label: string }[]
 function SelectionStep({ connector }: { connector: Connector | null }) {
   return (
     <>
-      <div>
-        <h2 className={stepTitle}>Sélectionner un connecteur</h2>
-        <p className={stepSubtitle}>
-          Choisissez le connecteur à configurer pour synchroniser vos données.
-        </p>
-      </div>
+      <SectionHeader
+        title="Sélectionner un connecteur"
+        description="Choisissez le connecteur à configurer pour synchroniser vos données."
+      />
       <div role="radiogroup" aria-label="Connecteur" className={connectorGrid}>
         {CONNECTORS.map((c) => {
           const isSelected = connector === c.id;
@@ -299,135 +262,39 @@ function SelectionStep({ connector }: { connector: Connector | null }) {
               aria-label={c.name}
             >
               <div className={connectorCardInner}>
-                <div className={connectorIdentity}>
-                  <Avatar size="large" initials={c.initials} />
-                  <span className={connectorName}>{c.name}</span>
-                </div>
-                {c.id === "zoho" && (
-                  <div className={connectorExtras}>
-                    <FormField label="Datacenter">
-                      <SelectMenu
-                        options={DATACENTER_OPTIONS}
-                        defaultValue="eu"
-                      />
-                    </FormField>
-                  </div>
-                )}
+                <Avatar size="large" initials={c.initials} />
+                <span className={connectorName}>{c.name}</span>
               </div>
             </Card>
           );
         })}
       </div>
+      {connector === "zoho" && (
+        <FormField
+          label="Datacenter"
+          helper="Sélectionnez la région où réside votre compte Zoho Books."
+        >
+          <SelectMenu options={DATACENTER_OPTIONS} defaultValue="eu" />
+        </FormField>
+      )}
     </>
   );
 }
 
 /* ---------- Connection step (OAuth2, connector-agnostic) ---------- */
 
-const permissionsPanelInner = css({
-  display: "grid",
-  gridTemplateColumns: "1fr 1fr",
-  gap: "xl",
-  padding: "xl",
-});
-
-const permissionsColumn = css({
-  display: "flex",
-  flexDirection: "column",
-  gap: "sm",
-});
-
-const permissionsHeading = css({
-  fontSize: "body.sm",
-  lineHeight: "body.sm",
-  fontWeight: "semibold",
-  color: "text.primary",
-  margin: 0,
-});
-
-const permissionsList = css({
-  listStyle: "none",
-  padding: 0,
-  margin: 0,
-  display: "flex",
-  flexDirection: "column",
-  gap: "xs",
-});
-
-const permissionRow = css({
-  display: "grid",
-  gridTemplateColumns: "auto 1fr",
-  alignItems: "start",
-  columnGap: "xs",
-  fontSize: "body.sm",
-  lineHeight: "body.sm",
-  color: "text.secondary",
-});
-
-const permissionIcon = css({
-  display: "inline-flex",
-  flexShrink: 0,
-  alignItems: "center",
-  height: "1.125rem",
-});
-
-const permissionIconAllow = css({ color: "status.success" });
-const permissionIconDeny = css({ color: "text.tertiary" });
-
-const ALLOWED = [
-  "Synchroniser automatiquement vos factures et avoirs",
-  "Importer vos comptes clients et leurs contacts",
-  "Collecter les paiements associés aux factures",
-];
-const DENIED = [
-  "Modifier ou créer des factures ou avoirs",
-  "Modifier ou créer des comptes ou contacts",
-  "Modifier vos informations de paiement",
-];
-
 function ConnectionStep({ connector }: { connector: Connector }) {
-  const name = connector === "pennylane" ? "Pennylane" : "Zoho Books";
+  const name = CONNECTOR_NAMES[connector];
   return (
     <>
-      <div>
-        <h2 className={stepTitle}>
-          Billabex souhaite accéder à votre compte {name}
-        </h2>
-        <p className={stepSubtitle}>
-          Vous serez redirigé vers {name} pour autoriser l'accès. Billabex ne
-          pourra jamais écrire dans votre comptabilité.
-        </p>
-      </div>
-      <Card>
-        <div className={permissionsPanelInner}>
-          <div className={permissionsColumn}>
-            <h3 className={permissionsHeading}>Billabex pourra :</h3>
-            <ul className={permissionsList}>
-              {ALLOWED.map((text) => (
-                <li key={text} className={permissionRow}>
-                  <span className={`${permissionIcon} ${permissionIconAllow}`}>
-                    <CheckCircle2 size={14} />
-                  </span>
-                  {text}
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className={permissionsColumn}>
-            <h3 className={permissionsHeading}>Billabex ne pourra pas :</h3>
-            <ul className={permissionsList}>
-              {DENIED.map((text) => (
-                <li key={text} className={permissionRow}>
-                  <span className={`${permissionIcon} ${permissionIconDeny}`}>
-                    <XCircle size={14} />
-                  </span>
-                  {text}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </Card>
+      <SectionHeader
+        title={`Billabex souhaite accéder à votre compte ${name}`}
+        description={`Vous serez redirigé vers ${name} pour autoriser l'accès. Billabex ne pourra jamais écrire dans votre comptabilité.`}
+      />
+      <OAuthPermissionsPanel
+        allowedLabel="Billabex pourra :"
+        deniedLabel="Billabex ne pourra pas :"
+      />
     </>
   );
 }
@@ -462,16 +329,13 @@ function ConfigurationStep({
   connector: Connector;
   autoAssign: boolean;
 }) {
-  const name = connector === "pennylane" ? "Pennylane" : "Zoho Books";
+  const name = CONNECTOR_NAMES[connector];
   return (
     <>
-      <div>
-        <h2 className={stepTitle}>Configurer la connexion {name}</h2>
-        <p className={stepSubtitle}>
-          Dernière étape avant d'importer vos comptes et factures. La
-          synchronisation peut prendre 5 à 10 minutes.
-        </p>
-      </div>
+      <SectionHeader
+        title={`Configurer la connexion ${name}`}
+        description="Dernière étape avant d'importer vos comptes et factures. La synchronisation peut prendre 5 à 10 minutes."
+      />
 
       {connector === "zoho" && (
         <FormField label="Datacenter">
@@ -511,22 +375,18 @@ function ConfigurationStep({
 
 /* ---------- Syncing step ---------- */
 
-const syncingSpinner = css({
-  color: "text.tertiary",
-  animation: "connectionCreateSpin 1s linear infinite",
-});
-
-const syncingKeyframes = `
-  @keyframes connectionCreateSpin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-  }
-`;
-
 const syncingHeader = css({
   display: "flex",
   alignItems: "center",
   gap: "md",
+});
+
+const syncingTitle = css({
+  fontSize: "headline.sm",
+  lineHeight: "headline.sm",
+  fontWeight: "semibold",
+  color: "text.primary",
+  margin: 0,
 });
 
 const syncingCopy = css({
@@ -537,13 +397,12 @@ const syncingCopy = css({
 });
 
 function SyncingStep({ connector }: { connector: Connector }) {
-  const name = connector === "pennylane" ? "Pennylane" : "Zoho Books";
+  const name = CONNECTOR_NAMES[connector];
   return (
     <>
-      <style>{syncingKeyframes}</style>
       <div className={syncingHeader}>
-        <Loader2 size={24} className={syncingSpinner} />
-        <h2 className={stepTitle}>Synchronisation en cours</h2>
+        <Spinner size="medium" label="Synchronisation en cours" />
+        <h2 className={syncingTitle}>Synchronisation en cours</h2>
       </div>
       <p className={syncingCopy}>
         Nous importons vos factures et comptes depuis {name}. Cette opération

@@ -1,5 +1,5 @@
 import type { HTMLAttributes, ReactNode } from "react";
-import { bannerRecipe } from "./banner.recipe";
+import { bannerRecipe, bannerBodyRecipe } from "./banner.recipe";
 import type { BannerVariant } from "./banner.recipe";
 
 export interface BannerProps extends HTMLAttributes<HTMLDivElement> {
@@ -7,12 +7,17 @@ export interface BannerProps extends HTMLAttributes<HTMLDivElement> {
   variant?: BannerVariant;
   /** Optional icon on the left (16px) */
   icon?: ReactNode;
-  /** Banner content */
+  /** Banner content — the primary message. */
   children: ReactNode;
+  /** Optional trailing action (e.g. a CTA Button) pushed to the right. */
+  action?: ReactNode;
 }
 
 /**
  * Banner — An alert/notification banner.
+ *
+ * Composes: optional icon, a primary text body (grows to fill), and an
+ * optional trailing `action` slot for a CTA.
  *
  * RSC-compatible (no `'use client'` needed).
  */
@@ -20,6 +25,7 @@ export function Banner({
   variant = "neutral",
   icon,
   children,
+  action,
   className,
   ...props
 }: BannerProps) {
@@ -34,7 +40,8 @@ export function Banner({
           {icon}
         </span>
       )}
-      {children}
+      <span className={bannerBodyRecipe()}>{children}</span>
+      {action}
     </div>
   );
 }

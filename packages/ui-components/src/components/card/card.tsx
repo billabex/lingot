@@ -5,7 +5,7 @@ import type { CardVariant } from "./card.recipe";
 export interface CardProps extends HTMLAttributes<HTMLDivElement> {
   /** Visual variant */
   variant?: CardVariant;
-  /** When true, the card advertises itself as clickable: cursor pointer, focusable, focus-visible ring, and Enter/Space invoke the card's `onClick`. Consumers handle ARIA (e.g. `role="radio"` + `aria-checked` for a picker). */
+  /** When true, the card advertises itself as clickable: cursor pointer, focusable, focus-visible ring, and Enter/Space invoke the card's `onClick`. Consumers own ARIA (`role`, `aria-pressed`, `aria-checked`, etc.). */
   interactive?: boolean;
   /** Selected state. With `interactive`, renders the primary-accent border + a subtle background tint. */
   selected?: boolean;

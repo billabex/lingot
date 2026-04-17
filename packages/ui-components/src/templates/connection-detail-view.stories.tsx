@@ -1,16 +1,16 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { css } from "styled-system/css";
-import { CheckCircle2, Mail, Users, XCircle } from "lucide-react";
+import { CheckCircle2, Mail, Users } from "lucide-react";
 import { Badge } from "../components/badge";
 import { Banner } from "../components/banner";
 import { Button } from "../components/button";
-import { Card } from "../components/card";
 import { NavItem } from "../components/nav-item";
 import { PageHeader } from "../components/page-header";
 import { SectionHeader } from "../components/section-header";
 import { SettingsRow } from "../components/settings-row";
 import { Sidebar } from "../components/sidebar";
 import { StatCard, StatCardGroup } from "../components/stat-card";
+import { OAuthPermissionsPanel } from "./_permissions";
 import { logoTile, shellDoc, shellDocInner, shellMain, shellPage, shellRail } from "./_shell";
 
 type Connector = "pennylane" | "zoho";
@@ -51,67 +51,6 @@ export const SyncError: Story = {
 const statGroupWrap = css({ marginBlock: "lg" });
 
 const rowStack = css({ display: "flex", flexDirection: "column" });
-
-const permissionsPanelInner = css({
-  display: "grid",
-  gridTemplateColumns: "1fr 1fr",
-  gap: "xl",
-  padding: "xl",
-});
-
-const permissionsColumn = css({
-  display: "flex",
-  flexDirection: "column",
-  gap: "sm",
-});
-
-const permissionsHeading = css({
-  fontSize: "body.sm",
-  lineHeight: "body.sm",
-  fontWeight: "semibold",
-  color: "text.primary",
-  margin: 0,
-});
-
-const permissionsList = css({
-  listStyle: "none",
-  padding: 0,
-  margin: 0,
-  display: "flex",
-  flexDirection: "column",
-  gap: "xs",
-});
-
-const permissionRow = css({
-  display: "grid",
-  gridTemplateColumns: "auto 1fr",
-  alignItems: "start",
-  columnGap: "xs",
-  fontSize: "body.sm",
-  lineHeight: "body.sm",
-  color: "text.secondary",
-});
-
-const permissionIcon = css({
-  display: "inline-flex",
-  flexShrink: 0,
-  alignItems: "center",
-  height: "1.125rem",
-});
-
-const permissionIconAllow = css({ color: "status.success" });
-const permissionIconDeny = css({ color: "text.tertiary" });
-
-const ALLOWED = [
-  "Synchroniser automatiquement vos factures et avoirs",
-  "Importer vos comptes clients et leurs contacts",
-  "Collecter les paiements associés aux factures",
-];
-const DENIED = [
-  "Modifier ou créer des factures ou avoirs",
-  "Modifier ou créer des comptes ou contacts",
-  "Modifier vos informations de paiement",
-];
 
 /* ---------- main template ---------- */
 
@@ -172,13 +111,17 @@ function ConnectionDetailViewTemplate({
             />
 
             {status === "error" && (
-              <Banner variant="error">
-                <span>
-                  La dernière synchronisation a échoué. Vérifiez que l'accès
-                  accordé à Billabex est toujours valide depuis votre compte
-                  {" "}
-                  {name}.
-                </span>
+              <Banner
+                variant="error"
+                action={
+                  <Button variant="primary" size="small">
+                    Reconnecter
+                  </Button>
+                }
+              >
+                La dernière synchronisation a échoué. L'accès accordé à
+                Billabex a peut-être expiré — reconnectez-vous à {name} pour
+                rétablir la synchronisation.
               </Banner>
             )}
 
@@ -194,40 +137,7 @@ function ConnectionDetailViewTemplate({
               title="Permissions"
               description="Accès accordé par votre compte à Billabex lors de l'autorisation OAuth."
             />
-            <Card>
-              <div className={permissionsPanelInner}>
-                <div className={permissionsColumn}>
-                  <h3 className={permissionsHeading}>Billabex peut :</h3>
-                  <ul className={permissionsList}>
-                    {ALLOWED.map((text) => (
-                      <li key={text} className={permissionRow}>
-                        <span
-                          className={`${permissionIcon} ${permissionIconAllow}`}
-                        >
-                          <CheckCircle2 size={14} />
-                        </span>
-                        {text}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div className={permissionsColumn}>
-                  <h3 className={permissionsHeading}>Billabex ne peut pas :</h3>
-                  <ul className={permissionsList}>
-                    {DENIED.map((text) => (
-                      <li key={text} className={permissionRow}>
-                        <span
-                          className={`${permissionIcon} ${permissionIconDeny}`}
-                        >
-                          <XCircle size={14} />
-                        </span>
-                        {text}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </Card>
+            <OAuthPermissionsPanel />
 
             <SectionHeader
               title="Configuration"

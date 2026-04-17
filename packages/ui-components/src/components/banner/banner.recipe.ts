@@ -1,5 +1,12 @@
 import { cva } from "styled-system/css";
 
+export const bannerBodyRecipe = cva({
+  base: {
+    flex: 1,
+    minWidth: 0,
+  },
+});
+
 export const bannerRecipe = cva({
   base: {
     display: "flex",

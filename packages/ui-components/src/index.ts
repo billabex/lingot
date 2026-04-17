@@ -15,7 +15,7 @@ export { badgeRecipe } from "./components/badge";
 // Banner
 export { Banner } from "./components/banner";
 export type { BannerProps, BannerVariant } from "./components/banner";
-export { bannerRecipe } from "./components/banner";
+export { bannerRecipe, bannerBodyRecipe } from "./components/banner";
 
 // Breadcrumb
 export { Breadcrumb } from "./components/breadcrumb";

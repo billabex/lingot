@@ -1,11 +1,9 @@
-import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { css } from "styled-system/css";
 import {
   CheckCircle2,
   Download,
   Mail,
-  MoreVertical,
   Pencil,
   Trash2,
   Users,
@@ -15,10 +13,10 @@ import { Breadcrumb } from "../components/breadcrumb";
 import { Button } from "../components/button";
 import { DetailNav } from "../components/detail-nav";
 import { Divider } from "../components/divider";
-import { DropdownItem, DropdownMenu } from "../components/dropdown";
-import { IconButton } from "../components/icon-button";
+import { DropdownItem } from "../components/dropdown";
 import { InfoRow } from "../components/info-row";
 import { NavItem } from "../components/nav-item";
+import { OverflowMenu } from "../components/overflow-menu";
 import { PageHeader } from "../components/page-header";
 import { Sidebar } from "../components/sidebar";
 import { StatCard, StatCardGroup } from "../components/stat-card";
@@ -130,18 +128,9 @@ const dangerValue = css({ color: "status.error", fontWeight: "semibold" });
 const totalValue = css({ fontWeight: "semibold" });
 
 const actionsWrap = css({
-  position: "relative",
   display: "inline-flex",
   alignItems: "center",
   gap: "sm",
-});
-
-const overflowMenuWrap = css({
-  position: "absolute",
-  top: "calc(100% + 4px)",
-  right: 0,
-  zIndex: 10,
-  minWidth: "14rem",
 });
 
 interface InvoiceDetailViewTemplateProps {
@@ -151,9 +140,6 @@ interface InvoiceDetailViewTemplateProps {
 function InvoiceDetailViewTemplate({
   source = "connector",
 }: InvoiceDetailViewTemplateProps) {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const toggleMenu = () => setMenuOpen((open) => !open);
-
   const sourceValue = (
     <Badge variant="neutral">
       {source === "connector" ? "Pennylane" : "Aucune"}
@@ -210,29 +196,15 @@ function InvoiceDetailViewTemplate({
                     Télécharger le PDF
                   </Button>
                   {source === "manual" && (
-                    <>
-                      <IconButton
-                        size="small"
-                        aria-label="Plus d'actions"
-                        aria-haspopup="menu"
-                        aria-expanded={menuOpen}
-                        onClick={toggleMenu}
-                        icon={<MoreVertical size={16} />}
-                      />
-                      {menuOpen && (
-                        <div className={overflowMenuWrap}>
-                          <DropdownMenu>
-                            <DropdownItem leftIcon={<Pencil size={16} />}>
-                              Mettre à jour le montant payé
-                            </DropdownItem>
-                            <Divider />
-                            <DropdownItem leftIcon={<Trash2 size={16} />}>
-                              Supprimer la facture
-                            </DropdownItem>
-                          </DropdownMenu>
-                        </div>
-                      )}
-                    </>
+                    <OverflowMenu label="Plus d'actions">
+                      <DropdownItem leftIcon={<Pencil size={16} />}>
+                        Mettre à jour le montant payé
+                      </DropdownItem>
+                      <Divider />
+                      <DropdownItem leftIcon={<Trash2 size={16} />}>
+                        Supprimer la facture
+                      </DropdownItem>
+                    </OverflowMenu>
                   )}
                 </div>
               }

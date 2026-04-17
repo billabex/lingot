@@ -3,6 +3,15 @@ import { cva } from "styled-system/css";
 export const pageHeaderRecipe = cva({
   base: {
     display: "flex",
+    flexDirection: "column",
+    gap: "2xl",
+    width: "100%",
+  },
+});
+
+export const pageHeaderRowRecipe = cva({
+  base: {
+    display: "flex",
     alignItems: "center",
     gap: "lg",
     width: "100%",

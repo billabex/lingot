@@ -29,6 +29,25 @@ describe("PageHeader", () => {
     expect(screen.getByRole("heading", { level: 1 })).toBeTruthy();
   });
 
+  it("renders a breadcrumb above the title when provided", () => {
+    render(
+      <PageHeader
+        breadcrumb={[
+          { label: "Parent", href: "#" },
+          { label: "Current" },
+        ]}
+        title="Current"
+      />,
+    );
+    expect(screen.getByRole("navigation", { name: "Breadcrumb" })).toBeTruthy();
+    expect(screen.getByRole("link", { name: "Parent" })).toBeTruthy();
+  });
+
+  it("omits the breadcrumb landmark when no breadcrumb is provided", () => {
+    render(<PageHeader title="Current" />);
+    expect(screen.queryByRole("navigation", { name: "Breadcrumb" })).toBeNull();
+  });
+
   it("applies custom className", () => {
     const { container } = render(
       <PageHeader title="X" className="custom-header" />,

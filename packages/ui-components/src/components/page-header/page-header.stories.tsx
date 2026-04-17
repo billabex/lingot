@@ -18,6 +18,31 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {};
 
+export const WithBreadcrumb: Story = {
+  args: {
+    breadcrumb: [
+      { label: "Comptes clients", href: "#" },
+      { label: "DOSFARMASHOP ONLINE S.L." },
+    ],
+    title: "DOSFARMASHOP ONLINE S.L.",
+  },
+};
+
+export const WithBreadcrumbAndActions: Story = {
+  args: {
+    breadcrumb: [
+      { label: "Factures", href: "#" },
+      { label: "INV-2066639" },
+    ],
+    title: "Facture INV-2066639",
+    actions: (
+      <Button variant="secondary" size="small" leftIcon={<Download size={14} />}>
+        Télécharger le PDF
+      </Button>
+    ),
+  },
+};
+
 export const WithAction: Story = {
   args: {
     actions: (

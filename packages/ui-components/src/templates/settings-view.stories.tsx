@@ -1,13 +1,16 @@
 import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { css } from "styled-system/css";
-import { CheckCircle2, Mail, Trash2, Users } from "lucide-react";
+import { CheckCircle2, Mail, Trash2, Users, X } from "lucide-react";
 import { Badge } from "../components/badge";
 import { Button } from "../components/button";
 import { Divider } from "../components/divider";
 import { DropdownItem } from "../components/dropdown";
+import { FormField } from "../components/form-field";
 import { OverflowMenu } from "../components/overflow-menu";
 import { IconButton } from "../components/icon-button";
+import { Input } from "../components/input";
+import { Modal } from "../components/modal";
 import { NavItem } from "../components/nav-item";
 import { PageHeader } from "../components/page-header";
 import { SectionHeader } from "../components/section-header";
@@ -36,6 +39,9 @@ type Story = StoryObj<typeof meta>;
 export const Preferences: Story = {};
 export const Profile: Story = { args: { activeTab: "profile" } };
 export const Members: Story = { args: { activeTab: "members" } };
+export const MembersInviteModalOpen: Story = {
+  args: { activeTab: "members", inviteModalOpen: true },
+};
 export const Connections: Story = { args: { activeTab: "connections" } };
 
 /* ---------- shell — mirrors other account templates ---------- */
@@ -62,6 +68,29 @@ const tableCellMuted = css({
   color: "text.secondary",
 });
 
+const modalBackdrop = css({
+  position: "fixed",
+  inset: 0,
+  bg: "rgba(15, 15, 15, 0.48)",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  zIndex: 100,
+});
+
+const modalBody = css({
+  display: "flex",
+  flexDirection: "column",
+  gap: "md",
+});
+
+const modalDescription = css({
+  margin: 0,
+  fontSize: "body.sm",
+  lineHeight: "body.sm",
+  color: "text.secondary",
+});
+
 const tableCellPrimary = css({
   fontSize: "body.sm",
   lineHeight: "body.sm",
@@ -71,10 +100,12 @@ const tableCellPrimary = css({
 
 interface SettingsViewTemplateProps {
   activeTab?: SettingsTab;
+  inviteModalOpen?: boolean;
 }
 
 function SettingsViewTemplate({
   activeTab = "preferences",
+  inviteModalOpen = false,
 }: SettingsViewTemplateProps) {
   return (
     <div className={shellPage}>
@@ -121,7 +152,9 @@ function SettingsViewTemplate({
 
             {activeTab === "preferences" && <PreferencesPanel />}
             {activeTab === "profile" && <ProfilePanel />}
-            {activeTab === "members" && <MembersPanel />}
+            {activeTab === "members" && (
+              <MembersPanel inviteModalOpen={inviteModalOpen} />
+            )}
             {activeTab === "connections" && <ConnectionsPanel />}
           </div>
         </div>
@@ -257,13 +290,20 @@ const members: { email: string; canRemove: boolean }[] = [
   { email: "eh@wearebold.co", canRemove: true },
 ];
 
-function MembersPanel() {
+function MembersPanel({ inviteModalOpen = false }: { inviteModalOpen?: boolean }) {
+  const [isInviteOpen, setIsInviteOpen] = useState(inviteModalOpen);
+  const closeInvite = () => setIsInviteOpen(false);
+
   return (
     <>
       <SectionHeader
         title="Membres"
         trailing={
-          <Button variant="primary" size="small">
+          <Button
+            variant="primary"
+            size="small"
+            onClick={() => setIsInviteOpen(true)}
+          >
             Ajouter un membre
           </Button>
         }
@@ -296,6 +336,35 @@ function MembersPanel() {
           </TableRow>
         ))}
       </Table>
+
+      {isInviteOpen && (
+        <div className={modalBackdrop}>
+          <Modal
+            title="Inviter un membre"
+            closeButton={
+              <IconButton
+                size="small"
+                aria-label="Fermer"
+                icon={<X size={16} />}
+                onClick={closeInvite}
+              />
+            }
+            onClose={closeInvite}
+            footer={<Button variant="primary">Envoyer l'invitation</Button>}
+          >
+            <div className={modalBody}>
+              <p className={modalDescription}>
+                Le membre recevra un e-mail l'invitant à créer un compte. Il
+                rejoindra automatiquement votre organisation une fois
+                l'inscription finalisée.
+              </p>
+              <FormField label="Email">
+                <Input type="email" placeholder="membre@exemple.com" />
+              </FormField>
+            </div>
+          </Modal>
+        </div>
+      )}
     </>
   );
 }

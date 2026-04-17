@@ -20,6 +20,7 @@ import { OverflowMenu } from "../components/overflow-menu";
 import { PageHeader } from "../components/page-header";
 import { Sidebar } from "../components/sidebar";
 import { StatCard, StatCardGroup } from "../components/stat-card";
+import { logoTile, shellDoc, shellDocInner, shellMain, shellPage, shellRail } from "./_shell";
 
 type InvoiceSource = "connector" | "manual";
 
@@ -38,76 +39,6 @@ export const Default: Story = {};
 export const ManualImport: Story = {
   args: { source: "manual" },
 };
-
-/* ---------- shell — mirrors other account templates ---------- */
-
-const logoTile = css({
-  width: "2rem",
-  height: "2rem",
-  display: "inline-flex",
-  alignItems: "center",
-  justifyContent: "center",
-  bg: "action.primary",
-  color: "text.inverse",
-  borderRadius: "sm",
-  fontFamily: "body",
-  fontWeight: "semibold",
-  fontSize: "caption",
-  cursor: "pointer",
-  border: "none",
-  transition: "background 120ms ease",
-  _hover: { bg: "action.primaryHover" },
-  _active: { bg: "neutral.500" },
-});
-
-const shellPage = css({
-  display: "flex",
-  height: "100vh",
-  bg: "bg.subtle",
-  fontFamily: "body",
-  color: "text.primary",
-  fontSize: "body",
-  overflow: "hidden",
-});
-
-const shellRail = css({
-  flexShrink: 0,
-  bg: "bg.subtle",
-});
-
-const shellMain = css({
-  flex: 1,
-  display: "flex",
-  flexDirection: "column",
-  overflow: "hidden",
-  padding: "xl",
-  paddingLeft: "md",
-  minWidth: 0,
-});
-
-const docCard = css({
-  flex: 1,
-  display: "flex",
-  flexDirection: "column",
-  borderRadius: "md",
-  borderWidth: "1px",
-  borderStyle: "solid",
-  borderColor: "border.default",
-  bg: "bg.default",
-  overflowY: "auto",
-  minHeight: 0,
-});
-
-const docInner = css({
-  maxWidth: "45rem", // 720px — matches the prototype's reading-width container
-  width: "100%",
-  margin: "0 auto",
-  paddingBlock: "padding.page",
-  paddingInline: "3xl",
-  display: "flex",
-  flexDirection: "column",
-  gap: "xl",
-});
 
 const statGroupWrap = css({ marginBlock: "lg" });
 
@@ -174,8 +105,8 @@ function InvoiceDetailViewTemplate({
       </div>
 
       <div className={shellMain}>
-        <div className={docCard}>
-          <div className={docInner}>
+        <div className={shellDoc}>
+          <div className={shellDocInner}>
             <Breadcrumb
               separator="/"
               items={[

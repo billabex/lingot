@@ -26,6 +26,7 @@ import {
   type TableSortDirection,
 } from "../components/table/table-sort-header";
 import { Sidebar } from "../components/sidebar";
+import { logoTile, shellCard, shellMain, shellPage, shellRail } from "./_shell";
 import { NavItem } from "../components/nav-item";
 import { NotificationBadge } from "../components/notification-badge";
 
@@ -179,65 +180,6 @@ const statusVariant: Record<LogStatus, "warning" | "success" | "info"> = {
   Reçue: "success",
   Envoyée: "info",
 };
-
-/* Canonical company-logo tile — matches `Sidebar` story in the DS. */
-const logoTile = css({
-  width: "2rem",
-  height: "2rem",
-  display: "inline-flex",
-  alignItems: "center",
-  justifyContent: "center",
-  bg: "action.primary",
-  color: "text.inverse",
-  borderRadius: "sm",
-  fontFamily: "body",
-  fontWeight: "semibold",
-  fontSize: "caption",
-  cursor: "pointer",
-  border: "none",
-  transition: "background 120ms ease",
-  _hover: { bg: "action.primaryHover" },
-  _active: { bg: "neutral.500" },
-});
-
-/* ---------- shell — mirrors Templates/Tasks Shell ---------- */
-
-const shellPage = css({
-  display: "flex",
-  height: "100vh",
-  bg: "bg.subtle",
-  fontFamily: "body",
-  color: "text.primary",
-  fontSize: "body",
-  overflow: "hidden",
-});
-
-const shellRail = css({
-  flexShrink: 0,
-  bg: "bg.subtle",
-});
-
-const shellMain = css({
-  flex: 1,
-  display: "flex",
-  flexDirection: "column",
-  overflow: "hidden",
-  padding: "xl",
-  paddingLeft: "md",
-  minWidth: 0,
-});
-
-const shellCard = css({
-  flex: 1,
-  display: "flex",
-  borderRadius: "md",
-  borderWidth: "1px",
-  borderStyle: "solid",
-  borderColor: "border.default",
-  bg: "bg.default",
-  overflow: "hidden",
-  minHeight: 0,
-});
 
 const listPanel = css({
   width: "17.5rem",

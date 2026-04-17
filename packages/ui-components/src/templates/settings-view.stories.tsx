@@ -19,6 +19,7 @@ import { Table } from "../components/table/table";
 import { TableRow } from "../components/table/table-row";
 import { TableSortHeader } from "../components/table/table-sort-header";
 import { Toggle } from "../components/toggle";
+import { logoTile, shellDoc, shellDocInner, shellMain, shellPage, shellRail } from "./_shell";
 
 type SettingsTab = "preferences" | "profile" | "members" | "connections";
 
@@ -38,74 +39,6 @@ export const Members: Story = { args: { activeTab: "members" } };
 export const Connections: Story = { args: { activeTab: "connections" } };
 
 /* ---------- shell — mirrors other account templates ---------- */
-
-const logoTile = css({
-  width: "2rem",
-  height: "2rem",
-  display: "inline-flex",
-  alignItems: "center",
-  justifyContent: "center",
-  bg: "action.primary",
-  color: "text.inverse",
-  borderRadius: "sm",
-  fontFamily: "body",
-  fontWeight: "semibold",
-  fontSize: "caption",
-  cursor: "pointer",
-  border: "none",
-  transition: "background 120ms ease",
-  _hover: { bg: "action.primaryHover" },
-  _active: { bg: "neutral.500" },
-});
-
-const shellPage = css({
-  display: "flex",
-  height: "100vh",
-  bg: "bg.subtle",
-  fontFamily: "body",
-  color: "text.primary",
-  fontSize: "body",
-  overflow: "hidden",
-});
-
-const shellRail = css({
-  flexShrink: 0,
-  bg: "bg.subtle",
-});
-
-const shellMain = css({
-  flex: 1,
-  display: "flex",
-  flexDirection: "column",
-  overflow: "hidden",
-  padding: "xl",
-  paddingLeft: "md",
-  minWidth: 0,
-});
-
-const settingsCard = css({
-  flex: 1,
-  display: "flex",
-  flexDirection: "column",
-  borderRadius: "md",
-  borderWidth: "1px",
-  borderStyle: "solid",
-  borderColor: "border.default",
-  bg: "bg.default",
-  overflowY: "auto",
-  minHeight: 0,
-});
-
-const settingsInner = css({
-  maxWidth: "45rem", // 720px — matches invoice-detail-view's reading-width container
-  width: "100%",
-  margin: "0 auto",
-  paddingBlock: "padding.page",
-  paddingInline: "3xl",
-  display: "flex",
-  flexDirection: "column",
-  gap: "xl",
-});
 
 const tabsWrap = css({ marginTop: "sm" });
 
@@ -171,8 +104,8 @@ function SettingsViewTemplate({
       </div>
 
       <div className={shellMain}>
-        <div className={settingsCard}>
-          <div className={settingsInner}>
+        <div className={shellDoc}>
+          <div className={shellDocInner}>
             <PageHeader title="Paramètres" />
 
             <div className={tabsWrap}>

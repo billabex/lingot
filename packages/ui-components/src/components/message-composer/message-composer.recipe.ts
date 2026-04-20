@@ -13,6 +13,22 @@ export const messageComposerRecipe = cva({
       borderColor: "border.focus",
     },
   },
+  variants: {
+    disabled: {
+      true: {
+        cursor: "not-allowed",
+        bg: "bg.subtle",
+        borderColor: "border.subtle",
+        _focusWithin: {
+          borderColor: "border.subtle",
+        },
+      },
+      false: {},
+    },
+  },
+  defaultVariants: {
+    disabled: false,
+  },
 });
 
 export const messageComposerTextareaRecipe = cva({

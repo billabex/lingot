@@ -12,10 +12,12 @@ const meta = {
   argTypes: {
     placeholder: { control: "text" },
     disableSendWhenEmpty: { control: "boolean" },
+    disabled: { control: "boolean" },
   },
   args: {
     placeholder: "Écrire un message...",
     disableSendWhenEmpty: true,
+    disabled: false,
   },
 } satisfies Meta<typeof MessageComposer>;
 
@@ -50,5 +52,13 @@ export const Controlled: Story = {
 export const Prefilled: Story = {
   args: {
     defaultValue: "Bonjour, je reviens vers vous au sujet de la facture #2024-08-001…",
+  },
+};
+
+/** Read-only state — used when the parent task is closed or cancelled. */
+export const Disabled: Story = {
+  args: {
+    defaultValue: "Cette tâche a été clôturée — la conversation est en lecture seule.",
+    disabled: true,
   },
 };

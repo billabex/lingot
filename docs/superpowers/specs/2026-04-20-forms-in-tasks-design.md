@@ -103,9 +103,7 @@ Inventory of every DS primitive touched by the new variants — all already ship
 - `EmptyState` (used in the Comms tab when there's no contact yet)
 - `FormField`, `Input`, `SelectMenu`
 - `Button` (`primary` and `secondary`)
-- `MessageComposer` (gains a `disabled` prop usage — verify the prop already exists; if not, this is the **only** required DS change)
-
-**Action item before implementation:** verify `MessageComposer` exposes a `disabled` prop. If it doesn't, add it (boolean, disables the textarea + send button + dims via opacity token). This is the sole DS-level addition.
+- `MessageComposer` — promoted `disabled` to a top-level prop. Previously only the `<textarea>` honored it (via the `TextareaHTMLAttributes` passthrough); the attach `IconButton` stayed clickable and the send button only dimmed via the empty-text check. Now: `disabled` disables all three controls and applies a `bg.subtle` + `border.subtle` + `cursor: not-allowed` treatment to the wrapper. Used by `NeedUserInput` to render the composer in a read-only state when the task is closed/cancelled.
 
 ## 10. Why this design
 

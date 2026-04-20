@@ -64,4 +64,14 @@ describe("MessageComposer", () => {
     fireEvent.change(textarea, { target: { value: "abcd" } });
     expect(onChange).toHaveBeenCalledWith("abcd");
   });
+
+  it("disables every control when `disabled` is true, regardless of text", () => {
+    render(<MessageComposer defaultValue="non-empty" disabled />);
+    const textarea = screen.getByPlaceholderText("Écrire un message...") as HTMLTextAreaElement;
+    const attach = screen.getByLabelText("Joindre un fichier") as HTMLButtonElement;
+    const send = screen.getByLabelText("Envoyer") as HTMLButtonElement;
+    expect(textarea.disabled).toBe(true);
+    expect(attach.disabled).toBe(true);
+    expect(send.disabled).toBe(true);
+  });
 });

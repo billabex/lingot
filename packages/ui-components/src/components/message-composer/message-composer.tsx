@@ -38,6 +38,8 @@ export interface MessageComposerProps extends TextareaProps {
   disableSendWhenEmpty?: boolean;
   /** Extra toolbar content rendered before the attach button */
   toolbarExtra?: ReactNode;
+  /** When true, disables the textarea, attach button, and send button, and dims the surface. Use to render a read-only composer when the parent task is closed/cancelled. */
+  disabled?: boolean;
 }
 
 /**
@@ -54,6 +56,7 @@ export function MessageComposer({
   disableSendWhenEmpty = true,
   toolbarExtra,
   placeholder = "Écrire un message...",
+  disabled = false,
   className,
   ...textareaProps
 }: MessageComposerProps) {
@@ -91,10 +94,12 @@ export function MessageComposer({
     textareaProps.onKeyDown?.(e);
   };
 
-  const sendDisabled = disableSendWhenEmpty && !text.trim();
+  const sendDisabled = disabled || (disableSendWhenEmpty && !text.trim());
 
   return (
-    <div className={`${messageComposerRecipe()}${className ? ` ${className}` : ""}`}>
+    <div
+      className={`${messageComposerRecipe({ disabled })}${className ? ` ${className}` : ""}`}
+    >
       <textarea
         ref={textareaRef}
         className={messageComposerTextareaRecipe()}
@@ -103,6 +108,7 @@ export function MessageComposer({
         onKeyDown={handleKeyDown}
         placeholder={placeholder}
         rows={1}
+        disabled={disabled}
         {...textareaProps}
       />
       <div className={messageComposerToolbarRecipe()}>
@@ -112,6 +118,7 @@ export function MessageComposer({
           icon={<Paperclip size={16} />}
           aria-label="Joindre un fichier"
           onClick={onAttach}
+          disabled={disabled}
         />
         <button
           type="button"

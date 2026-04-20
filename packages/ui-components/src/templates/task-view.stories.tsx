@@ -439,7 +439,7 @@ const suiviSecondaryRow = css({
 
 const attachmentGroupSpacing = css({ marginTop: "md" });
 
-const contactFormCard = css({
+const bottomSlotCard = css({
   padding: "xl",
   display: "flex",
   flexDirection: "column",
@@ -701,40 +701,44 @@ function TaskViewInner({
             </div>)
           )}
 
-          {/* Bottom slot — varies by task type */}
-          <div className={detailComposerBlock}>
-            {taskType === "NeedContacts" ? (
-              <Card variant="elevated" className={contactFormCard}>
-                <FormField label="Nom complet">
-                  <Input placeholder="John Doe" />
-                </FormField>
-                <FormField label="Email">
-                  <Input type="email" placeholder="john.doe@example.com" />
-                </FormField>
-                <FormField label="Langue">
-                  <SelectMenu
-                    options={languageOptions}
-                    placeholder="Sélectionner une langue"
-                  />
-                </FormField>
-                <div className={contactFormActions}>
-                  <Button variant="primary">Ajouter le contact</Button>
-                </div>
-              </Card>
-            ) : taskType === "ApproveEligibility" ? (
-              <ActionBar align="end">
-                <Button variant="secondary">Refuser l'accès</Button>
-                <Button variant="primary">Autoriser l'accès</Button>
-              </ActionBar>
-            ) : (
-              <MessageComposer
-                value={message}
-                onChange={setMessage}
-                placeholder="Écrire un message…"
-                onSend={() => setMessage("")}
-              />
-            )}
-          </div>
+          {/* Bottom slot — only renders on the Échanges tab; varies by task type */}
+          {activeTab === "echanges" && (
+            <div className={detailComposerBlock}>
+              {taskType === "NeedContacts" ? (
+                <Card variant="elevated" className={bottomSlotCard}>
+                  <FormField label="Nom complet">
+                    <Input placeholder="John Doe" />
+                  </FormField>
+                  <FormField label="Email">
+                    <Input type="email" placeholder="john.doe@example.com" />
+                  </FormField>
+                  <FormField label="Langue">
+                    <SelectMenu
+                      options={languageOptions}
+                      placeholder="Sélectionner une langue"
+                    />
+                  </FormField>
+                  <div className={contactFormActions}>
+                    <Button variant="primary">Ajouter le contact</Button>
+                  </div>
+                </Card>
+              ) : taskType === "ApproveEligibility" ? (
+                <Card variant="elevated" className={bottomSlotCard}>
+                  <ActionBar align="end">
+                    <Button variant="secondary">Refuser l'accès</Button>
+                    <Button variant="primary">Autoriser l'accès</Button>
+                  </ActionBar>
+                </Card>
+              ) : (
+                <MessageComposer
+                  value={message}
+                  onChange={setMessage}
+                  placeholder="Écrire un message…"
+                  onSend={() => setMessage("")}
+                />
+              )}
+            </div>
+          )}
         </section>
 
         {/* =================== RIGHT PANEL =================== */}

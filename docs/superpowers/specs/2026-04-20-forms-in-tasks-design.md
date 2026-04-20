@@ -64,9 +64,11 @@ No changes to `Bubble` or `BubbleGroup` — pure composition.
 |---|---|---|
 | `NeedUserInput` | `MessageComposer` | always visible; **disabled** when task is closed/cancelled |
 | `NeedContacts` | `FormField` × 3 (`Nom complet` `Input`, `Email` `Input`, `Langue` `SelectMenu`) + primary `Button` (`Ajouter le contact`), wrapped in `<Card variant="elevated">` to match the `MessageComposer`'s elevated-surface treatment | spec describes the lifecycle for production reference; in this sprint **only the initial state is staged** (per §3 — post-submit stories deferred). Future: hidden after submit; submission renders as a user-side `Bubble` ("Contact ajouté: Jane Doe — jane@…fr"), agent ack is the next agent-side `Bubble`. Slot stays empty thereafter. |
-| `ApproveEligibility` | `<ActionBar align="end">` containing two `Button`s — `Refuser l'accès` (`variant="secondary"`) on the left, `Autoriser l'accès` (`variant="primary"`) on the right (primary-action-right matches the `account-create-view` and `connection-create-view` wizard footers — same Lingot convention) | spec describes the lifecycle for production reference; in this sprint **only the initial state is staged** (per §3). Future: hidden after click; choice renders as a user-side `Bubble`, agent ack follows. Slot stays empty thereafter. |
+| `ApproveEligibility` | `<ActionBar align="end">` containing two `Button`s — `Refuser l'accès` (`variant="secondary"`) on the left, `Autoriser l'accès` (`variant="primary"`) on the right (primary-action-right matches the `account-create-view` and `connection-create-view` wizard footers — same Lingot convention), wrapped in `<Card variant="elevated">` for surface parity with the `MessageComposer` and the `NeedContacts` form | spec describes the lifecycle for production reference; in this sprint **only the initial state is staged** (per §3). Future: hidden after click; choice renders as a user-side `Bubble`, agent ack follows. Slot stays empty thereafter. |
 
 The slot's parent (`detailComposerBlock`) keeps its current padding tokens; only its child swaps.
+
+**The bottom slot only renders on the Échanges tab.** When `activeTab === "comms"`, the entire slot is omitted regardless of `taskType` — actions belong to the agent dialogue, not the historical comm log.
 
 ## 7. Stories — `task-view.stories.tsx` (6 total)
 

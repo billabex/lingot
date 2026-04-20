@@ -64,7 +64,7 @@ No changes to `Bubble` or `BubbleGroup` — pure composition.
 |---|---|---|
 | `NeedUserInput` | `MessageComposer` | always visible; **disabled** when task is closed/cancelled |
 | `NeedContacts` | `FormField` × 3 (`Nom complet` `Input`, `Email` `Input`, `Langue` `SelectMenu`) + primary `Button` (`Ajouter le contact`), wrapped in `<Card variant="elevated">` to match the `MessageComposer`'s elevated-surface treatment | spec describes the lifecycle for production reference; in this sprint **only the initial state is staged** (per §3 — post-submit stories deferred). Future: hidden after submit; submission renders as a user-side `Bubble` ("Contact ajouté: Jane Doe — jane@…fr"), agent ack is the next agent-side `Bubble`. Slot stays empty thereafter. |
-| `ApproveEligibility` | row of two `Button`s — `Refuser l'accès` (`variant="secondary"`) on the left, `Autoriser l'accès` (`variant="primary"`) on the right (primary-action-right matches the `account-create-view` and `connection-create-view` wizard footers — same Lingot convention) | spec describes the lifecycle for production reference; in this sprint **only the initial state is staged** (per §3). Future: hidden after click; choice renders as a user-side `Bubble`, agent ack follows. Slot stays empty thereafter. |
+| `ApproveEligibility` | `<ActionBar align="end">` containing two `Button`s — `Refuser l'accès` (`variant="secondary"`) on the left, `Autoriser l'accès` (`variant="primary"`) on the right (primary-action-right matches the `account-create-view` and `connection-create-view` wizard footers — same Lingot convention) | spec describes the lifecycle for production reference; in this sprint **only the initial state is staged** (per §3). Future: hidden after click; choice renders as a user-side `Bubble`, agent ack follows. Slot stays empty thereafter. |
 
 The slot's parent (`detailComposerBlock`) keeps its current padding tokens; only its child swaps.
 
@@ -95,6 +95,7 @@ The empty Contacts state for `NeedContacts` is a single muted text line — no D
 
 Inventory of every DS primitive touched by the new variants — all already ship:
 
+- `ActionBar` (`align="end"` — wraps the two-button row for `ApproveEligibility`)
 - `Bubble`, `BubbleGroup`, `BubbleAttachment`, `BubbleAttachmentGroup`
 - `Card` (`variant="elevated"` — wraps the `NeedContacts` form to match the `MessageComposer` surface)
 - `EmptyState` (used in the Comms tab when there's no contact yet)

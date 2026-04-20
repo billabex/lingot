@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 import { css } from "styled-system/css";
 import { X, CheckCircle2, ExternalLink, Inbox, Mail, Users } from "lucide-react";
+import { ActionBar } from "../components/action-bar";
 import { AgedBalance } from "../components/aged-balance";
 import { Badge } from "../components/badge";
 import { Bubble, BubbleAttachment, BubbleAttachmentGroup, BubbleGroup } from "../components/bubble";
@@ -34,7 +35,7 @@ import { NavItem } from "../components/nav-item";
 import { NotificationBadge } from "../components/notification-badge";
 
 type TaskTab = "echanges" | "comms";
-type TaskType = "NeedUserInput" | "NeedContacts";
+type TaskType = "NeedUserInput" | "NeedContacts" | "ApproveEligibility";
 
 function TaskViewTemplate({
   activeTab = "echanges",
@@ -55,27 +56,54 @@ const meta = {
     activeTab: { control: "radio", options: ["echanges", "comms"] satisfies TaskTab[] },
     taskType: {
       control: "radio",
-      options: ["NeedUserInput", "NeedContacts"] satisfies TaskType[],
+      options: [
+        "NeedUserInput",
+        "NeedContacts",
+        "ApproveEligibility",
+      ] satisfies TaskType[],
     },
   },
 } satisfies Meta<typeof TaskViewTemplate>;
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const NeedUserInput: Story = {};
+export const NeedUserInput: Story = {
+  args: {
+    activeTab: "echanges",
+    taskType: "NeedUserInput"
+  }
+};
 
 /** Communications tab active — center panel shows the comm log table. */
 export const NeedUserInputCommunications: Story = {
-  args: { activeTab: "comms" },
+  args: {
+    activeTab: "comms",
+    taskType: "NeedUserInput"
+  },
 };
 
 /** NeedContacts task — bottom slot shows the contact form; right-panel Contacts is empty. */
 export const NeedContacts: Story = {
-  args: { taskType: "NeedContacts" },
+  args: {
+    taskType: "NeedContacts",
+    activeTab: "echanges"
+  },
 };
 
 export const NeedContactsCommunications: Story = {
   args: { taskType: "NeedContacts", activeTab: "comms" },
+};
+
+/** ApproveEligibility task — bottom slot shows Refuser/Autoriser action buttons. */
+export const ApproveEligibility: Story = {
+  args: {
+    taskType: "ApproveEligibility",
+    activeTab: "echanges"
+  },
+};
+
+export const ApproveEligibilityCommunications: Story = {
+  args: { taskType: "ApproveEligibility", activeTab: "comms" },
 };
 
 const tasks = [
@@ -141,6 +169,16 @@ const needContactsDiscussion: DiscussionMessage[] = [
   },
 ];
 
+const approveEligibilityDiscussion: DiscussionMessage[] = [
+  {
+    side: "agent",
+    author: "Irène Dumont",
+    date: "16/12/2025 14:11",
+    body:
+      "Bonjour. Nous avons reçu un message de Maréva Yem (mareva.yem@aoshearman.com) concernant les factures impayées d'A&O Shearman. Maréva, assistante comptable, souhaite confirmer l'accès aux informations du compte. Pouvez-vous me confirmer si cette personne est autorisée à accéder à ces informations ?",
+  },
+];
+
 const TASK_FIXTURES: Record<TaskType, {
   title: string;
   account: string;
@@ -155,6 +193,11 @@ const TASK_FIXTURES: Record<TaskType, {
     title: "Ajouter un nouveau contact pour OPCOMMERCE",
     account: "OPCOMMERCE",
     discussion: needContactsDiscussion,
+  },
+  ApproveEligibility: {
+    title: "Autoriser l'accès de Maréva Yem aux informations du compte",
+    account: "A & O SHEARMAN",
+    discussion: approveEligibilityDiscussion,
   },
 };
 
@@ -465,325 +508,329 @@ function TaskViewInner({
   const openEditContactModal = () => {};
 
   return (
-      <div className={shellPage}>
-        {/* 48px icon rail — Sidebar is transparent, wrapper owns the bg */}
-        <div className={shellRail}>
-        <Sidebar
-          header={
-            <button
-              type="button"
-              className={logoTile}
-              aria-label="Changer d'entreprise"
-              aria-haspopup="menu"
-            >
-              B
-            </button>
-          }
-        >
-          <NavItem variant="icon" active aria-label="Tâches">
-            <CheckCircle2 size={16} />
-            <NotificationBadge count={25} />
-          </NavItem>
-          <NavItem variant="icon" aria-label="Communications">
-            <Mail size={16} />
-          </NavItem>
-          <NavItem variant="icon" aria-label="Comptes clients">
-            <Users size={16} />
-          </NavItem>
-        </Sidebar>
-        </div>
+    <div className={shellPage}>
+      {/* 48px icon rail — Sidebar is transparent, wrapper owns the bg */}
+      <div className={shellRail}>
+      <Sidebar
+        header={
+          <button
+            type="button"
+            className={logoTile}
+            aria-label="Changer d'entreprise"
+            aria-haspopup="menu"
+          >
+            B
+          </button>
+        }
+      >
+        <NavItem variant="icon" active aria-label="Tâches">
+          <CheckCircle2 size={16} />
+          <NotificationBadge count={25} />
+        </NavItem>
+        <NavItem variant="icon" aria-label="Communications">
+          <Mail size={16} />
+        </NavItem>
+        <NavItem variant="icon" aria-label="Comptes clients">
+          <Users size={16} />
+        </NavItem>
+      </Sidebar>
+      </div>
+      {/* Main area — 16px padding around the card, 8px on the left (rail side) */}
+      <div className={shellMain}>
+      <div className={shellCard}>
+        {/* =================== LEFT PANEL =================== */}
+        <section className={listPanel}>
+          <div className={hrBottom}>
+            <PanelHeader variant="card">
+              <PanelHeader.Title>Tâches</PanelHeader.Title>
+              <Badge variant="count" shape="square">30</Badge>
+            </PanelHeader>
+          </div>
 
-        {/* Main area — 16px padding around the card, 8px on the left (rail side) */}
-        <div className={shellMain}>
-        <div className={shellCard}>
-          {/* =================== LEFT PANEL =================== */}
-          <section className={listPanel}>
-            <div className={hrBottom}>
-              <PanelHeader variant="card">
-                <PanelHeader.Title>Tâches</PanelHeader.Title>
-                <Badge variant="count" shape="square">30</Badge>
-              </PanelHeader>
-            </div>
+          <div className={listSearchBlock}>
+            <Input size="small" placeholder="Rechercher…" />
+            <ChipGroup>
+              <Chip variant="filter" active>
+                Action requise
+              </Chip>
+              <Chip variant="filter">En attente</Chip>
+              <Chip variant="filter">Tout</Chip>
+            </ChipGroup>
+          </div>
 
-            <div className={listSearchBlock}>
-              <Input size="small" placeholder="Rechercher…" />
-              <ChipGroup>
-                <Chip variant="filter" active>
-                  Action requise
-                </Chip>
-                <Chip variant="filter">En attente</Chip>
-                <Chip variant="filter">Tout</Chip>
-              </ChipGroup>
-            </div>
-
-            <div className={listScroll}>
-              {tasks.map((t, i) => (
-                <ListItem
-                  key={i}
-                  as="button"
-                  active={t.active}
-                  title={t.company}
-                  titleTrailing={<Badge variant="error" shape="pill">Action requise</Badge>}
-                  preview={t.title}
-                  meta={
-                    <div style={{ display: "flex", justifyContent: "space-between", width: "100%" }}>
-                      <span className={textListMetaAmount}>{t.amount}</span>
-                      <span className={textListMetaDate}>{t.date}</span>
-                    </div>
-                  }
-                />
-              ))}
-            </div>
-
-            <div className={hrTop}>
-              <ListPagination
-                total={30}
-                pageSize={25}
-                page={1}
-                onChange={() => {}}
-                formatLabel={(s, e, t) => `${s}–${e} sur ${t}`}
-              />
-            </div>
-          </section>
-
-          {/* =================== CENTER PANEL (no border — neighbours own theirs) =================== */}
-          <section className={detailPanel}>
-            {/* Header */}
-            <div className={hrBottom}>
-              <PanelHeader variant="page">
-                <PanelHeader.Title>{task.title}</PanelHeader.Title>
-                <Badge variant="error" shape="pill">Action requise</Badge>
-                <PanelHeader.Spacer />
-                <Button variant="ghost" size="small" leftIcon={<X size={14} />}>
-                  Annuler la tâche
-                </Button>
-              </PanelHeader>
-            </div>
-
-            {/* Tab bar — border spans the content column */}
-            <div className={detailTabsWrap}>
-              <Tabs>
-                <TabItem active={activeTab === "echanges"}>
-                  Échanges avec votre agent
-                </TabItem>
-                <TabItem active={activeTab === "comms"}>Communications</TabItem>
-              </Tabs>
-            </div>
-
-            {activeTab === "echanges" ? (
-              /* Discussion bubbles */
-              <div className={detailDiscussionBlock}>
-                {task.discussion.map((m, i) => (
-                  <BubbleGroup key={i} side={m.side} author={m.author} date={m.date}>
-                    <Bubble>
-                      {m.body}
-                      {m.attachments && (
-                        <BubbleAttachmentGroup className={attachmentGroupSpacing}>
-                          {m.attachments.map((a) => (
-                            <BubbleAttachment key={a.name} name={a.name} href={a.href} />
-                          ))}
-                        </BubbleAttachmentGroup>
-                      )}
-                    </Bubble>
-                  </BubbleGroup>
-                ))}
-              </div>
-            ) : taskType === "NeedContacts" ? (
-              /* No contact = no communications history yet */
-              <div className={detailCommsBlock}>
-                <EmptyState
-                  icon={<Inbox size={48} />}
-                  title="Aucune communication"
-                  description="Les échanges avec ce compte apparaîtront ici dès qu'un contact sera ajouté."
-                />
-              </div>
-            ) : (
-              /* Comm log table */
-              <div className={detailCommsBlock}>
-                <Table
-                  density="compact"
-                  header={
-                    <>
-                      <span style={col.channel} />
-                      <span style={col.direction} />
-                      <span style={col.date}>
-                        <TableSortHeader
-                          active={sort.col === "date"}
-                          direction={sort.col === "date" ? sort.dir : "desc"}
-                        >
-                          Date
-                        </TableSortHeader>
-                      </span>
-                      <span style={col.subject}>
-                        <TableSortHeader
-                          active={sort.col === "subject"}
-                          direction={sort.col === "subject" ? sort.dir : "desc"}
-                        >
-                          Objet
-                        </TableSortHeader>
-                      </span>
-                      <span style={col.status}>
-                        <TableSortHeader
-                          active={sort.col === "status"}
-                          direction={sort.col === "status" ? sort.dir : "desc"}
-                        >
-                          Statut
-                        </TableSortHeader>
-                      </span>
-                    </>
-                  }
-                >
-                  {log.map((row) => (
-                    <TableRow key={row.id} accent={directionAccent[row.direction]}>
-                      <span style={col.channel} className={cellChannel}>
-                        <Mail size={14} />
-                      </span>
-                      <span
-                        style={col.direction}
-                        className={`${cellDirectionBase} ${cellDirectionColor[row.direction]}`}
-                      >
-                        {directionGlyph[row.direction]}
-                      </span>
-                      <span style={col.date} className={cellDate}>
-                        {row.date}
-                      </span>
-                      <span style={col.subject}>{row.subject}</span>
-                      <span style={col.status}>
-                        <Badge variant={statusVariant[row.status]}>
-                          {row.status}
-                        </Badge>
-                      </span>
-                    </TableRow>
-                  ))}
-                </Table>
-              </div>
-            )}
-
-            {/* Bottom slot — composer for NeedUserInput, contact form for NeedContacts */}
-            <div className={detailComposerBlock}>
-              {taskType === "NeedContacts" ? (
-                <Card variant="elevated" className={contactFormCard}>
-                  <FormField label="Nom complet">
-                    <Input placeholder="John Doe" />
-                  </FormField>
-                  <FormField label="Email">
-                    <Input type="email" placeholder="john.doe@example.com" />
-                  </FormField>
-                  <FormField label="Langue">
-                    <SelectMenu
-                      options={languageOptions}
-                      placeholder="Sélectionner une langue"
-                    />
-                  </FormField>
-                  <div className={contactFormActions}>
-                    <Button variant="primary">Ajouter le contact</Button>
+          <div className={listScroll}>
+            {tasks.map((t, i) => (
+              <ListItem
+                key={i}
+                as="button"
+                active={t.active}
+                title={t.company}
+                titleTrailing={<Badge variant="error" shape="pill">Action requise</Badge>}
+                preview={t.title}
+                meta={
+                  <div style={{ display: "flex", justifyContent: "space-between", width: "100%" }}>
+                    <span className={textListMetaAmount}>{t.amount}</span>
+                    <span className={textListMetaDate}>{t.date}</span>
                   </div>
-                </Card>
-              ) : (
-                <MessageComposer
-                  value={message}
-                  onChange={setMessage}
-                  placeholder="Écrire un message…"
-                  onSend={() => setMessage("")}
-                />
-              )}
-            </div>
-          </section>
-
-          {/* =================== RIGHT PANEL =================== */}
-          <aside className={contextPanel}>
-            <div className={contextBlock}>
-
-            {/* Account header — block with margin-bottom, NOT a fixed-height PanelHeader */}
-            <div>
-              <div className={accountName}>{task.account}</div>
-              <div className={accountActionRow}>
-                <Link href="#" size="sm" rightIcon={<ExternalLink size={12} />}>
-                  Voir le compte client
-                </Link>
-              </div>
-            </div>
-
-            {/* Encours */}
-            <div className={section}>
-              <SectionTitle>Encours</SectionTitle>
-              <AgedBalance
-                total="16 200 €"
-                buckets={[
-                  { tone: "warning", label: "30-60j", value: 20 },
-                  { tone: "danger", label: "60-90j", value: 80 },
-                ]}
+                }
               />
-            </div>
+            ))}
+          </div>
 
-            {/* Suivi */}
-            <div className={section}>
-              <SectionTitle>Suivi</SectionTitle>
-              <Card className={suiviCard}>
-                <div className={suiviStatusRow}>
-                  <StatusDot tone="success" />
-                  <span className={suiviLabel}>Confié à l'agent</span>
-                </div>
-                <div className={suiviSub}>
-                  <Badge variant="success" shape="pill">Relances en cours</Badge>
-                </div>
-                <div className={suiviActionsRow}>
-                  <Button variant="secondary" size="small" fullWidth>
-                    Suspendre les relances
-                  </Button>
-                </div>
-                <div className={suiviSecondaryRow}>
-                  <Link href="#" variant="tertiary" size="sm">
-                    Reprendre en interne
-                  </Link>
+          <div className={hrTop}>
+            <ListPagination
+              total={30}
+              pageSize={25}
+              page={1}
+              onChange={() => {}}
+              formatLabel={(s, e, t) => `${s}–${e} sur ${t}`}
+            />
+          </div>
+        </section>
+
+        {/* =================== CENTER PANEL (no border — neighbours own theirs) =================== */}
+        <section className={detailPanel}>
+          {/* Header */}
+          <div className={hrBottom}>
+            <PanelHeader variant="page">
+              <PanelHeader.Title>{task.title}</PanelHeader.Title>
+              <Badge variant="error" shape="pill">Action requise</Badge>
+              <PanelHeader.Spacer />
+              <Button variant="ghost" size="small" leftIcon={<X size={14} />}>
+                Annuler la tâche
+              </Button>
+            </PanelHeader>
+          </div>
+
+          {/* Tab bar — border spans the content column */}
+          <div className={detailTabsWrap}>
+            <Tabs>
+              <TabItem active={activeTab === "echanges"}>
+                Échanges avec votre agent
+              </TabItem>
+              <TabItem active={activeTab === "comms"}>Communications</TabItem>
+            </Tabs>
+          </div>
+
+          {activeTab === "echanges" ? (
+            /* Discussion bubbles */
+            (<div className={detailDiscussionBlock}>
+              {task.discussion.map((m, i) => (
+                <BubbleGroup key={i} side={m.side} author={m.author} date={m.date}>
+                  <Bubble>
+                    {m.body}
+                    {m.attachments && (
+                      <BubbleAttachmentGroup className={attachmentGroupSpacing}>
+                        {m.attachments.map((a) => (
+                          <BubbleAttachment key={a.name} name={a.name} href={a.href} />
+                        ))}
+                      </BubbleAttachmentGroup>
+                    )}
+                  </Bubble>
+                </BubbleGroup>
+              ))}
+            </div>)
+          ) : taskType === "NeedContacts" ? (
+            /* No contact = no communications history yet */
+            (<div className={detailCommsBlock}>
+              <EmptyState
+                icon={<Inbox size={48} />}
+                title="Aucune communication"
+                description="Les échanges avec ce compte apparaîtront ici dès qu'un contact sera ajouté."
+              />
+            </div>)
+          ) : (
+            /* Comm log table */
+            (<div className={detailCommsBlock}>
+              <Table
+                density="compact"
+                header={
+                  <>
+                    <span style={col.channel} />
+                    <span style={col.direction} />
+                    <span style={col.date}>
+                      <TableSortHeader
+                        active={sort.col === "date"}
+                        direction={sort.col === "date" ? sort.dir : "desc"}
+                      >
+                        Date
+                      </TableSortHeader>
+                    </span>
+                    <span style={col.subject}>
+                      <TableSortHeader
+                        active={sort.col === "subject"}
+                        direction={sort.col === "subject" ? sort.dir : "desc"}
+                      >
+                        Objet
+                      </TableSortHeader>
+                    </span>
+                    <span style={col.status}>
+                      <TableSortHeader
+                        active={sort.col === "status"}
+                        direction={sort.col === "status" ? sort.dir : "desc"}
+                      >
+                        Statut
+                      </TableSortHeader>
+                    </span>
+                  </>
+                }
+              >
+                {log.map((row) => (
+                  <TableRow key={row.id} accent={directionAccent[row.direction]}>
+                    <span style={col.channel} className={cellChannel}>
+                      <Mail size={14} />
+                    </span>
+                    <span
+                      style={col.direction}
+                      className={`${cellDirectionBase} ${cellDirectionColor[row.direction]}`}
+                    >
+                      {directionGlyph[row.direction]}
+                    </span>
+                    <span style={col.date} className={cellDate}>
+                      {row.date}
+                    </span>
+                    <span style={col.subject}>{row.subject}</span>
+                    <span style={col.status}>
+                      <Badge variant={statusVariant[row.status]}>
+                        {row.status}
+                      </Badge>
+                    </span>
+                  </TableRow>
+                ))}
+              </Table>
+            </div>)
+          )}
+
+          {/* Bottom slot — varies by task type */}
+          <div className={detailComposerBlock}>
+            {taskType === "NeedContacts" ? (
+              <Card variant="elevated" className={contactFormCard}>
+                <FormField label="Nom complet">
+                  <Input placeholder="John Doe" />
+                </FormField>
+                <FormField label="Email">
+                  <Input type="email" placeholder="john.doe@example.com" />
+                </FormField>
+                <FormField label="Langue">
+                  <SelectMenu
+                    options={languageOptions}
+                    placeholder="Sélectionner une langue"
+                  />
+                </FormField>
+                <div className={contactFormActions}>
+                  <Button variant="primary">Ajouter le contact</Button>
                 </div>
               </Card>
-            </div>
+            ) : taskType === "ApproveEligibility" ? (
+              <ActionBar align="end">
+                <Button variant="secondary">Refuser l'accès</Button>
+                <Button variant="primary">Autoriser l'accès</Button>
+              </ActionBar>
+            ) : (
+              <MessageComposer
+                value={message}
+                onChange={setMessage}
+                placeholder="Écrire un message…"
+                onSend={() => setMessage("")}
+              />
+            )}
+          </div>
+        </section>
 
-            {/* Contacts */}
-            <div className={section}>
-              <SectionTitle>Contacts</SectionTitle>
-              {taskType === "NeedContacts" ? (
-                <div className={emptyStateLine}>Aucun contact</div>
-              ) : (
-                <ContactCard
-                  name="Jaime Sánchez"
-                  email="jaime.sanchez@atida.com"
-                  language="ES"
-                  onClick={openEditContactModal}
-                />
-              )}
-            </div>
+        {/* =================== RIGHT PANEL =================== */}
+        <aside className={contextPanel}>
+          <div className={contextBlock}>
 
-            {/* Facturation */}
-            <div className={section}>
-              <SectionTitle>Facturation</SectionTitle>
-              <InvoiceCard
-                reference="INV-2066639"
-                status={{ label: "En retard", tone: "error" }}
-                amount="8 100 €"
-                dueDate={{ label: "Éch. 24 jan. 2026", tone: "danger" }}
-                meta="Payé : 0 €"
-              />
-              <InvoiceCard
-                reference="INV-2105835"
-                status={{ label: "Émise", tone: "info" }}
-                amount="5 200 €"
-                dueDate={{ label: "Éch. 8 fév. 2026", tone: "danger" }}
-                meta="Payé : 2 000 €"
-              />
-              <InvoiceCard
-                reference="SIB-SAS-ENT-5086"
-                status={{ label: "En retard", tone: "error" }}
-                amount="2 900 €"
-                dueDate={{ label: "Éch. 2 mars 2026", tone: "warning" }}
-                meta="Payé : 0 €"
-              />
+          {/* Account header — block with margin-bottom, NOT a fixed-height PanelHeader */}
+          <div>
+            <div className={accountName}>{task.account}</div>
+            <div className={accountActionRow}>
+              <Link href="#" size="sm" rightIcon={<ExternalLink size={12} />}>
+                Voir le compte client
+              </Link>
             </div>
-            </div>
-          </aside>
-        </div>
-        </div>
+          </div>
+
+          {/* Encours */}
+          <div className={section}>
+            <SectionTitle>Encours</SectionTitle>
+            <AgedBalance
+              total="16 200 €"
+              buckets={[
+                { tone: "warning", label: "30-60j", value: 20 },
+                { tone: "danger", label: "60-90j", value: 80 },
+              ]}
+            />
+          </div>
+
+          {/* Suivi */}
+          <div className={section}>
+            <SectionTitle>Suivi</SectionTitle>
+            <Card className={suiviCard}>
+              <div className={suiviStatusRow}>
+                <StatusDot tone="success" />
+                <span className={suiviLabel}>Confié à l'agent</span>
+              </div>
+              <div className={suiviSub}>
+                <Badge variant="success" shape="pill">Relances en cours</Badge>
+              </div>
+              <div className={suiviActionsRow}>
+                <Button variant="secondary" size="small" fullWidth>
+                  Suspendre les relances
+                </Button>
+              </div>
+              <div className={suiviSecondaryRow}>
+                <Link href="#" variant="tertiary" size="sm">
+                  Reprendre en interne
+                </Link>
+              </div>
+            </Card>
+          </div>
+
+          {/* Contacts */}
+          <div className={section}>
+            <SectionTitle>Contacts</SectionTitle>
+            {taskType === "NeedContacts" ? (
+              <div className={emptyStateLine}>Aucun contact</div>
+            ) : (
+              <ContactCard
+                name="Jaime Sánchez"
+                email="jaime.sanchez@atida.com"
+                language="ES"
+                onClick={openEditContactModal}
+              />
+            )}
+          </div>
+
+          {/* Facturation */}
+          <div className={section}>
+            <SectionTitle>Facturation</SectionTitle>
+            <InvoiceCard
+              reference="INV-2066639"
+              status={{ label: "En retard", tone: "error" }}
+              amount="8 100 €"
+              dueDate={{ label: "Éch. 24 jan. 2026", tone: "danger" }}
+              meta="Payé : 0 €"
+            />
+            <InvoiceCard
+              reference="INV-2105835"
+              status={{ label: "Émise", tone: "info" }}
+              amount="5 200 €"
+              dueDate={{ label: "Éch. 8 fév. 2026", tone: "danger" }}
+              meta="Payé : 2 000 €"
+            />
+            <InvoiceCard
+              reference="SIB-SAS-ENT-5086"
+              status={{ label: "En retard", tone: "error" }}
+              amount="2 900 €"
+              dueDate={{ label: "Éch. 2 mars 2026", tone: "warning" }}
+              meta="Payé : 0 €"
+            />
+          </div>
+          </div>
+        </aside>
       </div>
+      </div>
+    </div>
   );
 }

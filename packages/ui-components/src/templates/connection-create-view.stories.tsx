@@ -353,7 +353,15 @@ function ConfigurationStep({
         />
       </FormField>
 
-      <Banner variant="neutral">
+      <Banner
+        variant="neutral"
+        action={
+          <Toggle
+            checked={autoAssign}
+            aria-label="Confier les nouveaux comptes à l'agent"
+          />
+        }
+      >
         <div className={autoAssignBody}>
           <span className={autoAssignLabel}>
             Confier les nouveaux comptes à l'agent
@@ -364,10 +372,6 @@ function ConfigurationStep({
             interne tant qu'il n'est pas confié manuellement à l'agent.
           </p>
         </div>
-        <Toggle
-          checked={autoAssign}
-          aria-label="Confier les nouveaux comptes à l'agent"
-        />
       </Banner>
     </>
   );

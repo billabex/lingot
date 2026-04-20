@@ -58,7 +58,6 @@ export const Prefilled: Story = {
 /** Read-only state — used when the parent task is closed or cancelled. */
 export const Disabled: Story = {
   args: {
-    defaultValue: "Cette tâche a été clôturée — la conversation est en lecture seule.",
     disabled: true,
   },
 };

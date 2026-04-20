@@ -63,7 +63,7 @@ No changes to `Bubble` or `BubbleGroup` — pure composition.
 | Task type | Slot content | Lifecycle |
 |---|---|---|
 | `NeedUserInput` | `MessageComposer` | always visible; **disabled** when task is closed/cancelled |
-| `NeedContacts` | `FormField` × 3 (`Nom complet` `Input`, `Email` `Input`, `Langue` `SelectMenu`) + primary `Button` (`Ajouter le contact`) | spec describes the lifecycle for production reference; in this sprint **only the initial state is staged** (per §3 — post-submit stories deferred). Future: hidden after submit; submission renders as a user-side `Bubble` ("Contact ajouté: Jane Doe — jane@…fr"), agent ack is the next agent-side `Bubble`. Slot stays empty thereafter. |
+| `NeedContacts` | `FormField` × 3 (`Nom complet` `Input`, `Email` `Input`, `Langue` `SelectMenu`) + primary `Button` (`Ajouter le contact`), wrapped in `<Card variant="elevated">` to match the `MessageComposer`'s elevated-surface treatment | spec describes the lifecycle for production reference; in this sprint **only the initial state is staged** (per §3 — post-submit stories deferred). Future: hidden after submit; submission renders as a user-side `Bubble` ("Contact ajouté: Jane Doe — jane@…fr"), agent ack is the next agent-side `Bubble`. Slot stays empty thereafter. |
 | `ApproveEligibility` | row of two `Button`s — `Refuser l'accès` (`variant="secondary"`) on the left, `Autoriser l'accès` (`variant="primary"`) on the right (primary-action-right matches the `account-create-view` and `connection-create-view` wizard footers — same Lingot convention) | spec describes the lifecycle for production reference; in this sprint **only the initial state is staged** (per §3). Future: hidden after click; choice renders as a user-side `Bubble`, agent ack follows. Slot stays empty thereafter. |
 
 The slot's parent (`detailComposerBlock`) keeps its current padding tokens; only its child swaps.
@@ -75,7 +75,7 @@ The slot's parent (`detailComposerBlock`) keeps its current padding tokens; only
 | `NeedUserInput` | Échanges | `MessageComposer` (active) | renamed from `Default`. Existing discussion data preserved. |
 | `NeedUserInputCommunications` | Comms | — | renamed from `WithCommunicationsTab`. |
 | `NeedContacts` | Échanges | Form (initial state) | new task fixture: `Ajouter un nouveau contact pour OPCOMMERCE`. |
-| `NeedContactsCommunications` | Comms | — | empty-state comm log (no email = no comms history). |
+| `NeedContactsCommunications` | Comms | — | renders `<EmptyState>` (with `Inbox` icon) instead of the comm-log table — no email = no comms history. |
 | `ApproveEligibility` | Échanges | Action bar (initial state) | new task fixture: `Autoriser l'accès de Maréva Yem aux informations du compte`. |
 | `ApproveEligibilityCommunications` | Comms | — | comm log shows the inbound message that triggered the task. |
 
@@ -96,6 +96,8 @@ The empty Contacts state for `NeedContacts` is a single muted text line — no D
 Inventory of every DS primitive touched by the new variants — all already ship:
 
 - `Bubble`, `BubbleGroup`, `BubbleAttachment`, `BubbleAttachmentGroup`
+- `Card` (`variant="elevated"` — wraps the `NeedContacts` form to match the `MessageComposer` surface)
+- `EmptyState` (used in the Comms tab when there's no contact yet)
 - `FormField`, `Input`, `SelectMenu`
 - `Button` (`primary` and `secondary`)
 - `MessageComposer` (gains a `disabled` prop usage — verify the prop already exists; if not, this is the **only** required DS change)

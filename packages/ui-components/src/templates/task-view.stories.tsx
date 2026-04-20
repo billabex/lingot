@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 import { css } from "styled-system/css";
-import { X, CheckCircle2, ExternalLink, Mail, Users } from "lucide-react";
+import { X, CheckCircle2, ExternalLink, Inbox, Mail, Users } from "lucide-react";
 import { AgedBalance } from "../components/aged-balance";
 import { Badge } from "../components/badge";
 import { Bubble, BubbleAttachment, BubbleAttachmentGroup, BubbleGroup } from "../components/bubble";
@@ -9,6 +9,7 @@ import { Button } from "../components/button";
 import { Card } from "../components/card";
 import { Chip, ChipGroup } from "../components/chip";
 import { ContactCard } from "../components/contact-card";
+import { EmptyState } from "../components/empty-state";
 import { FormField } from "../components/form-field";
 import { Link } from "../components/link";
 import { Input } from "../components/input";
@@ -395,7 +396,8 @@ const suiviSecondaryRow = css({
 
 const attachmentGroupSpacing = css({ marginTop: "md" });
 
-const contactFormStack = css({
+const contactFormCard = css({
+  padding: "xl",
   display: "flex",
   flexDirection: "column",
   gap: "md",
@@ -586,6 +588,15 @@ function TaskViewInner({
                   </BubbleGroup>
                 ))}
               </div>
+            ) : taskType === "NeedContacts" ? (
+              /* No contact = no communications history yet */
+              <div className={detailCommsBlock}>
+                <EmptyState
+                  icon={<Inbox size={48} />}
+                  title="Aucune communication"
+                  description="Les échanges avec ce compte apparaîtront ici dès qu'un contact sera ajouté."
+                />
+              </div>
             ) : (
               /* Comm log table */
               <div className={detailCommsBlock}>
@@ -651,7 +662,7 @@ function TaskViewInner({
             {/* Bottom slot — composer for NeedUserInput, contact form for NeedContacts */}
             <div className={detailComposerBlock}>
               {taskType === "NeedContacts" ? (
-                <div className={contactFormStack}>
+                <Card variant="elevated" className={contactFormCard}>
                   <FormField label="Nom complet">
                     <Input placeholder="John Doe" />
                   </FormField>
@@ -667,7 +678,7 @@ function TaskViewInner({
                   <div className={contactFormActions}>
                     <Button variant="primary">Ajouter le contact</Button>
                   </div>
-                </div>
+                </Card>
               ) : (
                 <MessageComposer
                   value={message}

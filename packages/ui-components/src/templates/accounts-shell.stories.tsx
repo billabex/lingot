@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { CheckCircle2, Mail, Users } from "lucide-react";
+import { CheckCircle2, MessageCircleMore, NotebookTabs } from "lucide-react";
 import { css } from "styled-system/css";
 import { NavItem } from "../components/nav-item";
 import { Sidebar } from "../components/sidebar";
@@ -16,10 +16,10 @@ function AccountsShell({ variant }: { variant: Variant }) {
             <CheckCircle2 size={16} />
           </NavItem>
           <NavItem variant="icon" aria-label="Communications">
-            <Mail size={16} />
+            <MessageCircleMore size={16} />
           </NavItem>
           <NavItem variant="icon" active aria-label="Comptes clients">
-            <Users size={16} />
+            <NotebookTabs size={16} />
           </NavItem>
         </Sidebar>
       </div>

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { CheckCircle2, Mail, Users } from "lucide-react";
+import { CheckCircle2, MessageCircleMore, NotebookTabs } from "lucide-react";
 import { css } from "styled-system/css";
 import { NavItem } from "../components/nav-item";
 import { NotificationBadge } from "../components/notification-badge";
@@ -16,10 +16,10 @@ function TasksShell() {
             <NotificationBadge count={25} />
           </NavItem>
           <NavItem variant="icon" aria-label="Communications">
-            <Mail size={16} />
+            <MessageCircleMore size={16} />
           </NavItem>
           <NavItem variant="icon" aria-label="Comptes clients">
-            <Users size={16} />
+            <NotebookTabs size={16} />
           </NavItem>
         </Sidebar>
       </div>

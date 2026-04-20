@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { css } from "styled-system/css";
-import { CheckCircle2, Mail, Users, X } from "lucide-react";
+import { CheckCircle2, MessageCircleMore, NotebookTabs, X } from "lucide-react";
 import { Avatar } from "../components/avatar";
 import { Banner } from "../components/banner";
 import { Breadcrumb } from "../components/breadcrumb";
@@ -483,10 +483,10 @@ function ConnectionCreateViewTemplate({
             <CheckCircle2 size={16} />
           </NavItem>
           <NavItem variant="icon" aria-label="Communications">
-            <Mail size={16} />
+            <MessageCircleMore size={16} />
           </NavItem>
           <NavItem variant="icon" aria-label="Comptes clients">
-            <Users size={16} />
+            <NotebookTabs size={16} />
           </NavItem>
         </Sidebar>
       </div>

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 import { css } from "styled-system/css";
-import { X, CheckCircle2, ExternalLink, Inbox, Mail, Users } from "lucide-react";
+import { X, CheckCircle2, ExternalLink, Inbox, Mail, MessageCircleMore, NotebookTabs } from "lucide-react";
 import { ActionBar } from "../components/action-bar";
 import { AgedBalance } from "../components/aged-balance";
 import { Badge } from "../components/badge";
@@ -528,10 +528,10 @@ function TaskViewInner({
           <NotificationBadge count={25} />
         </NavItem>
         <NavItem variant="icon" aria-label="Communications">
-          <Mail size={16} />
+          <MessageCircleMore size={16} />
         </NavItem>
         <NavItem variant="icon" aria-label="Comptes clients">
-          <Users size={16} />
+          <NotebookTabs size={16} />
         </NavItem>
       </Sidebar>
       </div>

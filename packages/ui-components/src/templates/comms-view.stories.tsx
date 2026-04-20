@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { css } from "styled-system/css";
-import { CheckCircle2, ExternalLink, Mail, Users } from "lucide-react";
+import { CheckCircle2, ExternalLink, Mail, MessageCircleMore, NotebookTabs } from "lucide-react";
 import { Badge } from "../components/badge";
 import { Input } from "../components/input";
 import { Link } from "../components/link";
@@ -360,10 +360,10 @@ function CommsViewInner({ expandedIds }: { expandedIds: string[] }) {
             <NotificationBadge count={25} />
           </NavItem>
           <NavItem variant="icon" active aria-label="Communications">
-            <Mail size={16} />
+            <MessageCircleMore size={16} />
           </NavItem>
           <NavItem variant="icon" aria-label="Comptes clients">
-            <Users size={16} />
+            <NotebookTabs size={16} />
           </NavItem>
         </Sidebar>
       </div>

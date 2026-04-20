@@ -3,10 +3,10 @@ import { css } from "styled-system/css";
 import {
   CheckCircle2,
   ChevronRight,
-  Mail,
+  MessageCircleMore,
+  NotebookTabs,
   Pencil,
   Plus,
-  Users,
 } from "lucide-react";
 import { AgedBalance } from "../components/aged-balance";
 import { Badge } from "../components/badge";
@@ -260,10 +260,10 @@ function AccountDetailViewTemplate() {
             <CheckCircle2 size={16} />
           </NavItem>
           <NavItem variant="icon" aria-label="Communications">
-            <Mail size={16} />
+            <MessageCircleMore size={16} />
           </NavItem>
           <NavItem variant="icon" active aria-label="Comptes clients">
-            <Users size={16} />
+            <NotebookTabs size={16} />
           </NavItem>
         </Sidebar>
       </div>

@@ -3,11 +3,12 @@ import { css } from "styled-system/css";
 import {
   CheckCircle2,
   Download,
-  Mail,
   Maximize,
   Menu,
+  MessageCircleMore,
   Minus,
   MoreVertical,
+  NotebookTabs,
   Paperclip,
   PenTool,
   Plus,
@@ -16,7 +17,6 @@ import {
   RotateCw,
   Undo2,
   UploadCloud,
-  Users,
   X,
 } from "lucide-react";
 import { Breadcrumb } from "../components/breadcrumb";
@@ -825,10 +825,10 @@ function AccountCreateViewTemplate({
             <CheckCircle2 size={16} />
           </NavItem>
           <NavItem variant="icon" aria-label="Communications">
-            <Mail size={16} />
+            <MessageCircleMore size={16} />
           </NavItem>
           <NavItem variant="icon" active aria-label="Comptes clients">
-            <Users size={16} />
+            <NotebookTabs size={16} />
           </NavItem>
         </Sidebar>
       </div>

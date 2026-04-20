@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { css } from "styled-system/css";
-import { CheckCircle2, Mail, Pause, Plus, Users } from "lucide-react";
+import { CheckCircle2, MessageCircleMore, NotebookTabs, Pause, Plus } from "lucide-react";
 import { Badge } from "../components/badge";
 import { BulkActionBar } from "../components/bulk-action-bar";
 import { Button } from "../components/button";
@@ -324,10 +324,10 @@ function AccountsViewInner({ selectedIds }: { selectedIds: string[] }) {
             <CheckCircle2 size={16} />
           </NavItem>
           <NavItem variant="icon" aria-label="Communications">
-            <Mail size={16} />
+            <MessageCircleMore size={16} />
           </NavItem>
           <NavItem variant="icon" active aria-label="Comptes clients">
-            <Users size={16} />
+            <NotebookTabs size={16} />
           </NavItem>
         </Sidebar>
       </div>

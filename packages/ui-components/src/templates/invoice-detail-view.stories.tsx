@@ -3,10 +3,10 @@ import { css } from "styled-system/css";
 import {
   CheckCircle2,
   Download,
-  Mail,
+  MessageCircleMore,
+  NotebookTabs,
   Pencil,
   Trash2,
-  Users,
 } from "lucide-react";
 import { Badge } from "../components/badge";
 import { Button } from "../components/button";
@@ -95,10 +95,10 @@ function InvoiceDetailViewTemplate({
             <CheckCircle2 size={16} />
           </NavItem>
           <NavItem variant="icon" aria-label="Communications">
-            <Mail size={16} />
+            <MessageCircleMore size={16} />
           </NavItem>
           <NavItem variant="icon" active aria-label="Comptes clients">
-            <Users size={16} />
+            <NotebookTabs size={16} />
           </NavItem>
         </Sidebar>
       </div>

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { css } from "styled-system/css";
-import { CheckCircle2, Mail, Trash2, Users, X } from "lucide-react";
+import { CheckCircle2, MessageCircleMore, NotebookTabs, Trash2, X } from "lucide-react";
 import { Badge } from "../components/badge";
 import { Button } from "../components/button";
 import { FormField } from "../components/form-field";
@@ -123,10 +123,10 @@ function SettingsViewTemplate({
             <CheckCircle2 size={16} />
           </NavItem>
           <NavItem variant="icon" aria-label="Communications">
-            <Mail size={16} />
+            <MessageCircleMore size={16} />
           </NavItem>
           <NavItem variant="icon" aria-label="Comptes clients">
-            <Users size={16} />
+            <NotebookTabs size={16} />
           </NavItem>
         </Sidebar>
       </div>

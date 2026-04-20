@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { css } from "styled-system/css";
 import { CheckCircle2, MessageCircleMore, NotebookTabs } from "lucide-react";
-import { Badge } from "../components/badge";
 import { Banner } from "../components/banner";
 import { Button } from "../components/button";
 import { NavItem } from "../components/nav-item";
@@ -10,15 +9,15 @@ import { SectionHeader } from "../components/section-header";
 import { SettingsRow } from "../components/settings-row";
 import { Sidebar } from "../components/sidebar";
 import { StatCard, StatCardGroup } from "../components/stat-card";
+import { connectionStatusBadge, type ConnectionStatus } from "./_connection-status";
 import { OAuthPermissionsPanel } from "./_permissions";
 import { logoTile, shellDoc, shellDocInner, shellMain, shellPage, shellRail } from "./_shell";
 
 type Connector = "pennylane" | "zoho";
-type Status = "active" | "error";
 
 interface ConnectionDetailViewTemplateProps {
   connector?: Connector;
-  status?: Status;
+  status?: ConnectionStatus;
 }
 
 const meta = {
@@ -28,7 +27,7 @@ const meta = {
   tags: [],
   argTypes: {
     connector: { control: "radio", options: ["pennylane", "zoho"] },
-    status: { control: "radio", options: ["active", "error"] },
+    status: { control: "radio", options: ["active", "error", "incomplete"] },
   },
   args: { connector: "pennylane", status: "active" },
 } satisfies Meta<typeof ConnectionDetailViewTemplate>;
@@ -44,6 +43,11 @@ export const ZohoActive: Story = { args: { connector: "zoho", status: "active" }
 /** Sync failure — error banner at top; Statut stat flips to destructive. */
 export const SyncError: Story = {
   args: { connector: "pennylane", status: "error" },
+};
+
+/** Activation incomplete — warning banner prompts to finalize the OAuth handshake. */
+export const CompleteActivation: Story = {
+  args: { connector: "pennylane", status: "incomplete" },
 };
 
 /* ---------- layout ---------- */
@@ -64,12 +68,6 @@ function ConnectionDetailViewTemplate({
   status = "active",
 }: ConnectionDetailViewTemplateProps) {
   const name = CONNECTOR_NAMES[connector];
-  const statusBadge =
-    status === "active" ? (
-      <Badge variant="success">Active</Badge>
-    ) : (
-      <Badge variant="error">Erreur</Badge>
-    );
 
   return (
     <div className={shellPage}>
@@ -125,9 +123,24 @@ function ConnectionDetailViewTemplate({
               </Banner>
             )}
 
+            {status === "incomplete" && (
+              <Banner
+                variant="warning"
+                action={
+                  <Button variant="primary" size="small">
+                    Finaliser l'activation
+                  </Button>
+                }
+              >
+                L'activation de cette connexion n'a pas été terminée.
+                Finalisez l'autorisation avec {name} pour démarrer la
+                synchronisation des comptes et factures.
+              </Banner>
+            )}
+
             <div className={statGroupWrap}>
               <StatCardGroup>
-                <StatCard label="Statut">{statusBadge}</StatCard>
+                <StatCard label="Statut">{connectionStatusBadge(status)}</StatCard>
                 <StatCard label="Connecteur">{name}</StatCard>
                 <StatCard label="Créée le">16 mars 2026</StatCard>
               </StatCardGroup>

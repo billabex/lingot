@@ -59,6 +59,7 @@ The first agent bubble for every task variant carries the metadata that previous
 - `author` + `date` use existing `BubbleGroup` props (no API change).
 - The account name is rendered as `<Chip variant="static">` above the body. This is the only "summary" element inside the bubble — Statut already lives in `PanelHeader`'s `Badge`; account is the missing piece.
 - `Body` is the existing paragraph, no Markdown changes required.
+- Spacing between the `ChipGroup` and the body is provided by `Bubble`'s built-in `flex-direction: column; gap: sm` (see `bubble.recipe.ts`). No additional spacing token needed.
 
 No changes to `Bubble`, `BubbleGroup`, or `Chip` — pure composition.
 
@@ -67,8 +68,8 @@ No changes to `Bubble`, `BubbleGroup`, or `Chip` — pure composition.
 | Task type | Slot content | Lifecycle |
 |---|---|---|
 | `NeedUserInput` | `MessageComposer` | always visible; **disabled** when task is closed/cancelled |
-| `NeedContacts` | `FormField` × 3 (`Nom complet` `Input`, `Email` `Input`, `Langue` `SelectMenu`) + primary `Button` (`Ajouter le contact`) | hidden after submit; submission renders as a user-side `Bubble` (e.g. "Contact ajouté: Jane Doe — jane@…fr"), agent ack is the next agent-side `Bubble`. Slot stays empty thereafter. |
-| `ApproveEligibility` | row of two `Button`s — `Refuser l'accès` (`variant="secondary"`) + `Autoriser l'accès` (`variant="primary"`) | hidden after click; choice renders as a user-side `Bubble`, agent ack follows. Slot stays empty thereafter. |
+| `NeedContacts` | `FormField` × 3 (`Nom complet` `Input`, `Email` `Input`, `Langue` `SelectMenu`) + primary `Button` (`Ajouter le contact`) | spec describes the lifecycle for production reference; in this sprint **only the initial state is staged** (per §3 — post-submit stories deferred). Future: hidden after submit; submission renders as a user-side `Bubble` ("Contact ajouté: Jane Doe — jane@…fr"), agent ack is the next agent-side `Bubble`. Slot stays empty thereafter. |
+| `ApproveEligibility` | row of two `Button`s — `Refuser l'accès` (`variant="secondary"`) on the left, `Autoriser l'accès` (`variant="primary"`) on the right (primary-action-right matches the `account-create-view` and `connection-create-view` wizard footers — same Lingot convention) | spec describes the lifecycle for production reference; in this sprint **only the initial state is staged** (per §3). Future: hidden after click; choice renders as a user-side `Bubble`, agent ack follows. Slot stays empty thereafter. |
 
 The slot's parent (`detailComposerBlock`) keeps its current padding tokens; only its child swaps.
 
@@ -83,7 +84,7 @@ The slot's parent (`detailComposerBlock`) keeps its current padding tokens; only
 | `ApproveEligibility` | Échanges | Action bar (initial state) | new task fixture: `Autoriser l'accès de Maréva Yem aux informations du compte`. |
 | `ApproveEligibilityCommunications` | Comms | — | comm log shows the inbound message that triggered the task. |
 
-Stories share the same `TaskViewTemplate` component; the variant is selected via a single `taskType: "NeedUserInput" | "NeedContacts" | "ApproveEligibility"` story arg, alongside the existing `activeTab` arg.
+Stories share the same `TaskViewTemplate` component; the variant is selected via a single `taskType: "NeedUserInput" | "NeedContacts" | "ApproveEligibility"` story arg, alongside the existing `activeTab` arg. **6 discrete stories** (not arg-driven toggles in the Storybook controls) — matches the existing convention of pre-baked snapshot stories per UX state in this repo (e.g. `settings-view`'s `Members` + `MembersInviteModalOpen`, `accounts-view`'s `Default` + selection variants).
 
 ## 8. Right context panel behavior
 
@@ -93,7 +94,7 @@ Stories share the same `TaskViewTemplate` component; the variant is selected via
 | `NeedContacts` | populated | populated | **empty state** (no contact yet — that's the task) |
 | `ApproveEligibility` | populated | populated | populated |
 
-The empty Contacts state for `NeedContacts` reuses the existing pattern in the right panel (no new component needed); copy: "Aucun contact" with subdued styling.
+The empty Contacts state for `NeedContacts` is a single muted text line — no DS component exists for this. Render as a `<div>` with the existing `textListMetaDate` (or equivalent `text.tertiary` `body.sm`) helper class already in `task-view.stories.tsx`. Copy: `Aucun contact`.
 
 ## 9. DS component impact
 

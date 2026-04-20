@@ -9,6 +9,7 @@ import { Button } from "../components/button";
 import { Card } from "../components/card";
 import { Chip, ChipGroup } from "../components/chip";
 import { ContactCard } from "../components/contact-card";
+import { FormField } from "../components/form-field";
 import { Link } from "../components/link";
 import { Input } from "../components/input";
 import { InvoiceCard } from "../components/invoice-card";
@@ -17,6 +18,7 @@ import { ListPagination } from "../components/list-pagination";
 import { MessageComposer } from "../components/message-composer";
 import { PanelHeader } from "../components/panel-header";
 import { SectionTitle } from "../components/section-title";
+import { SelectMenu } from "../components/select-menu";
 import { StatusDot } from "../components/status-dot";
 import { TabItem, Tabs } from "../components/tab-item";
 import { Table } from "../components/table/table";
@@ -31,9 +33,16 @@ import { NavItem } from "../components/nav-item";
 import { NotificationBadge } from "../components/notification-badge";
 
 type TaskTab = "echanges" | "comms";
+type TaskType = "NeedUserInput" | "NeedContacts";
 
-function TaskViewTemplate({ activeTab = "echanges" }: { activeTab?: TaskTab }) {
-  return <TaskViewInner activeTab={activeTab} />;
+function TaskViewTemplate({
+  activeTab = "echanges",
+  taskType = "NeedUserInput",
+}: {
+  activeTab?: TaskTab;
+  taskType?: TaskType;
+}) {
+  return <TaskViewInner activeTab={activeTab} taskType={taskType} />;
 }
 
 const meta = {
@@ -41,6 +50,13 @@ const meta = {
   component: TaskViewTemplate,
   parameters: { layout: "fullscreen" },
   tags: [],
+  argTypes: {
+    activeTab: { control: "radio", options: ["echanges", "comms"] satisfies TaskTab[] },
+    taskType: {
+      control: "radio",
+      options: ["NeedUserInput", "NeedContacts"] satisfies TaskType[],
+    },
+  },
 } satisfies Meta<typeof TaskViewTemplate>;
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -50,6 +66,15 @@ export const NeedUserInput: Story = {};
 /** Communications tab active — center panel shows the comm log table. */
 export const NeedUserInputCommunications: Story = {
   args: { activeTab: "comms" },
+};
+
+/** NeedContacts task — bottom slot shows the contact form; right-panel Contacts is empty. */
+export const NeedContacts: Story = {
+  args: { taskType: "NeedContacts" },
+};
+
+export const NeedContactsCommunications: Story = {
+  args: { taskType: "NeedContacts", activeTab: "comms" },
 };
 
 const tasks = [
@@ -103,6 +128,39 @@ const discussion: DiscussionMessage[] = [
     date: "1 avr. 10:10",
     body: "Envoyez directement, c'est bon.",
   },
+];
+
+const needContactsDiscussion: DiscussionMessage[] = [
+  {
+    side: "agent",
+    author: "Gabriel ANTON",
+    date: "19/04/2026 04:40",
+    body:
+      "Je constate qu'aucun contact n'est enregistré sur le compte OPCOMMERCE, ce qui empêche le lancement du suivi de paiement. Sans adresse e-mail valide, nous ne pouvons pas poursuivre la procédure. Merci d'ajouter un contact valide via le formulaire ci-dessous afin que nous puissions démarrer le processus.",
+  },
+];
+
+const TASK_FIXTURES: Record<TaskType, {
+  title: string;
+  account: string;
+  discussion: DiscussionMessage[];
+}> = {
+  NeedUserInput: {
+    title: "Examiner le refus de Jaime",
+    account: "DOSFARMASHOP ONLINE S.L.",
+    discussion,
+  },
+  NeedContacts: {
+    title: "Ajouter un nouveau contact pour OPCOMMERCE",
+    account: "OPCOMMERCE",
+    discussion: needContactsDiscussion,
+  },
+};
+
+const languageOptions = [
+  { value: "fr", label: "Français" },
+  { value: "en", label: "English" },
+  { value: "es", label: "Español" },
 ];
 
 type LogDirection = "in" | "out" | "planned";
@@ -337,6 +395,24 @@ const suiviSecondaryRow = css({
 
 const attachmentGroupSpacing = css({ marginTop: "md" });
 
+const contactFormStack = css({
+  display: "flex",
+  flexDirection: "column",
+  gap: "md",
+});
+
+const contactFormActions = css({
+  display: "flex",
+  justifyContent: "flex-end",
+  marginTop: "lg",
+});
+
+const emptyStateLine = css({
+  fontSize: "body.sm",
+  lineHeight: "body.sm",
+  color: "text.tertiary",
+});
+
 /* ---------- comms tab — table column layout (mirrors Comms View) ---------- */
 
 const detailCommsBlock = css({
@@ -371,8 +447,15 @@ const cellDate = css({
   color: "text.secondary",
 });
 
-function TaskViewInner({ activeTab }: { activeTab: TaskTab }) {
+function TaskViewInner({
+  activeTab,
+  taskType,
+}: {
+  activeTab: TaskTab;
+  taskType: TaskType;
+}) {
   const [message, setMessage] = useState("");
+  const task = TASK_FIXTURES[taskType];
   const sort: { col: "date" | "subject" | "status"; dir: TableSortDirection } = {
     col: "date",
     dir: "desc",
@@ -466,7 +549,7 @@ function TaskViewInner({ activeTab }: { activeTab: TaskTab }) {
             {/* Header */}
             <div className={hrBottom}>
               <PanelHeader variant="page">
-                <PanelHeader.Title>Examiner le refus de Jaime</PanelHeader.Title>
+                <PanelHeader.Title>{task.title}</PanelHeader.Title>
                 <Badge variant="error" shape="pill">Action requise</Badge>
                 <PanelHeader.Spacer />
                 <Button variant="ghost" size="small" leftIcon={<X size={14} />}>
@@ -488,7 +571,7 @@ function TaskViewInner({ activeTab }: { activeTab: TaskTab }) {
             {activeTab === "echanges" ? (
               /* Discussion bubbles */
               <div className={detailDiscussionBlock}>
-                {discussion.map((m, i) => (
+                {task.discussion.map((m, i) => (
                   <BubbleGroup key={i} side={m.side} author={m.author} date={m.date}>
                     <Bubble>
                       {m.body}
@@ -565,14 +648,34 @@ function TaskViewInner({ activeTab }: { activeTab: TaskTab }) {
               </div>
             )}
 
-            {/* Composer */}
+            {/* Bottom slot — composer for NeedUserInput, contact form for NeedContacts */}
             <div className={detailComposerBlock}>
-              <MessageComposer
-                value={message}
-                onChange={setMessage}
-                placeholder="Écrire un message…"
-                onSend={() => setMessage("")}
-              />
+              {taskType === "NeedContacts" ? (
+                <div className={contactFormStack}>
+                  <FormField label="Nom complet">
+                    <Input placeholder="John Doe" />
+                  </FormField>
+                  <FormField label="Email">
+                    <Input type="email" placeholder="john.doe@example.com" />
+                  </FormField>
+                  <FormField label="Langue">
+                    <SelectMenu
+                      options={languageOptions}
+                      placeholder="Sélectionner une langue"
+                    />
+                  </FormField>
+                  <div className={contactFormActions}>
+                    <Button variant="primary">Ajouter le contact</Button>
+                  </div>
+                </div>
+              ) : (
+                <MessageComposer
+                  value={message}
+                  onChange={setMessage}
+                  placeholder="Écrire un message…"
+                  onSend={() => setMessage("")}
+                />
+              )}
             </div>
           </section>
 
@@ -582,7 +685,7 @@ function TaskViewInner({ activeTab }: { activeTab: TaskTab }) {
 
             {/* Account header — block with margin-bottom, NOT a fixed-height PanelHeader */}
             <div>
-              <div className={accountName}>DOSFARMASHOP ONLINE S.L.</div>
+              <div className={accountName}>{task.account}</div>
               <div className={accountActionRow}>
                 <Link href="#" size="sm" rightIcon={<ExternalLink size={12} />}>
                   Voir le compte client
@@ -629,12 +732,16 @@ function TaskViewInner({ activeTab }: { activeTab: TaskTab }) {
             {/* Contacts */}
             <div className={section}>
               <SectionTitle>Contacts</SectionTitle>
-              <ContactCard
-                name="Jaime Sánchez"
-                email="jaime.sanchez@atida.com"
-                language="ES"
-                onClick={openEditContactModal}
-              />
+              {taskType === "NeedContacts" ? (
+                <div className={emptyStateLine}>Aucun contact</div>
+              ) : (
+                <ContactCard
+                  name="Jaime Sánchez"
+                  email="jaime.sanchez@atida.com"
+                  language="ES"
+                  onClick={openEditContactModal}
+                />
+              )}
             </div>
 
             {/* Facturation */}

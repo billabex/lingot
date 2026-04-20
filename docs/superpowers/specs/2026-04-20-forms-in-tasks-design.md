@@ -19,7 +19,7 @@ We need to surface the latter two as Storybook variants of the same `task-view` 
 
 ## 2. Goal
 
-Add `NeedContacts` and `ApproveEligibility` variants to `task-view.stories.tsx` while keeping the layout, the tabs, and the right context panel **structurally identical** across all task types. Only the bottom slot and the first bubble's content vary.
+Add `NeedContacts` and `ApproveEligibility` variants to `task-view.stories.tsx` while keeping the layout, the tabs, and the right context panel **structurally identical** across all task types. Only the bottom slot and the per-task brief content (which lives as the first agent bubble's body) vary.
 
 ## 3. Out of scope
 
@@ -35,7 +35,7 @@ Add `NeedContacts` and `ApproveEligibility` variants to `task-view.stories.tsx` 
 | `PanelHeader` | `Title` + status `Badge` + `Spacer` + `Annuler la tâche` ghost `Button` | **unchanged** |
 | `detailSummaryBlock` (account meta line + body paragraph between header and tabs) | present | **removed** — content folds into the first agent bubble |
 | `Tabs` (Échanges \| Communications) | present | **unchanged** |
-| Discussion area (Échanges) | bubble thread | bubble thread; **first bubble enriched** (see §5) |
+| Discussion area (Échanges) | bubble thread | bubble thread; first bubble carries the agent's task brief (see §5) |
 | Bottom slot | `MessageComposer` always | polymorphic per task type (see §6) |
 | Right context panel | full content (account / invoices / contacts) | **unchanged** for all task types — except for `NeedContacts`, the Contacts section renders empty |
 
@@ -43,25 +43,20 @@ The current `detailSummaryBlock` styling helper becomes dead code and is removed
 
 ## 5. First bubble — the "task brief"
 
-The first agent bubble for every task variant carries the metadata that previously lived in `detailSummaryBlock`:
+The first agent bubble for every task variant carries the brief that previously lived in `detailSummaryBlock` — rendered as a regular `Bubble` with no enrichment:
 
 ```tsx
 <BubbleGroup side="agent" author={agentName} date={timestamp}>
-  <Bubble>
-    <ChipGroup>
-      <Chip variant="static">{accountName}</Chip>
-    </ChipGroup>
-    {bodyText}
-  </Bubble>
+  <Bubble>{briefText}</Bubble>
 </BubbleGroup>
 ```
 
 - `author` + `date` use existing `BubbleGroup` props (no API change).
-- The account name is rendered as `<Chip variant="static">` above the body. This is the only "summary" element inside the bubble — Statut already lives in `PanelHeader`'s `Badge`; account is the missing piece.
-- `Body` is the existing paragraph, no Markdown changes required.
-- Spacing between the `ChipGroup` and the body is provided by `Bubble`'s built-in `flex-direction: column; gap: sm` (see `bubble.recipe.ts`). No additional spacing token needed.
+- Account context is **deliberately not** repeated inside the bubble — the account name is already visible in the tasks list (left panel) and in the right context panel header. Adding a chip in the bubble would be triple-rendered metadata.
+- Status is already in `PanelHeader`'s `Badge`.
+- The bubble loop stays uniform — no `i === 0` special case.
 
-No changes to `Bubble`, `BubbleGroup`, or `Chip` — pure composition.
+No changes to `Bubble` or `BubbleGroup` — pure composition.
 
 ## 6. Bottom slot — variants
 
@@ -101,7 +96,6 @@ The empty Contacts state for `NeedContacts` is a single muted text line — no D
 Inventory of every DS primitive touched by the new variants — all already ship:
 
 - `Bubble`, `BubbleGroup`, `BubbleAttachment`, `BubbleAttachmentGroup`
-- `Chip`, `ChipGroup` (`variant="static"`)
 - `FormField`, `Input`, `SelectMenu`
 - `Button` (`primary` and `secondary`)
 - `MessageComposer` (gains a `disabled` prop usage — verify the prop already exists; if not, this is the **only** required DS change)

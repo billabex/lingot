@@ -242,6 +242,7 @@ const listScroll = css({
 });
 
 const detailTabsWrap = css({
+  paddingTop: "xl",
   paddingX: "2xl",
   flexShrink: 0,
 });
@@ -490,11 +491,6 @@ function TaskViewInner({ activeTab }: { activeTab: TaskTab }) {
                 {discussion.map((m, i) => (
                   <BubbleGroup key={i} side={m.side} author={m.author} date={m.date}>
                     <Bubble>
-                      {i === 0 && (
-                        <ChipGroup>
-                          <Chip variant="static">DOSFARMASHOP ONLINE S.L.</Chip>
-                        </ChipGroup>
-                      )}
                       {m.body}
                       {m.attachments && (
                         <BubbleAttachmentGroup className={attachmentGroupSpacing}>

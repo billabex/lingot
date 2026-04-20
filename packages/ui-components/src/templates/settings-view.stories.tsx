@@ -423,7 +423,7 @@ function ConnectionsPanel() {
         }
       >
         {connections.map((connection) => (
-          <TableRow key={connection.id}>
+          <TableRow key={connection.id} interactive onClick={() => {}}>
             <span style={tableCol.name} className={tableCellPrimary}>
               {connection.name}
             </span>
@@ -434,7 +434,11 @@ function ConnectionsPanel() {
             <span style={tableCol.actions}>
               <span className={rowActionsCell}>
                 {connection.status === "incomplete" && (
-                  <Button variant="secondary" size="small">
+                  <Button
+                    variant="secondary"
+                    size="small"
+                    onClick={(e) => e.stopPropagation()}
+                  >
                     Reprendre l'activation
                   </Button>
                 )}
@@ -442,6 +446,7 @@ function ConnectionsPanel() {
                   size="small"
                   aria-label={`Supprimer ${connection.name}`}
                   icon={<Trash2 size={14} />}
+                  onClick={(e) => e.stopPropagation()}
                 />
               </span>
             </span>

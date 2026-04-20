@@ -45,10 +45,10 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {};
+export const NeedUserInput: Story = {};
 
 /** Communications tab active — center panel shows the comm log table. */
-export const WithCommunicationsTab: Story = {
+export const NeedUserInputCommunications: Story = {
   args: { activeTab: "comms" },
 };
 
@@ -77,7 +77,7 @@ const discussion: DiscussionMessage[] = [
     author: "Amelia Miller",
     date: "1 avr. 08:24",
     body:
-      "J'ai analysé le ticket #4190686. Jaime Sánchez conteste 3 factures pour un total de 16 200 €. Il demande une preuve d'abonnement BREVO. Avez-vous les contrats ou confirmations d'abonnement pour DOSFARMASHOP ONLINE S.L. ?",
+      "Jaime Sánchez (jaime.sanchez@atida.com) a répondu au ticket #4190686, contestant la dette de 16 200 € pour les factures 2066639, 2105835 et SIB-SAS-ENT-5086 et demandant une preuve d'abonnement BREVO. Pourriez-vous vérifier nos dossiers pour DOSFARMASHOP ONLINE S.L. et fournir les contrats, confirmations d'abonnement ou documentation d'annulation liés à BREVO ? Dès réception, je préparerai une réponse formelle à Jaime Sánchez.",
   },
   {
     side: "user",
@@ -241,12 +241,6 @@ const listScroll = css({
   paddingX: "xl",
 });
 
-const detailSummaryBlock = css({
-  paddingTop: "xl",
-  paddingX: "2xl",
-  flexShrink: 0,
-});
-
 const detailTabsWrap = css({
   paddingX: "2xl",
   flexShrink: 0,
@@ -282,21 +276,6 @@ const section = css({
 });
 
 /* ---------- typography helpers (DS tokens) ---------- */
-
-const textMeta = css({
-  fontSize: "body.sm",
-  lineHeight: "body.sm",
-  color: "text.tertiary",
-  marginBottom: "md",
-});
-
-const textDescription = css({
-  fontSize: "body",
-  lineHeight: "headline.sm",
-  color: "text.primary",
-  margin: 0,
-  marginBottom: "xl",
-});
 
 const textListMetaDate = css({
   fontSize: "caption",
@@ -495,16 +474,6 @@ function TaskViewInner({ activeTab }: { activeTab: TaskTab }) {
               </PanelHeader>
             </div>
 
-            {/* Fixed task summary */}
-            <div className={detailSummaryBlock}>
-              <div className={textMeta}>
-                DOSFARMASHOP ONLINE S.L. · Amelia Miller · il y a 2h
-              </div>
-              <p className={textDescription}>
-                Jaime Sánchez (<Link href="#">jaime.sanchez@atida.com</Link>) a répondu au ticket #4190686, contestant la dette de 16 200 € pour les factures 2066639, 2105835 et SIB-SAS-ENT-5086 et demandant une preuve d'abonnement BREVO. Pourriez-vous vérifier nos dossiers pour DOSFARMASHOP ONLINE S.L. et fournir les contrats, confirmations d'abonnement ou documentation d'annulation liés à BREVO ? Dès réception, je préparerai une réponse formelle à Jaime Sánchez.
-              </p>
-            </div>
-
             {/* Tab bar — border spans the content column */}
             <div className={detailTabsWrap}>
               <Tabs>
@@ -521,6 +490,11 @@ function TaskViewInner({ activeTab }: { activeTab: TaskTab }) {
                 {discussion.map((m, i) => (
                   <BubbleGroup key={i} side={m.side} author={m.author} date={m.date}>
                     <Bubble>
+                      {i === 0 && (
+                        <ChipGroup>
+                          <Chip variant="static">DOSFARMASHOP ONLINE S.L.</Chip>
+                        </ChipGroup>
+                      )}
                       {m.body}
                       {m.attachments && (
                         <BubbleAttachmentGroup className={attachmentGroupSpacing}>

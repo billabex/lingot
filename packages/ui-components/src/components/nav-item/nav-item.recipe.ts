@@ -43,6 +43,9 @@ export const navItemRecipe = cva({
         _hover: {
           bg: "action.secondary",
           color: "text.secondary",
+          "& [role='tooltip']": {
+            opacity: 1,
+          },
         },
       },
     },

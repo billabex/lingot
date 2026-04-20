@@ -1,6 +1,20 @@
 import type { ButtonHTMLAttributes, ReactNode } from "react";
+import { css } from "styled-system/css";
+import { Tooltip } from "../tooltip";
 import { navItemRecipe } from "./nav-item.recipe";
 import type { NavItemVariant } from "./nav-item.recipe";
+
+const navItemTooltipStyles = css({
+  position: "absolute",
+  left: "100%",
+  marginLeft: "md",
+  top: "50%",
+  transform: "translateY(-50%)",
+  opacity: 0,
+  pointerEvents: "none",
+  transition: "opacity 0.12s ease",
+  zIndex: 100,
+});
 
 export interface NavItemProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   /** Visual shape — `default` (horizontal with label) or `icon` (32×32 square, icon-only). */
@@ -36,6 +50,7 @@ export function NavItem({
   ...props
 }: NavItemProps) {
   if (variant === "icon") {
+    const ariaLabel = props["aria-label"];
     return (
       <button
         type="button"
@@ -44,6 +59,9 @@ export function NavItem({
         {...props}
       >
         {children}
+        {ariaLabel && (
+          <Tooltip className={navItemTooltipStyles}>{ariaLabel}</Tooltip>
+        )}
       </button>
     );
   }

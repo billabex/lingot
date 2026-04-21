@@ -10,6 +10,8 @@ export interface AvatarProps extends HTMLAttributes<HTMLSpanElement> {
   icon?: ReactNode;
   /** Accessible label. When provided, the avatar gets `role="img"`. */
   label?: string;
+  /** Optional background tone override. Accepts any CSS color; contents render in white for contrast. Intended for categorical display (e.g. by persona, status, or source). */
+  tone?: string;
 }
 
 /**
@@ -24,10 +26,13 @@ export function Avatar({
   initials,
   icon,
   label,
+  tone,
   className,
+  style,
   ...props
 }: AvatarProps) {
   const content = initials ? <span aria-hidden="true">{initials}</span> : icon ?? null;
+  const mergedStyle = tone ? { ...style, background: tone, color: "#fff" } : style;
 
   return (
     <span
@@ -35,6 +40,7 @@ export function Avatar({
       role={label ? "img" : undefined}
       aria-label={label}
       aria-hidden={label ? undefined : true}
+      style={mergedStyle}
       {...props}
     >
       {content}

@@ -76,3 +76,14 @@ export const ContactRow: Story = {
     </div>
   ),
 };
+
+/** `tone` overrides the background and renders contents in white for contrast — useful for categorical display (persona, status, source). */
+export const Tones: Story = {
+  render: () => (
+    <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+      <Avatar size="large" initials="SM" tone="#c2727d" label="Sophie" />
+      <Avatar size="large" initials="TD" tone="#4a6fa5" label="Thomas" />
+      <Avatar size="large" initials="CB" tone="#b5634b" label="Camille" />
+    </div>
+  ),
+};

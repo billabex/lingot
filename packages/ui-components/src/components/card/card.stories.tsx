@@ -109,3 +109,14 @@ export const Picker: Story = {
     );
   },
 };
+
+/** `accent` renders a 3px left stripe in any CSS color — useful for categorizing cards by source, persona, or priority. */
+export const Accent: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: 8, width: 260 }}>
+      <Card accent="#c2727d" style={{ padding: 12 }}>Rose persona</Card>
+      <Card accent="#4a6fa5" style={{ padding: 12 }}>Blue persona</Card>
+      <Card accent="#b5634b" style={{ padding: 12 }}>Terracotta persona</Card>
+    </div>
+  ),
+};

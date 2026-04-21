@@ -42,4 +42,20 @@ describe("Avatar", () => {
     render(<Avatar initials="JS" className="custom" data-testid="av" />);
     expect(screen.getByTestId("av").className).toContain("custom");
   });
+
+  it("applies tone as background with white text", () => {
+    render(<Avatar initials="SM" tone="#c2727d" data-testid="av" />);
+    const el = screen.getByTestId("av");
+    expect(el.style.background).toBe("rgb(194, 114, 125)");
+    expect(el.style.color).toBe("rgb(255, 255, 255)");
+  });
+
+  it("preserves caller-provided style when tone is set", () => {
+    render(
+      <Avatar initials="SM" tone="#c2727d" style={{ marginLeft: "4px" }} data-testid="av" />,
+    );
+    const el = screen.getByTestId("av");
+    expect(el.style.marginLeft).toBe("4px");
+    expect(el.style.background).toBe("rgb(194, 114, 125)");
+  });
 });

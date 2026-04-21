@@ -82,4 +82,26 @@ describe("Card", () => {
     fireEvent.keyDown(screen.getByTestId("card"), { key: "Enter" });
     expect(onClick).not.toHaveBeenCalled();
   });
+
+  it("applies accent as a 3px left border", () => {
+    render(
+      <Card accent="#c2727d" data-testid="card">
+        Content
+      </Card>,
+    );
+    const el = screen.getByTestId("card");
+    expect(el.style.borderLeftColor).toBe("rgb(194, 114, 125)");
+    expect(el.style.borderLeftWidth).toBe("3px");
+  });
+
+  it("preserves caller-provided style when accent is set", () => {
+    render(
+      <Card accent="#c2727d" style={{ marginTop: "8px" }} data-testid="card">
+        Content
+      </Card>,
+    );
+    const el = screen.getByTestId("card");
+    expect(el.style.marginTop).toBe("8px");
+    expect(el.style.borderLeftColor).toBe("rgb(194, 114, 125)");
+  });
 });

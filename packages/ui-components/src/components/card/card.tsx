@@ -9,6 +9,8 @@ export interface CardProps extends HTMLAttributes<HTMLDivElement> {
   interactive?: boolean;
   /** Selected state. With `interactive`, renders the primary-accent border + a subtle background tint. */
   selected?: boolean;
+  /** Optional 3px left-edge accent stripe. Accepts any CSS color; intended for visual categorization (e.g. by source, priority, or persona). */
+  accent?: string;
   /** Card content */
   children: ReactNode;
 }
@@ -22,10 +24,12 @@ export function Card({
   variant = "flat",
   interactive = false,
   selected = false,
+  accent,
   children,
   className,
   onKeyDown,
   tabIndex,
+  style,
   ...props
 }: CardProps) {
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
@@ -36,11 +40,15 @@ export function Card({
       event.currentTarget.click();
     }
   };
+  const mergedStyle = accent
+    ? { ...style, borderLeftWidth: "3px", borderLeftColor: accent }
+    : style;
   return (
     <div
       tabIndex={interactive ? (tabIndex ?? 0) : tabIndex}
       onKeyDown={interactive ? handleKeyDown : onKeyDown}
       className={`${cardRecipe({ variant, interactive, selected })}${className ? ` ${className}` : ""}`}
+      style={mergedStyle}
       {...props}
     >
       {children}

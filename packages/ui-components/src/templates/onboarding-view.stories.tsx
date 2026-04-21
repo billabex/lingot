@@ -72,7 +72,7 @@ const page = css({
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
-  bg: "bg.muted",
+  bg: "bg.subtle",
   paddingBlock: "3xl",
   paddingInline: "xl",
   gap: "xl",
@@ -81,10 +81,14 @@ const page = css({
 const card = css({
   width: "100%",
   maxWidth: "26.25rem",
-  padding: "2xl",
+  padding: "3xl",
   display: "flex",
   flexDirection: "column",
-  gap: "lg",
+  gap: "md",
+});
+
+const stepperCentered = css({
+  alignSelf: "center",
 });
 
 const cardHead = css({
@@ -101,7 +105,7 @@ const cardTitle = css({
 });
 
 const cardSubtitle = css({
-  fontSize: "bodySm",
+  fontSize: "caption",
   color: "text.tertiary",
 });
 
@@ -224,7 +228,7 @@ function stepState(current: Step, target: Step): StepperItemState {
 
 function OnboardingStepper({ step }: { step: Step }) {
   return (
-    <Stepper>
+    <Stepper className={stepperCentered}>
       {STEPS.map((s) => (
         <StepperItem
           key={s.key}
@@ -382,6 +386,7 @@ type AgentPersona = {
   email: string;
   gender: string;
   example: string;
+  color: string;
 };
 
 const AGENTS: AgentPersona[] = [
@@ -392,6 +397,7 @@ const AGENTS: AgentPersona[] = [
     email: "sophie.martin@revoptim.com",
     gender: "Féminin",
     example: "« Je suis chargée de compte, mandatée par votre entreprise. »",
+    color: "#c2727d",
   },
   {
     id: "thomas",
@@ -400,6 +406,7 @@ const AGENTS: AgentPersona[] = [
     email: "thomas.durand@revoptim.com",
     gender: "Masculin",
     example: "« Je suis chargé de compte, mandaté par votre entreprise. »",
+    color: "#4a6fa5",
   },
   {
     id: "camille",
@@ -409,6 +416,7 @@ const AGENTS: AgentPersona[] = [
     gender: "Neutre",
     example:
       "« Je suis chargé.e de compte, en charge du suivi pour votre entreprise. »",
+    color: "#b5634b",
   },
 ];
 
@@ -435,12 +443,13 @@ function PickAgentStep({ selected }: { selected: AgentId | null }) {
               key={a.id}
               interactive
               selected={isSelected}
+              accent={a.color}
               role="radio"
               aria-checked={isSelected}
               aria-label={a.name}
             >
               <div className={agentCardBody}>
-                <Avatar size="large" initials={a.initials} />
+                <Avatar size="large" initials={a.initials} tone={a.color} />
                 <div className={agentInfo}>
                   <div className={agentNameRow}>
                     <span className={agentName}>{a.name}</span>

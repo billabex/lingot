@@ -76,6 +76,8 @@ export const colors = {
 // ---------------------------------------------------------------------------
 
 export const spacing = {
+  /** 2px */
+  "3xs": dimension(2),
   /** 4px */
   xs: dimension(4),
   /** 6px */

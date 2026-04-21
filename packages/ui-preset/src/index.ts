@@ -44,6 +44,7 @@ export const billabexPreset = definePreset({
         "blue.700": { value: colors.blue[700].hex },
       },
       spacing: {
+        "3xs": { value: spacing["3xs"].px },
         xs: { value: spacing.xs.px },
         sm: { value: spacing.sm.px },
         md: { value: spacing.md.px },
@@ -58,6 +59,7 @@ export const billabexPreset = definePreset({
         "padding.page": { value: padding.page.px },
       },
       sizes: {
+        "3xs": { value: spacing["3xs"].px },
         xs: { value: spacing.xs.px },
         sm: { value: spacing.sm.px },
         md: { value: spacing.md.px },

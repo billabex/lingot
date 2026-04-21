@@ -9,6 +9,7 @@ describe("primitive tokens", () => {
   });
 
   it("spacing has correct values", () => {
+    expect(spacing["3xs"].value).toBe(2);
     expect(spacing.xs.value).toBe(4);
     expect(spacing.md.value).toBe(8);
     expect(spacing.xl.value).toBe(16);

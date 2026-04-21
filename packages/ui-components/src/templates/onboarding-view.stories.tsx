@@ -9,7 +9,6 @@ import { Chip } from "../components/chip";
 import { FormField } from "../components/form-field";
 import { Input } from "../components/input";
 import { Link } from "../components/link";
-import { SelectMenu } from "../components/select-menu";
 import { Stepper } from "../components/stepper/stepper";
 import { StepperItem, type StepperItemState } from "../components/stepper/stepper-item";
 
@@ -369,27 +368,12 @@ function SignUpStep({ stage }: { stage: SignUpStage }) {
 
 /* ---------- Step 2 — company ---------- */
 
-const SECTOR_OPTIONS = [
-  { value: "consulting", label: "Conseil & Consulting" },
-  { value: "dev", label: "Développement & IT" },
-  { value: "marketing", label: "Marketing & Communication" },
-  { value: "formation", label: "Formation" },
-  { value: "architecture", label: "Architecture & Design" },
-  { value: "comptabilite", label: "Comptabilité & Finance" },
-  { value: "juridique", label: "Juridique" },
-  { value: "sante", label: "Santé" },
-  { value: "btp", label: "BTP & Construction" },
-  { value: "commerce", label: "Commerce & Distribution" },
-  { value: "industrie", label: "Industrie & Production" },
-  { value: "autre", label: "Autre" },
-];
-
 function CompanyStep() {
   return (
     <>
       <div className={cardHead}>
         <h1 className={cardTitle}>Votre entreprise</h1>
-        <p className={cardSubtitle}>2 champs, c'est tout.</p>
+        <p className={cardSubtitle}>Un champ, c'est tout.</p>
       </div>
 
       <p className={contextLine}>
@@ -400,13 +384,6 @@ function CompanyStep() {
       <FormField label="Nom de l'entreprise" className={fieldMb}>
         <Input type="text" placeholder="Ex : Studio Kairos" defaultValue="Studio Kairos" />
       </FormField>
-
-      <SelectMenu
-        label="Secteur d'activité"
-        options={SECTOR_OPTIONS}
-        defaultValue="consulting"
-        className={fieldMb}
-      />
 
       <Button variant="primary" fullWidth>
         Continuer

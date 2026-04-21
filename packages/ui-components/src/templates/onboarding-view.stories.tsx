@@ -111,8 +111,9 @@ const cardTitle = css({
 });
 
 const cardSubtitle = css({
-  fontSize: "caption",
-  color: "text.tertiary",
+  fontSize: "body.sm",
+  fontWeight: "medium",
+  color: "text.secondary",
 });
 
 const contextLine = css({
@@ -201,7 +202,7 @@ const trustItem = css({
 });
 
 const trialLine = css({
-  fontSize: "caption",
+  fontSize: "body.sm",
   color: "text.tertiary",
   textAlign: "center",
   marginTop: "xl",

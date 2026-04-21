@@ -298,7 +298,6 @@ const TRUST_ITEMS = [
 ];
 
 function SignUpStep({ stage }: { stage: SignUpStage }) {
-  const passwordVisible = stage === "password";
   return (
     <>
       <div className={cardHead}>
@@ -331,7 +330,7 @@ function SignUpStep({ stage }: { stage: SignUpStage }) {
         <Input type="email" placeholder="vous@entreprise.com" />
       </FormField>
 
-      {passwordVisible && (
+      {stage === "password" && (
         <>
           <FormField label="Mot de passe" className={fieldMb}>
             <Input type="password" placeholder="Mot de passe" />
@@ -348,7 +347,7 @@ function SignUpStep({ stage }: { stage: SignUpStage }) {
       )}
 
       <Button variant="primary" fullWidth>
-        {passwordVisible ? "Créer mon compte" : "Continuer"}
+        {stage === "password" ? "Créer mon compte" : "Continuer"}
       </Button>
 
       <p className={formFooter}>

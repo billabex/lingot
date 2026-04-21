@@ -44,22 +44,17 @@ export type ChipProps = FilterChipProps | RemovableChipProps | StaticChipProps;
  * read-only labels. RSC-compatible (no `'use client'` needed).
  */
 export function Chip(props: ChipProps) {
-  const { variant = "filter", leftIcon, children, className, tone } = props;
+  const {
+    variant = "filter",
+    leftIcon,
+    children,
+    className,
+    tone,
+    ...variantProps
+  } = props;
 
-  const classes = `${chipRecipe({
-    variant,
-    active: variant === "filter" && (props as FilterChipProps).active,
-  })}${className ? ` ${className}` : ""}`;
-
-  const tonedStyle = (style?: CSSProperties): CSSProperties | undefined =>
-    tone
-      ? {
-          ...style,
-          color: tone,
-          background: `color-mix(in srgb, ${tone} 15%, white)`,
-          borderColor: "transparent",
-        }
-      : style;
+  const active = variant === "filter" && (props as FilterChipProps).active;
+  const classes = `${chipRecipe({ variant, active })}${className ? ` ${className}` : ""}`;
 
   const leadingIcon = leftIcon ? (
     <span
@@ -69,20 +64,21 @@ export function Chip(props: ChipProps) {
     </span>
   ) : null;
 
+  const styleWithTone = (style?: CSSProperties): CSSProperties | undefined =>
+    tone
+      ? {
+          ...style,
+          color: tone,
+          background: `color-mix(in srgb, ${tone} 15%, white)`,
+          borderColor: "transparent",
+        }
+      : style;
+
   if (variant === "removable") {
-    const {
-      onRemove,
-      removeLabel = "Remove",
-      variant: _v,
-      leftIcon: _li,
-      children: _c,
-      className: _cn,
-      tone: _t,
-      style,
-      ...rest
-    } = props as RemovableChipProps;
+    const { onRemove, removeLabel = "Remove", style, ...rest } =
+      variantProps as RemovableVariantRest;
     return (
-      <span className={classes} style={tonedStyle(style)} {...rest}>
+      <span className={classes} style={styleWithTone(style)} {...rest}>
         {leadingIcon}
         {children}
         <button
@@ -108,37 +104,25 @@ export function Chip(props: ChipProps) {
   }
 
   if (variant === "static") {
-    const {
-      variant: _v,
-      leftIcon: _li,
-      children: _c,
-      className: _cn,
-      tone: _t,
-      style,
-      ...rest
-    } = props as StaticChipProps;
+    const { style, ...rest } = variantProps as StaticVariantRest;
     return (
-      <span className={classes} style={tonedStyle(style)} {...rest}>
+      <span className={classes} style={styleWithTone(style)} {...rest}>
         {leadingIcon}
         {children}
       </span>
     );
   }
 
-  const {
-    active: _a,
-    variant: _v,
-    leftIcon: _li,
-    children: _c,
-    className: _cn,
-    tone: _t,
-    style,
-    ...rest
-  } = props as FilterChipProps;
+  const { active: _active, style, ...rest } = variantProps as FilterVariantRest;
   return (
-    <button className={classes} style={tonedStyle(style)} {...rest}>
+    <button className={classes} style={styleWithTone(style)} {...rest}>
       {leadingIcon}
       {children}
     </button>
   );
 }
+
+type CommonKey = keyof CommonProps;
+type FilterVariantRest = Omit<FilterChipProps, CommonKey>;
+type RemovableVariantRest = Omit<RemovableChipProps, CommonKey>;
+type StaticVariantRest = Omit<StaticChipProps, CommonKey>;

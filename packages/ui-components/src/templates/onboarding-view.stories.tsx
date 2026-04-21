@@ -73,19 +73,19 @@ const page = css({
   flexDirection: "column",
   alignItems: "center",
   bg: "bg.subtle",
-  paddingTop: "80px",
+  paddingTop: "6xl",
   paddingBottom: "4xl",
   paddingInline: "2xl",
 });
 
 const logoBlock = css({
-  marginBottom: "36px",
+  marginBottom: "3xl",
 });
 
 const card = css({
   width: "100%",
   maxWidth: "26.25rem",
-  paddingBlock: "36px",
+  paddingBlock: "3xl",
   paddingInline: "3xl",
   display: "flex",
   flexDirection: "column",
@@ -93,7 +93,7 @@ const card = css({
 
 const stepperBlock = css({
   alignSelf: "center",
-  marginBottom: "28px",
+  marginBottom: "2xl",
 });
 
 const cardHead = css({
@@ -120,8 +120,8 @@ const contextLine = css({
   color: "text.tertiary",
   textAlign: "center",
   lineHeight: "body",
-  marginTop: "-12px",
-  marginBottom: "20px",
+  marginTop: "-lg",
+  marginBottom: "xl",
 });
 
 const ssoGroup = css({
@@ -146,13 +146,13 @@ const labeledDivider = css({
   fontWeight: "semibold",
   textTransform: "uppercase",
   letterSpacing: "0.05em",
-  marginBlock: "18px",
+  marginBlock: "xl",
   _before: labeledDividerRule,
   _after: labeledDividerRule,
 });
 
 const fieldMb = css({
-  marginBottom: "14px",
+  marginBottom: "lg",
 });
 
 const passwordRules = css({
@@ -160,7 +160,7 @@ const passwordRules = css({
   flexDirection: "column",
   gap: "3xs",
   listStyle: "none",
-  marginBottom: "14px",
+  marginBottom: "lg",
 });
 
 const passwordRule = css({
@@ -176,14 +176,14 @@ const formFooter = css({
   color: "text.tertiary",
   textAlign: "center",
   lineHeight: "body",
-  marginTop: "18px",
+  marginTop: "xl",
 });
 
 const trustStrip = css({
   display: "flex",
   flexDirection: "column",
   gap: "md",
-  marginTop: "20px",
+  marginTop: "xl",
   paddingTop: "xl",
   borderTopWidth: "1px",
   borderTopStyle: "solid",
@@ -209,14 +209,14 @@ const trialLine = css({
 const agentCardsGroup = css({
   display: "flex",
   flexDirection: "column",
-  gap: "10px",
+  gap: "md",
 });
 
 const agentCardBody = css({
   display: "flex",
   alignItems: "flex-start",
   gap: "lg",
-  paddingBlock: "14px",
+  paddingBlock: "lg",
   paddingInline: "xl",
 });
 

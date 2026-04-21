@@ -194,7 +194,8 @@ const trustItem = css({
   display: "flex",
   alignItems: "center",
   gap: "xs",
-  fontSize: "caption",
+  fontSize: "caption.xs",
+  lineHeight: "caption.xs",
   color: "text.secondary",
   "& > svg": { color: "status.success", flexShrink: 0 },
 });

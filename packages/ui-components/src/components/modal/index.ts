@@ -7,3 +7,4 @@ export {
   modalContentRecipe,
   modalFooterRecipe,
 } from "./modal.recipe";
+export type { ModalSize } from "./modal.recipe";

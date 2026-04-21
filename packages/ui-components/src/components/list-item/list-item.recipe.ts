@@ -4,74 +4,114 @@ export const listItemRecipe = cva({
   base: {
     display: "flex",
     flexDirection: "column",
-    gap: "xs",
-    alignItems: "flex-start",
-    overflow: "hidden",
-    p: "xs",
-    borderRadius: "md",
-  },
-  variants: {
-    selected: {
-      true: {
-        bg: "bg.muted",
-      },
-      false: {},
+    alignItems: "stretch",
+    width: "100%",
+    paddingBlock: "lg",
+    paddingInline: "xl",
+    borderRadius: "sm",
+    bg: "transparent",
+    textAlign: "left",
+    fontFamily: "body",
+    color: "text.primary",
+    transition: "background-color 120ms ease",
+    _focusVisible: {
+      outline: "2px solid",
+      outlineColor: "border.focus",
+      outlineOffset: "-2px",
     },
   },
+  variants: {
+    active: {
+      true: { bg: "bg.muted" },
+      false: {},
+    },
+    clickable: {
+      true: { cursor: "pointer", _hover: { bg: "bg.subtle" } },
+      false: { cursor: "default" },
+    },
+  },
+  compoundVariants: [
+    {
+      active: true,
+      clickable: true,
+      css: { _hover: { bg: "bg.muted" } },
+    },
+  ],
   defaultVariants: {
-    selected: false,
+    active: false,
+    clickable: false,
+  },
+});
+
+export const listItemTitleRowRecipe = cva({
+  base: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    gap: "md",
+    width: "100%",
+    minWidth: 0,
+    marginBottom: "xs",
   },
 });
 
 export const listItemTitleRecipe = cva({
   base: {
-    fontSize: "body",
-    lineHeight: "body",
-    fontWeight: "regular",
     fontFamily: "body",
+    fontSize: "body.sm",
+    lineHeight: "body.sm",
+    fontWeight: "medium",
     color: "text.primary",
+    flex: 1,
+    minWidth: 0,
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    whiteSpace: "nowrap",
   },
 });
 
-export const listItemMetaRecipe = cva({
+export const listItemTitleTrailingRecipe = cva({
   base: {
-    fontSize: "caption",
-    lineHeight: "caption",
-    fontWeight: "medium",
-    fontFamily: "body",
-    color: "text.tertiary",
+    display: "flex",
+    alignItems: "center",
+    gap: "xs",
+    flexShrink: 0,
   },
 });
 
 export const listItemPreviewRecipe = cva({
   base: {
-    fontSize: "body",
-    lineHeight: "body",
-    fontWeight: "regular",
     fontFamily: "body",
+    fontSize: "body.sm",
+    lineHeight: "body.sm",
+    fontWeight: "regular",
     color: "text.secondary",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    whiteSpace: "nowrap",
+    minWidth: 0,
+    marginBottom: "sm",
   },
 });
 
-export const listItemWrapperRecipe = cva({
+export const listItemMetaRecipe = cva({
   base: {
     display: "flex",
-    flexDirection: "column",
-    gap: "lg",
-    alignItems: "flex-start",
-    px: "xl",
-    py: "lg",
-    bg: "bg.default",
-    width: "100%",
-  },
-});
-
-export const listItemRowRecipe = cva({
-  base: {
-    display: "flex",
-    justifyContent: "space-between",
     alignItems: "center",
-    width: "100%",
     gap: "md",
+    width: "100%",
+    minWidth: 0,
+    fontFamily: "body",
+  },
+});
+
+export const listItemSubRecipe = cva({
+  base: {
+    fontFamily: "body",
+    fontSize: "caption.xs",
+    lineHeight: "caption.xs",
+    fontWeight: "regular",
+    color: "text.tertiary",
+    marginTop: "xs",
   },
 });

@@ -1,10 +1,14 @@
 import type { HTMLAttributes, ReactNode } from "react";
 import { badgeRecipe } from "./badge.recipe";
-import type { BadgeVariant } from "./badge.recipe";
+import type { BadgeShape, BadgeSize, BadgeVariant } from "./badge.recipe";
 
 export interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
   /** Color variant */
   variant?: BadgeVariant;
+  /** Visual shape — `pill` (default, rounded-full) or `square` (rounded-xs, padded for counts). */
+  shape?: BadgeShape;
+  /** Size — `md` (default) or `xs` (compact inline chip, caption.xs typography). */
+  size?: BadgeSize;
   /** Optional icon before the label (12px) */
   leftIcon?: ReactNode;
   /** Optional icon after the label (12px) */
@@ -20,6 +24,8 @@ export interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
  */
 export function Badge({
   variant = "neutral",
+  shape = "pill",
+  size = "md",
   leftIcon,
   rightIcon,
   children,
@@ -28,7 +34,7 @@ export function Badge({
 }: BadgeProps) {
   return (
     <span
-      className={`${badgeRecipe({ variant })}${className ? ` ${className}` : ""}`}
+      className={`${badgeRecipe({ variant, shape, size })}${className ? ` ${className}` : ""}`}
       {...props}
     >
       {leftIcon && (

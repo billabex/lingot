@@ -36,4 +36,22 @@ describe("Badge", () => {
     render(<Badge data-testid="badge">Test</Badge>);
     expect(screen.getByTestId("badge")).toBeTruthy();
   });
+
+  it("applies square shape (radius xs) when shape='square'", () => {
+    const { container } = render(<Badge shape="square">30</Badge>);
+    expect(container.innerHTML).toContain("bdr_xs");
+  });
+
+  it("applies count variant (outlined neutral) styling", () => {
+    const { container } = render(
+      <Badge variant="count" shape="square">30</Badge>
+    );
+    expect(container.innerHTML).toContain("bg_bg.subtle");
+    expect(container.innerHTML).toContain("c_text.tertiary");
+  });
+
+  it("applies compact typography when size='xs'", () => {
+    const { container } = render(<Badge size="xs">Pennylane</Badge>);
+    expect(container.innerHTML).toContain("fs_caption.xs");
+  });
 });

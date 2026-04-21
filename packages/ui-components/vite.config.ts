@@ -13,6 +13,7 @@ export default defineConfig({
     react(),
     dts({
       tsconfigPath: "./tsconfig.json",
+      exclude: ["**/*.stories.ts", "**/*.stories.tsx", "**/*.spec.ts", "**/*.spec.tsx", "**/*.test.ts", "**/*.test.tsx", "src/templates/**"],
     }),
   ],
   build: {

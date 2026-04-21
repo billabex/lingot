@@ -7,6 +7,7 @@
   "include": [
     ".storybook/**/*.ts",
     "stories/**/*.tsx",
-    "../../packages/ui-components/src/**/*.stories.tsx"
+    "../../packages/ui-components/src/**/*.ts",
+    "../../packages/ui-components/src/**/*.tsx"
   ]
 }

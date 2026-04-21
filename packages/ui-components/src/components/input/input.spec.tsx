@@ -11,6 +11,11 @@ describe("Input", () => {
     expect(el.tagName).toBe("INPUT");
   });
 
+  it("applies small size styling when size='small'", () => {
+    const { container } = render(<Input size="small" placeholder="Sm" />);
+    expect(container.innerHTML).toContain("fs_body.sm");
+  });
+
   it("applies placeholder", () => {
     render(<Input placeholder="Enter text" />);
     expect(screen.getByPlaceholderText("Enter text")).toBeTruthy();

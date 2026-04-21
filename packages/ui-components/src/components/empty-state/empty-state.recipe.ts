@@ -8,17 +8,16 @@ export const emptyStateRecipe = cva({
     justifyContent: "center",
     textAlign: "center",
     fontFamily: "body",
+    gap: "md",
   },
   variants: {
     variant: {
       default: {
-        gap: "xl",
-        py: "4xl",
+        py: "2xl",
         px: "2xl",
       },
       compact: {
-        gap: "md",
-        py: "xl",
+        py: "lg",
         px: "lg",
       },
     },
@@ -33,65 +32,31 @@ export const emptyStateIconRecipe = cva({
     display: "inline-flex",
     alignItems: "center",
     justifyContent: "center",
+    width: "3xl",
+    height: "3xl",
     color: "text.tertiary",
-  },
-  variants: {
-    variant: {
-      default: {
-        width: "48px",
-        height: "48px",
-      },
-      compact: {
-        width: "32px",
-        height: "32px",
-      },
+    "& > svg": {
+      width: "100%",
+      height: "100%",
+      strokeWidth: 1.5,
     },
-  },
-  defaultVariants: {
-    variant: "default",
   },
 });
 
 export const emptyStateTitleRecipe = cva({
   base: {
-    fontWeight: "bold",
+    fontSize: "body",
+    lineHeight: "body",
+    fontWeight: "regular",
     color: "text.primary",
-  },
-  variants: {
-    variant: {
-      default: {
-        fontSize: "body",
-        lineHeight: "body",
-      },
-      compact: {
-        fontSize: "body.sm",
-        lineHeight: "body.sm",
-      },
-    },
-  },
-  defaultVariants: {
-    variant: "default",
   },
 });
 
 export const emptyStateDescriptionRecipe = cva({
   base: {
+    fontSize: "body.sm",
+    lineHeight: "body.sm",
     color: "text.secondary",
-  },
-  variants: {
-    variant: {
-      default: {
-        fontSize: "body.sm",
-        lineHeight: "body.sm",
-      },
-      compact: {
-        fontSize: "caption",
-        lineHeight: "caption",
-      },
-    },
-  },
-  defaultVariants: {
-    variant: "default",
   },
 });
 
@@ -101,7 +66,7 @@ export const emptyStateTextRecipe = cva({
   base: {
     display: "flex",
     flexDirection: "column",
-    gap: "xs",
+    gap: "md",
   },
   variants: {},
   defaultVariants: {},

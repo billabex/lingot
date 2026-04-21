@@ -7,6 +7,8 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
   /** Size preset */
   size?: ButtonSize;
+  /** Stretch to fill the parent's width */
+  fullWidth?: boolean;
   /** Optional icon rendered before the label */
   leftIcon?: ReactNode;
   /** Optional icon rendered after the label */
@@ -30,6 +32,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 export function Button({
   variant = "primary",
   size = "medium",
+  fullWidth = false,
   leftIcon,
   rightIcon,
   children,
@@ -41,7 +44,7 @@ export function Button({
 
   return (
     <button
-      className={`${buttonRecipe({ variant, size })}${className ? ` ${className}` : ""}`}
+      className={`${buttonRecipe({ variant, size, fullWidth })}${className ? ` ${className}` : ""}`}
       disabled={disabled}
       {...props}
     >

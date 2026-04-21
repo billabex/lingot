@@ -20,11 +20,6 @@ describe("Sidebar", () => {
     expect(screen.getByText("Logo")).toBeTruthy();
   });
 
-  it("renders footer when provided", () => {
-    render(<Sidebar footer={<span>Settings</span>}>Content</Sidebar>);
-    expect(screen.getByText("Settings")).toBeTruthy();
-  });
-
   it("does not render header section when header is omitted", () => {
     const { container } = render(<Sidebar>Content</Sidebar>);
     const nav = container.querySelector("nav")!;

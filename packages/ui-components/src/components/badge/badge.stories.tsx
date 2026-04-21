@@ -9,14 +9,20 @@ const meta = {
   argTypes: {
     variant: {
       control: "select",
-      options: ["neutral", "info", "success", "warning", "error"],
+      options: ["neutral", "info", "success", "warning", "error", "count"],
       description: "Color variant",
+    },
+    shape: {
+      control: "radio",
+      options: ["pill", "square"],
+      description: "Pill (rounded-full) or square (rounded-xs, padded)",
     },
     children: { control: "text", description: "Badge label" },
   },
   args: {
     children: "Label",
     variant: "neutral",
+    shape: "pill",
   },
 } satisfies Meta<typeof Badge>;
 
@@ -55,6 +61,11 @@ export const WithIcons: Story = {
   ),
 };
 
+/** Count badge — rectangular, bordered, used for list-header counts like "30". */
+export const Count: Story = {
+  args: { variant: "count", shape: "square", children: "30" },
+};
+
 /** All variants side by side */
 export const AllVariants: Story = {
   render: () => (
@@ -64,6 +75,16 @@ export const AllVariants: Story = {
       <Badge variant="success">Success</Badge>
       <Badge variant="warning">Warning</Badge>
       <Badge variant="error">Error</Badge>
+      <Badge variant="count" shape="square">30</Badge>
+    </div>
+  ),
+};
+
+export const Shapes: Story = {
+  render: () => (
+    <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
+      <Badge variant="error" shape="pill">Action requise</Badge>
+      <Badge variant="count" shape="square">30</Badge>
     </div>
   ),
 };

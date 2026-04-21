@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Breadcrumb } from "./breadcrumb";
-import { text } from "@billabex/ui-tokens";
 
 const meta = {
   title: "Navigation/Breadcrumb",
@@ -37,15 +36,5 @@ export const ManyItems: Story = {
       { label: "Subcategory", href: "/category/sub" },
       { label: "Page" },
     ],
-  },
-};
-
-export const CustomSeparator: Story = {
-  args: {
-    items: [
-      { label: "Home", href: "/" },
-      { label: "Page" },
-    ],
-    separator: <span style={{ color: text.tertiary.hex }}>/</span>,
   },
 };

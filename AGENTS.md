@@ -198,10 +198,19 @@ apps/docs/                          # Storybook (component documentation)
 |-----------|-----------|-------------|
 | `Badge` | `badge/` | Status labels and counters |
 | `Banner` | `banner/` | Contextual messages (info, warning, error, success) |
+| `BrandLogo` | `brand-logo/` | Inline-SVG brand mark (Google, Microsoft, Billabex) |
 | `Breadcrumb` | `breadcrumb/` | Navigation breadcrumb trail |
+| `Bubble` | `bubble/` | Chat message (agent / user) |
+| `BubbleGroup` | `bubble/` | Author + date header wrapping a run of bubbles |
+| `BubbleAttachment` | `bubble/` | Inline file chip inside a bubble |
+| `BubbleAttachmentGroup` | `bubble/` | Wraps one or more `BubbleAttachment` chips with consistent flex/wrap/gap |
+| `Chip` | `chip/` | Pill primitive — filter / removable / static |
+| `ChipGroup` | `chip/` | Horizontal wrapping row of Chips |
 | `Button` | `button/` | Primary action trigger |
 | `Card` | `card/` | Content container with optional header/footer |
 | `Checkbox` | `checkbox/` | Boolean toggle input |
+| `ContactCard` | `contact-card/` | Contact summary — name, email, language + initials avatar; optional clickable |
+| `DetailNav` | `detail-nav/` | Prev / position / Next record navigation for detail views |
 | `Divider` | `divider/` | Horizontal or vertical separator |
 | `EmptyState` | `empty-state/` | Placeholder for empty lists/views |
 | `FormField` | `form-field/` | Label + input + helper/error wrapper |
@@ -213,11 +222,21 @@ apps/docs/                          # Storybook (component documentation)
 | `Modal` | `modal/` | Dialog overlay |
 | `NavItem` | `nav-item/` | Sidebar navigation entry |
 | `PageHeader` | `page-header/` | Top-level page title bar with actions |
-| `PanelHeader` | `panel-header/` | Panel title bar with filters and actions |
-| `SectionTitle` | `section-title/` | Collapsible section heading |
+| `ListPagination` | `list-pagination/` | Prev/next + range label for list panels (e.g. Tasks / Comms) |
+| `TablePagination` | `table-pagination/` | Full-width pager for data tables — range label + prev / numbered pages / next |
+| `BulkActionBar` | `bulk-action-bar/` | Dark footer toolbar surfaced when table rows are selected — count + action buttons + close |
+| `MessageComposer` | `message-composer/` | Auto-growing textarea with attach + send toolbar — Cmd/Ctrl+Enter submits |
+| `NotificationBadge` | `notification-badge/` | Overlay count pill for icons (unread counts, etc.) |
+| `PanelHeader` | `panel-header/` | Panel top bar (48 px) — `variant="page"` (padding.page, gap md — center panels) or `"card"` (padding.card, space-between — left list / right aside) |
+| `SectionHeader` | `section-header/` | Page-section heading — bold h2 + divider + optional description + optional trailing action slot |
+| `SectionTitle` | `section-title/` | Small uppercase micro-heading for inside panels |
 | `Select` | `select/` | Dropdown select input |
-| `Sidebar` | `sidebar/` | App-level sidebar with header, content, footer |
+| `SettingsRow` | `settings-row/` | Settings row — label + optional description + value + trailing action slot |
+| `StatCard` | `stat-card/` | KPI cell — small uppercase label above a prominent value; must live inside `StatCardGroup` |
+| `StatCardGroup` | `stat-card/` | Bordered `bg.subtle` row laying out equal-width `StatCard` cells |
+| `Sidebar` | `sidebar/` | App-level 48 px icon rail — transparent background, header / content / footer slots |
 | `TabItem` | `tab-item/` | Individual tab trigger |
+| `Tabs` | `tab-item/` | Tab bar container — flex row with bottom border, wraps `TabItem`s |
 | `Toast` | `toast/` | Transient notification |
 | `Toggle` | `toggle/` | On/off switch |
 | `Tooltip` | `tooltip/` | Hover info popup |
@@ -229,9 +248,8 @@ Parent/child pairs that live in a shared directory:
 | Family | Directory | Components |
 |--------|-----------|------------|
 | Dropdown | `dropdown/` | `DropdownMenu` + `DropdownItem` |
-| Filter | `filter/` | `FilterRow` + `FilterButton` |
 | Stepper | `stepper/` | `Stepper` + `StepperItem` |
-| Table | `table/` | `Table` + `TableRow` |
+| Table | `table/` | `Table` + `TableRow` + `TableSortHeader` |
 
 ### Storybook categories
 
@@ -239,9 +257,9 @@ Stories are organized by function, not alphabetically:
 
 | Category | Components |
 |----------|------------|
-| **Actions** | Button, IconButton, Link, Toggle, FilterButton |
-| **Data Display** | Badge, Card, Divider, EmptyState, InfoRow, ListItem, Table, TableRow, Tooltip |
-| **Data Entry** | Checkbox, FormField, Input, Select |
-| **Feedback** | Banner, Modal, Toast |
-| **Navigation** | Breadcrumb, NavItem, PageHeader, SectionTitle, Sidebar, Stepper, StepperItem, TabItem |
-| **Layout** | DropdownItem, DropdownMenu, FilterRow, PanelHeader |
+| **Actions** | Button, IconButton, Link, Toggle |
+| **Data Display** | Badge, BrandLogo, Bubble, BubbleAttachment, BubbleAttachmentGroup, BubbleGroup, Card, ContactCard, Divider, EmptyState, InfoRow, InvoiceCard, ListItem, SettingsRow, StatCard, StatCardGroup, Table, TableRow, Tooltip |
+| **Data Entry** | Checkbox, FormField, Input, MessageComposer, Select, SelectMenu |
+| **Feedback** | Banner, BulkActionBar, Modal, NotificationBadge, Toast |
+| **Navigation** | Breadcrumb, Chip, ChipGroup, DetailNav, ListPagination, NavItem, PageHeader, SectionHeader, SectionTitle, Sidebar, Stepper, StepperItem, TabItem, TablePagination, Tabs |
+| **Layout** | DropdownItem, DropdownMenu, FilterRow, OverflowMenu, PanelHeader |

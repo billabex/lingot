@@ -4,5 +4,4 @@ export {
   sidebarRecipe,
   sidebarHeaderRecipe,
   sidebarContentRecipe,
-  sidebarFooterRecipe,
 } from "./sidebar.recipe";

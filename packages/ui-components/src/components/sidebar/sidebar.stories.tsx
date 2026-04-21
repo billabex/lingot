@@ -1,43 +1,71 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Home, Inbox, Users, Settings } from "lucide-react";
+import { css } from "styled-system/css";
+import { Mail, BookOpen, CheckCircle2 } from "lucide-react";
 import { Sidebar } from "./sidebar";
-import { IconButton } from "../icon-button";
+import { NavItem } from "../nav-item";
+import { NotificationBadge } from "../notification-badge";
 
 const meta = {
-  title: "Navigation/Sidebar",
+  title: "Layout/Sidebar",
   component: Sidebar,
   tags: ["autodocs"],
+  parameters: {
+    layout: "fullscreen",
+  },
   args: {
-    children: (
-      <>
-        <IconButton icon={<Home size={16} />} aria-label="Home" />
-        <IconButton icon={<Inbox size={16} />} aria-label="Inbox" />
-        <IconButton icon={<Users size={16} />} aria-label="Users" />
-      </>
-    ),
-    header: <IconButton icon={<Home size={16} />} aria-label="Logo" />,
+    children: null,
   },
 } satisfies Meta<typeof Sidebar>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {};
+/* Clickable company-logo tile — 32×32. Hover → action.primary.hover, active → neutral.500. */
+const logoTile = css({
+  width: "32px",
+  height: "32px",
+  display: "inline-flex",
+  alignItems: "center",
+  justifyContent: "center",
+  bg: "action.primary",
+  color: "text.inverse",
+  borderRadius: "sm",
+  fontFamily: "body",
+  fontWeight: "semibold",
+  fontSize: "caption",
+  cursor: "pointer",
+  border: "none",
+  transition: "background 120ms ease",
+  _hover: { bg: "action.primaryHover" },
+  _active: { bg: "neutral.500" },
+});
 
-export const WithFooter: Story = {
-  args: {
-    footer: <IconButton icon={<Settings size={16} />} aria-label="Settings" />,
-  },
-};
-
-export const MinimalNoHeader: Story = {
-  args: {
-    header: undefined,
-    children: (
-      <>
-        <IconButton icon={<Inbox size={16} />} aria-label="Inbox" />
-        <IconButton icon={<Users size={16} />} aria-label="Users" />
-      </>
-    ),
-  },
+export const Default: Story = {
+  render: () => (
+    <div style={{ height: 560 }}>
+      <Sidebar
+        header={
+          <button
+            type="button"
+            className={logoTile}
+            aria-label="Changer d'entreprise"
+            aria-haspopup="menu"
+          >
+            B
+          </button>
+        }
+      >
+        <NavItem variant="icon" active aria-label="Tâches">
+          <CheckCircle2 size={16} />
+          <NotificationBadge count={25} />
+        </NavItem>
+        <NavItem variant="icon" aria-label="Communications">
+          <Mail size={16} />
+        </NavItem>
+        <NavItem variant="icon" aria-label="Documents">
+          <BookOpen size={16} />
+        </NavItem>
+      </Sidebar>
+    </div>
+  ),
 };

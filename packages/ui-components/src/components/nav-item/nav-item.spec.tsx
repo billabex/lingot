@@ -32,4 +32,24 @@ describe("NavItem", () => {
     const el = screen.getByRole("button", { name: "Dashboard" });
     expect(el.className).toContain("custom");
   });
+
+  it("renders the icon variant as a 32×32 square", () => {
+    const { container } = render(
+      <NavItem variant="icon" aria-label="Inbox">
+        <span data-testid="i">I</span>
+      </NavItem>
+    );
+    expect(container.innerHTML).toContain("w_32px");
+    expect(container.innerHTML).toContain("h_32px");
+    expect(screen.getByTestId("i")).toBeTruthy();
+  });
+
+  it("applies active styling on the icon variant", () => {
+    const { container } = render(
+      <NavItem variant="icon" active aria-label="Inbox">
+        <span>I</span>
+      </NavItem>
+    );
+    expect(container.innerHTML).toContain("action.secondary");
+  });
 });

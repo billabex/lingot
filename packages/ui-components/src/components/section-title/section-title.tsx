@@ -1,47 +1,29 @@
-import type { ButtonHTMLAttributes, ReactNode } from "react";
-import { sectionTitleRecipe, sectionTitleChevronRecipe } from "./section-title.recipe";
+import { cloneElement, isValidElement, type HTMLAttributes, type ReactElement, type ReactNode } from "react";
+import type { IconButtonProps } from "../icon-button";
+import { sectionTitleRecipe, sectionTitleTrailingRecipe } from "./section-title.recipe";
 
-export interface SectionTitleProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  /** Whether the section is expanded */
-  expanded?: boolean;
-  /** Section title label */
+export interface SectionTitleProps extends HTMLAttributes<HTMLDivElement> {
+  /** Section label */
   children: ReactNode;
+  /** Optional trailing action — must be an `IconButton`. Size is forced to `small`. */
+  trailing?: ReactElement<IconButtonProps>;
 }
 
-const ChevronIcon = () => (
-  <svg viewBox="0 0 16 16" width={14} height={14} fill="none" style={{ color: "currentColor" }}>
-    <path
-      d="M6 4l4 4-4 4"
-      stroke="currentColor"
-      strokeWidth={1.5}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
-
 /**
- * SectionTitle — A collapsible section header with chevron indicator.
+ * SectionTitle — Static, uppercase section label with an optional trailing `IconButton`.
  *
+ * Height: 24px. Typography: `caption.soft` uppercase, `text.tertiary`.
  * RSC-compatible (no `'use client'` needed).
  */
-export function SectionTitle({
-  expanded = false,
-  children,
-  className,
-  ...props
-}: SectionTitleProps) {
+export function SectionTitle({ children, trailing, className, ...props }: SectionTitleProps) {
+  const trailingNode = isValidElement<IconButtonProps>(trailing)
+    ? cloneElement(trailing, { size: "small" })
+    : null;
+
   return (
-    <button
-      type="button"
-      aria-expanded={expanded}
-      className={`${sectionTitleRecipe({})}${className ? ` ${className}` : ""}`}
-      {...props}
-    >
-      <span className={sectionTitleChevronRecipe({ expanded })}>
-        <ChevronIcon />
-      </span>
-      {children}
-    </button>
+    <div className={`${sectionTitleRecipe({})}${className ? ` ${className}` : ""}`} {...props}>
+      <span>{children}</span>
+      {trailingNode ? <span className={sectionTitleTrailingRecipe({})}>{trailingNode}</span> : null}
+    </div>
   );
 }

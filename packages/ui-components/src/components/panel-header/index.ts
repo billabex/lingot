@@ -1,9 +1,12 @@
 export { PanelHeader } from "./panel-header";
-export type { PanelHeaderProps } from "./panel-header";
+export type {
+  PanelHeaderProps,
+  PanelHeaderTitleProps,
+  PanelHeaderSpacerProps,
+} from "./panel-header";
 export {
   panelHeaderRecipe,
-  panelHeaderTopRowRecipe,
-  panelHeaderTitleBarRecipe,
   panelHeaderTitleRecipe,
-  panelHeaderRowRecipe,
+  panelHeaderSpacerRecipe,
 } from "./panel-header.recipe";
+export type { PanelHeaderVariant } from "./panel-header.recipe";

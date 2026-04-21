@@ -1,4 +1,4 @@
-import type { HTMLAttributes, ReactNode } from "react";
+import type { HTMLAttributes } from "react";
 import {
   breadcrumbRecipe,
   breadcrumbSeparatorRecipe,
@@ -17,11 +17,9 @@ export interface BreadcrumbItem {
 export interface BreadcrumbProps extends HTMLAttributes<HTMLElement> {
   /** Breadcrumb items — last item is treated as current page */
   items: BreadcrumbItem[];
-  /** Custom separator (defaults to chevron-right) */
-  separator?: ReactNode;
 }
 
-const DefaultSeparator = ({ className }: { className?: string }) => (
+const Separator = ({ className }: { className?: string }) => (
   <svg
     viewBox="0 0 16 16"
     width={12}
@@ -42,16 +40,14 @@ const DefaultSeparator = ({ className }: { className?: string }) => (
 /**
  * Breadcrumb — A navigation breadcrumb trail.
  *
+ * The chevron separator is fixed — templates must not customise it.
  * RSC-compatible (no `'use client'` needed).
  */
 export function Breadcrumb({
   items,
-  separator,
   className,
   ...props
 }: BreadcrumbProps) {
-  const sep = separator || <DefaultSeparator className={breadcrumbSeparatorRecipe({})} />;
-
   return (
     <nav aria-label="Breadcrumb" {...props}>
       <ol className={`${breadcrumbRecipe({})}${className ? ` ${className}` : ""}`}>
@@ -60,7 +56,11 @@ export function Breadcrumb({
 
           return (
             <li key={index} className={breadcrumbItemRecipe({})}>
-              {index > 0 && <span aria-hidden="true">{sep}</span>}
+              {index > 0 && (
+                <span aria-hidden="true">
+                  <Separator className={breadcrumbSeparatorRecipe({})} />
+                </span>
+              )}
               {isLast ? (
                 <span aria-current="page" className={breadcrumbCurrentRecipe({})}>
                   {item.label}

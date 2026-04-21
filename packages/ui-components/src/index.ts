@@ -2,25 +2,78 @@
 // @billabex/ui-components — Public API
 // ---------------------------------------------------------------------------
 
+// ActionBar
+export { ActionBar } from "./components/action-bar";
+export type { ActionBarProps, ActionBarAlign } from "./components/action-bar";
+export { actionBarRecipe } from "./components/action-bar";
+
 // Badge
 export { Badge } from "./components/badge";
-export type { BadgeProps, BadgeVariant } from "./components/badge";
+export type { BadgeProps, BadgeVariant, BadgeShape } from "./components/badge";
 export { badgeRecipe } from "./components/badge";
 
 // Banner
 export { Banner } from "./components/banner";
 export type { BannerProps, BannerVariant } from "./components/banner";
-export { bannerRecipe } from "./components/banner";
+export { bannerRecipe, bannerBodyRecipe } from "./components/banner";
 
 // Breadcrumb
 export { Breadcrumb } from "./components/breadcrumb";
 export type { BreadcrumbProps, BreadcrumbItem } from "./components/breadcrumb";
 export { breadcrumbRecipe } from "./components/breadcrumb";
 
+// BrandLogo
+export { BrandLogo } from "./components/brand-logo";
+export type { BrandLogoProps, BrandName } from "./components/brand-logo";
+
 // Button
 export { Button } from "./components/button";
 export type { ButtonProps, ButtonVariant, ButtonSize } from "./components/button";
 export { buttonRecipe } from "./components/button";
+
+// Bubble
+export { Bubble } from "./components/bubble";
+export type { BubbleProps, BubbleSide } from "./components/bubble";
+export { bubbleRecipe } from "./components/bubble";
+
+// BubbleGroup
+export { BubbleGroup } from "./components/bubble";
+export type { BubbleGroupProps } from "./components/bubble";
+export {
+  bubbleGroupRecipe,
+  bubbleGroupStackRecipe,
+  bubbleGroupHeaderRecipe,
+  bubbleGroupAuthorRecipe,
+  bubbleGroupDateRecipe,
+} from "./components/bubble";
+
+// BubbleAttachment
+export { BubbleAttachment } from "./components/bubble";
+export type { BubbleAttachmentProps } from "./components/bubble";
+export {
+  bubbleAttachmentRecipe,
+  bubbleAttachmentGroupRecipe,
+  bubbleAttachmentIconRecipe,
+  bubbleAttachmentNameRecipe,
+} from "./components/bubble";
+
+// BubbleAttachmentGroup
+export { BubbleAttachmentGroup } from "./components/bubble";
+export type { BubbleAttachmentGroupProps } from "./components/bubble";
+
+// BulkActionBar
+export { BulkActionBar } from "./components/bulk-action-bar";
+export type {
+  BulkActionBarProps,
+  BulkActionBarActionProps,
+} from "./components/bulk-action-bar";
+export {
+  bulkActionBarRecipe,
+  bulkActionBarCountRecipe,
+  bulkActionBarActionsRecipe,
+  bulkActionBarActionRecipe,
+  bulkActionBarCloseRecipe,
+} from "./components/bulk-action-bar";
 
 // Card
 export { Card } from "./components/card";
@@ -30,6 +83,15 @@ export { cardRecipe } from "./components/card";
 export { Checkbox } from "./components/checkbox";
 export type { CheckboxProps } from "./components/checkbox";
 export { checkboxRecipe, checkboxInputRecipe } from "./components/checkbox";
+
+// DetailNav
+export { DetailNav } from "./components/detail-nav";
+export type { DetailNavProps } from "./components/detail-nav";
+export {
+  detailNavRecipe,
+  detailNavButtonRecipe,
+  detailNavPositionRecipe,
+} from "./components/detail-nav";
 
 // Divider
 export { Divider } from "./components/divider";
@@ -56,10 +118,26 @@ export {
   emptyStateDescriptionRecipe,
 } from "./components/empty-state";
 
-// FilterButton
-export { FilterButton } from "./components/filter";
-export type { FilterButtonProps } from "./components/filter";
-export { filterButtonRecipe } from "./components/filter";
+// ContactCard
+export { ContactCard } from "./components/contact-card";
+export type { ContactCardProps } from "./components/contact-card";
+export {
+  contactCardRecipe,
+  contactCardBodyRecipe,
+  contactCardNameRecipe,
+  contactCardEmailRecipe,
+  contactCardLanguageRecipe,
+} from "./components/contact-card";
+
+// Chip
+export { Chip } from "./components/chip";
+export type { ChipProps, ChipVariant } from "./components/chip";
+export { chipRecipe, chipRemoveRecipe } from "./components/chip";
+
+// ChipGroup
+export { ChipGroup } from "./components/chip";
+export type { ChipGroupProps } from "./components/chip";
+export { chipGroupRecipe } from "./components/chip";
 
 // FormField
 export { FormField } from "./components/form-field";
@@ -69,11 +147,6 @@ export {
   formFieldLabelRecipe,
   formFieldHelperRecipe,
 } from "./components/form-field";
-
-// FilterRow
-export { FilterRow } from "./components/filter";
-export type { FilterRowProps } from "./components/filter";
-export { filterRowRecipe } from "./components/filter";
 
 // IconButton
 export { IconButton } from "./components/icon-button";
@@ -92,7 +165,7 @@ export { inputRecipe } from "./components/input";
 
 // Link
 export { Link } from "./components/link";
-export type { LinkProps, LinkVariant } from "./components/link";
+export type { LinkProps, LinkVariant, LinkSize } from "./components/link";
 export { linkRecipe } from "./components/link";
 
 // ListItem
@@ -100,15 +173,35 @@ export { ListItem } from "./components/list-item";
 export type { ListItemProps } from "./components/list-item";
 export {
   listItemRecipe,
+  listItemTitleRowRecipe,
   listItemTitleRecipe,
-  listItemMetaRecipe,
+  listItemTitleTrailingRecipe,
   listItemPreviewRecipe,
-  listItemRowRecipe,
-  listItemWrapperRecipe,
+  listItemMetaRecipe,
+  listItemSubRecipe,
 } from "./components/list-item";
+// ListPagination
+export { ListPagination } from "./components/list-pagination";
+export type { ListPaginationProps } from "./components/list-pagination";
+export {
+  listPaginationRecipe,
+  listPaginationInfoRecipe,
+  listPaginationButtonRecipe,
+} from "./components/list-pagination";
+
+// MessageComposer
+export { MessageComposer } from "./components/message-composer";
+export type { MessageComposerProps } from "./components/message-composer";
+export {
+  messageComposerRecipe,
+  messageComposerTextareaRecipe,
+  messageComposerToolbarRecipe,
+  messageComposerSendRecipe,
+} from "./components/message-composer";
+
 // Modal
 export { Modal } from "./components/modal";
-export type { ModalProps } from "./components/modal";
+export type { ModalProps, ModalSize } from "./components/modal";
 export {
   modalRecipe,
   modalHeaderRecipe,
@@ -121,30 +214,139 @@ export {
 export { NavItem } from "./components/nav-item";
 export type { NavItemProps } from "./components/nav-item";
 export { navItemRecipe } from "./components/nav-item";
+export type { NavItemVariant } from "./components/nav-item";
+
+// NotificationBadge
+export { NotificationBadge } from "./components/notification-badge";
+export type { NotificationBadgeProps } from "./components/notification-badge";
+export { notificationBadgeRecipe } from "./components/notification-badge";
+
+// OverflowMenu
+export { OverflowMenu } from "./components/overflow-menu";
+export type { OverflowMenuProps, OverflowMenuAlign } from "./components/overflow-menu";
 
 // PageHeader
 export { PageHeader } from "./components/page-header";
 export type { PageHeaderProps } from "./components/page-header";
-export { pageHeaderRecipe } from "./components/page-header";
+export { pageHeaderRecipe, pageHeaderTitleRecipe } from "./components/page-header";
 // PanelHeader
 export { PanelHeader } from "./components/panel-header";
-export type { PanelHeaderProps } from "./components/panel-header";
+export type {
+  PanelHeaderProps,
+  PanelHeaderTitleProps,
+  PanelHeaderSpacerProps,
+  PanelHeaderVariant,
+} from "./components/panel-header";
 export {
   panelHeaderRecipe,
-  panelHeaderTopRowRecipe,
-  panelHeaderTitleBarRecipe,
   panelHeaderTitleRecipe,
-  panelHeaderRowRecipe,
+  panelHeaderSpacerRecipe,
 } from "./components/panel-header";
+// SectionHeader
+export { SectionHeader } from "./components/section-header";
+export type { SectionHeaderProps } from "./components/section-header";
+export {
+  sectionHeaderRecipe,
+  sectionHeaderTitleRowRecipe,
+  sectionHeaderTitleRecipe,
+  sectionHeaderTrailingRecipe,
+  sectionHeaderDescriptionRecipe,
+} from "./components/section-header";
+
 // SectionTitle
 export { SectionTitle } from "./components/section-title";
 export type { SectionTitleProps } from "./components/section-title";
-export { sectionTitleRecipe, sectionTitleChevronRecipe } from "./components/section-title";
+export { sectionTitleRecipe, sectionTitleTrailingRecipe } from "./components/section-title";
+
+// SettingsRow
+export { SettingsRow } from "./components/settings-row";
+export type { SettingsRowProps } from "./components/settings-row";
+export {
+  settingsRowRecipe,
+  settingsRowBodyRecipe,
+  settingsRowLabelRecipe,
+  settingsRowDescriptionRecipe,
+  settingsRowValueRecipe,
+  settingsRowTrailingRecipe,
+} from "./components/settings-row";
+
+// Avatar
+export { Avatar } from "./components/avatar";
+export type { AvatarProps, AvatarSize } from "./components/avatar";
+export { avatarRecipe } from "./components/avatar";
+
+// AgedBalance
+export { AgedBalance } from "./components/aged-balance";
+export type {
+  AgedBalanceProps,
+  AgedBalanceBucket,
+  AgedBalanceTone,
+  AgedBalanceSegmentTone,
+} from "./components/aged-balance";
+export {
+  agedBalanceRecipe,
+  agedBalanceTotalRecipe,
+  agedBalanceBarRecipe,
+  agedBalanceSegmentRecipe,
+  agedBalanceLegendRecipe,
+  agedBalanceLegendItemRecipe,
+  agedBalanceLegendSwatchRecipe,
+} from "./components/aged-balance";
+
+// InvoiceCard
+export { InvoiceCard } from "./components/invoice-card";
+export type {
+  InvoiceCardProps,
+  InvoiceStatus,
+  InvoiceDueDate,
+  InvoiceDueTone,
+} from "./components/invoice-card";
+export {
+  invoiceCardRecipe,
+  invoiceCardTopRecipe,
+  invoiceCardLeftRecipe,
+  invoiceCardRightRecipe,
+  invoiceCardRefRecipe,
+  invoiceCardAmountRecipe,
+  invoiceCardDueRecipe,
+  invoiceCardMetaRecipe,
+} from "./components/invoice-card";
+
+// StatusDot
+export { StatusDot } from "./components/status-dot";
+export type { StatusDotProps, StatusDotSize, StatusDotTone } from "./components/status-dot";
+export { statusDotRecipe } from "./components/status-dot";
 
 // Select
 export { Select } from "./components/select";
 export type { SelectProps } from "./components/select";
 export { selectRecipe } from "./components/select";
+
+// SelectMenu
+export { SelectMenu } from "./components/select-menu";
+export type { SelectMenuProps, SelectMenuOption } from "./components/select-menu";
+export {
+  selectMenuWrapperRecipe,
+  selectMenuLabelRecipe,
+  selectMenuContainerRecipe,
+  selectMenuTriggerRecipe,
+  selectMenuChevronRecipe,
+  selectMenuPanelRecipe,
+} from "./components/select-menu";
+
+// StatCard
+export { StatCard } from "./components/stat-card";
+export type { StatCardProps } from "./components/stat-card";
+export {
+  statCardRecipe,
+  statCardLabelRecipe,
+  statCardValueRecipe,
+} from "./components/stat-card";
+
+// StatCardGroup
+export { StatCardGroup } from "./components/stat-card";
+export type { StatCardGroupProps } from "./components/stat-card";
+export { statCardGroupRecipe } from "./components/stat-card";
 
 // Sidebar
 export { Sidebar } from "./components/sidebar";
@@ -153,8 +355,12 @@ export {
   sidebarRecipe,
   sidebarHeaderRecipe,
   sidebarContentRecipe,
-  sidebarFooterRecipe,
 } from "./components/sidebar";
+
+// Spinner
+export { Spinner } from "./components/spinner";
+export type { SpinnerProps, SpinnerSize } from "./components/spinner";
+export { spinnerRecipe } from "./components/spinner";
 // Stepper
 export { Stepper } from "./components/stepper";
 export type { StepperProps } from "./components/stepper";
@@ -169,14 +375,37 @@ export { TabItem } from "./components/tab-item";
 export type { TabItemProps } from "./components/tab-item";
 export { tabItemRecipe } from "./components/tab-item";
 
+// Tabs
+export { Tabs } from "./components/tab-item";
+export type { TabsProps } from "./components/tab-item";
+export { tabsRecipe } from "./components/tab-item";
+
 // Table
 export { Table } from "./components/table";
-export type { TableProps } from "./components/table";
+export type { TableProps, TableDensity } from "./components/table";
 export { tableRecipe, tableHeaderRecipe } from "./components/table";
 // TableRow
 export { TableRow } from "./components/table";
-export type { TableRowProps } from "./components/table";
+export type { TableRowProps, TableRowAccent } from "./components/table";
 export { tableRowRecipe } from "./components/table";
+// TableRowDetail
+export { TableRowDetail } from "./components/table";
+export type { TableRowDetailProps } from "./components/table";
+export { tableRowDetailRecipe } from "./components/table";
+// TableSortHeader
+export { TableSortHeader } from "./components/table";
+export type { TableSortHeaderProps, TableSortDirection } from "./components/table";
+export { tableSortHeaderRecipe, tableSortIconRecipe } from "./components/table";
+// TablePagination
+export { TablePagination } from "./components/table-pagination";
+export type { TablePaginationProps } from "./components/table-pagination";
+export {
+  tablePaginationRecipe,
+  tablePaginationInfoRecipe,
+  tablePaginationControlsRecipe,
+  tablePaginationButtonRecipe,
+  tablePaginationEllipsisRecipe,
+} from "./components/table-pagination";
 // Toast
 export { Toast } from "./components/toast";
 export type { ToastProps, ToastVariant } from "./components/toast";

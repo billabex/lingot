@@ -99,3 +99,14 @@ export const RemovableGroup: Story = {
 export const StaticTag: Story = {
   args: { variant: "static", children: "Read-only tag" } as never,
 };
+
+/** `tone` tints the chip with a 15% background of the given color + matching text — useful for persona, status, or source categorization. */
+export const Tones: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: 8, alignItems: "flex-start" }}>
+      <Chip variant="static" tone="#c2727d">sophie.martin@revoptim.com</Chip>
+      <Chip variant="static" tone="#4a6fa5">thomas.durand@revoptim.com</Chip>
+      <Chip variant="static" tone="#b5634b">camille.bernard@revoptim.com</Chip>
+    </div>
+  ),
+};

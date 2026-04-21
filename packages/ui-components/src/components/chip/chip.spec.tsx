@@ -56,4 +56,27 @@ describe("Chip", () => {
     );
     expect(screen.getByTestId("icon")).toBeTruthy();
   });
+
+  it("applies tone as text color with a tinted background", () => {
+    render(
+      <Chip variant="static" tone="#c2727d" data-testid="toned">
+        Tag
+      </Chip>
+    );
+    const el = screen.getByTestId("toned");
+    expect(el.style.color).toBe("rgb(194, 114, 125)");
+    expect(el.style.background).toContain("color-mix");
+    expect(el.style.borderColor).toBe("transparent");
+  });
+
+  it("preserves caller-provided style when tone is set", () => {
+    render(
+      <Chip variant="static" tone="#c2727d" style={{ marginLeft: "4px" }} data-testid="toned">
+        Tag
+      </Chip>
+    );
+    const el = screen.getByTestId("toned");
+    expect(el.style.marginLeft).toBe("4px");
+    expect(el.style.color).toBe("rgb(194, 114, 125)");
+  });
 });

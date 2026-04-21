@@ -1,5 +1,6 @@
 import type {
   ButtonHTMLAttributes,
+  CSSProperties,
   HTMLAttributes,
   MouseEventHandler,
   ReactNode,
@@ -12,6 +13,8 @@ type CommonProps = {
   variant?: ChipVariant;
   /** Optional icon rendered before the label */
   leftIcon?: ReactNode;
+  /** Optional accent tone. Accepts any CSS color; text renders in the tone with a 15% tinted background and transparent border. Intended for categorical display (e.g. by persona, status, or source). */
+  tone?: string;
   /** Content */
   children: ReactNode;
 };
@@ -41,12 +44,22 @@ export type ChipProps = FilterChipProps | RemovableChipProps | StaticChipProps;
  * read-only labels. RSC-compatible (no `'use client'` needed).
  */
 export function Chip(props: ChipProps) {
-  const { variant = "filter", leftIcon, children, className } = props;
+  const { variant = "filter", leftIcon, children, className, tone } = props;
 
   const classes = `${chipRecipe({
     variant,
     active: variant === "filter" && (props as FilterChipProps).active,
   })}${className ? ` ${className}` : ""}`;
+
+  const tonedStyle = (style?: CSSProperties): CSSProperties | undefined =>
+    tone
+      ? {
+          ...style,
+          color: tone,
+          background: `color-mix(in srgb, ${tone} 15%, white)`,
+          borderColor: "transparent",
+        }
+      : style;
 
   const leadingIcon = leftIcon ? (
     <span
@@ -64,10 +77,12 @@ export function Chip(props: ChipProps) {
       leftIcon: _li,
       children: _c,
       className: _cn,
+      tone: _t,
+      style,
       ...rest
     } = props as RemovableChipProps;
     return (
-      <span className={classes} {...rest}>
+      <span className={classes} style={tonedStyle(style)} {...rest}>
         {leadingIcon}
         {children}
         <button
@@ -98,10 +113,12 @@ export function Chip(props: ChipProps) {
       leftIcon: _li,
       children: _c,
       className: _cn,
+      tone: _t,
+      style,
       ...rest
     } = props as StaticChipProps;
     return (
-      <span className={classes} {...rest}>
+      <span className={classes} style={tonedStyle(style)} {...rest}>
         {leadingIcon}
         {children}
       </span>
@@ -114,10 +131,12 @@ export function Chip(props: ChipProps) {
     leftIcon: _li,
     children: _c,
     className: _cn,
+    tone: _t,
+    style,
     ...rest
   } = props as FilterChipProps;
   return (
-    <button className={classes} {...rest}>
+    <button className={classes} style={tonedStyle(style)} {...rest}>
       {leadingIcon}
       {children}
     </button>

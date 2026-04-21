@@ -73,35 +73,41 @@ const page = css({
   flexDirection: "column",
   alignItems: "center",
   bg: "bg.subtle",
-  paddingBlock: "3xl",
-  paddingInline: "xl",
-  gap: "xl",
+  paddingTop: "80px",
+  paddingBottom: "4xl",
+  paddingInline: "2xl",
+});
+
+const logoBlock = css({
+  marginBottom: "36px",
 });
 
 const card = css({
   width: "100%",
   maxWidth: "26.25rem",
-  padding: "3xl",
+  paddingBlock: "36px",
+  paddingInline: "3xl",
   display: "flex",
   flexDirection: "column",
-  gap: "md",
 });
 
-const stepperCentered = css({
+const stepperBlock = css({
   alignSelf: "center",
+  marginBottom: "28px",
 });
 
 const cardHead = css({
   display: "flex",
   flexDirection: "column",
-  gap: "3xs",
   textAlign: "center",
+  marginBottom: "2xl",
 });
 
 const cardTitle = css({
   fontSize: "headlineSm",
   fontWeight: "bold",
   color: "text.primary",
+  marginBottom: "xs",
 });
 
 const cardSubtitle = css({
@@ -109,17 +115,19 @@ const cardSubtitle = css({
   color: "text.tertiary",
 });
 
-const captionCenter = css({
+const contextLine = css({
   fontSize: "caption",
   color: "text.tertiary",
   textAlign: "center",
   lineHeight: "body",
+  marginTop: "-12px",
+  marginBottom: "20px",
 });
 
-const stack = css({
+const ssoGroup = css({
   display: "flex",
   flexDirection: "column",
-  gap: "sm",
+  gap: "md",
 });
 
 const labeledDividerRule = {
@@ -138,8 +146,13 @@ const labeledDivider = css({
   fontWeight: "semibold",
   textTransform: "uppercase",
   letterSpacing: "0.05em",
+  marginBlock: "18px",
   _before: labeledDividerRule,
   _after: labeledDividerRule,
+});
+
+const fieldMb = css({
+  marginBottom: "14px",
 });
 
 const passwordRules = css({
@@ -147,7 +160,7 @@ const passwordRules = css({
   flexDirection: "column",
   gap: "3xs",
   listStyle: "none",
-  paddingBlock: "xs",
+  marginBottom: "14px",
 });
 
 const passwordRule = css({
@@ -158,11 +171,20 @@ const passwordRule = css({
   color: "text.tertiary",
 });
 
+const formFooter = css({
+  fontSize: "caption",
+  color: "text.tertiary",
+  textAlign: "center",
+  lineHeight: "body",
+  marginTop: "18px",
+});
+
 const trustStrip = css({
   display: "flex",
   flexDirection: "column",
-  gap: "xs",
-  paddingTop: "md",
+  gap: "md",
+  marginTop: "20px",
+  paddingTop: "xl",
   borderTopWidth: "1px",
   borderTopStyle: "solid",
   borderColor: "border.default",
@@ -177,11 +199,25 @@ const trustItem = css({
   "& > svg": { color: "status.success", flexShrink: 0 },
 });
 
+const trialLine = css({
+  fontSize: "caption",
+  color: "text.tertiary",
+  textAlign: "center",
+  marginTop: "xl",
+});
+
+const agentCardsGroup = css({
+  display: "flex",
+  flexDirection: "column",
+  gap: "10px",
+});
+
 const agentCardBody = css({
   display: "flex",
   alignItems: "flex-start",
-  gap: "md",
-  padding: "md",
+  gap: "lg",
+  paddingBlock: "14px",
+  paddingInline: "xl",
 });
 
 const agentInfo = css({
@@ -228,7 +264,7 @@ function stepState(current: Step, target: Step): StepperItemState {
 
 function OnboardingStepper({ step }: { step: Step }) {
   return (
-    <Stepper className={stepperCentered}>
+    <Stepper className={stepperBlock}>
       {STEPS.map((s) => (
         <StepperItem
           key={s.key}
@@ -267,7 +303,7 @@ function SignUpStep({ stage }: { stage: SignUpStage }) {
         <p className={cardSubtitle}>Commencez en 5 minutes, sans engagement.</p>
       </div>
 
-      <div className={stack}>
+      <div className={ssoGroup}>
         <Button
           variant="secondary"
           fullWidth
@@ -288,13 +324,13 @@ function SignUpStep({ stage }: { stage: SignUpStage }) {
         <span>ou par email</span>
       </div>
 
-      <FormField label="Email">
+      <FormField label="Email" className={fieldMb}>
         <Input type="email" placeholder="vous@entreprise.com" />
       </FormField>
 
       {passwordVisible && (
         <>
-          <FormField label="Mot de passe">
+          <FormField label="Mot de passe" className={fieldMb}>
             <Input type="password" placeholder="Mot de passe" />
           </FormField>
           <ul className={passwordRules}>
@@ -312,7 +348,7 @@ function SignUpStep({ stage }: { stage: SignUpStage }) {
         {passwordVisible ? "Créer mon compte" : "Continuer"}
       </Button>
 
-      <p className={captionCenter}>
+      <p className={formFooter}>
         En continuant, vous acceptez nos <Link href="#">conditions</Link>.
         <br />
         Déjà un compte ? <Link href="#">Se connecter</Link>
@@ -355,12 +391,12 @@ function CompanyStep() {
         <p className={cardSubtitle}>2 champs, c'est tout.</p>
       </div>
 
-      <p className={captionCenter}>
+      <p className={contextLine}>
         Votre agent agit au nom de Revoptim, notre agence externalisée. Vous
         reprenez le contrôle sans rompre la relation client.
       </p>
 
-      <FormField label="Nom de l'entreprise">
+      <FormField label="Nom de l'entreprise" className={fieldMb}>
         <Input type="text" placeholder="Ex : Studio Kairos" defaultValue="Studio Kairos" />
       </FormField>
 
@@ -368,6 +404,7 @@ function CompanyStep() {
         label="Secteur d'activité"
         options={SECTOR_OPTIONS}
         defaultValue="consulting"
+        className={fieldMb}
       />
 
       <Button variant="primary" fullWidth>
@@ -430,12 +467,12 @@ function PickAgentStep({ selected }: { selected: AgentId | null }) {
         </p>
       </div>
 
-      <p className={captionCenter}>
+      <p className={contextLine}>
         Chaque agent dispose de sa propre identité et d'une adresse email dédiée
         @revoptim.com.
       </p>
 
-      <div role="radiogroup" aria-label="Agent" className={stack}>
+      <div role="radiogroup" aria-label="Agent" className={agentCardsGroup}>
         {AGENTS.map((a) => {
           const isSelected = selected === a.id;
           return (
@@ -476,7 +513,13 @@ function OnboardingViewTemplate({
 }: OnboardingViewTemplateProps) {
   return (
     <div className={page}>
-      <BrandLogo name="billabex" size={22} role="img" aria-label="Billabex" />
+      <BrandLogo
+        name="billabex"
+        size={22}
+        role="img"
+        aria-label="Billabex"
+        className={logoBlock}
+      />
       <Card variant="elevated" className={card}>
         <OnboardingStepper step={step} />
         {step === 1 && <SignUpStep stage={signUpStage} />}
@@ -484,7 +527,7 @@ function OnboardingViewTemplate({
         {step === 3 && <PickAgentStep selected={selectedAgent} />}
       </Card>
       {step === 1 && (
-        <p className={captionCenter}>
+        <p className={trialLine}>
           Essai gratuit 30 jours · Sans carte bancaire
         </p>
       )}

@@ -224,7 +224,8 @@ const agentInfo = css({
   flex: 1,
   display: "flex",
   flexDirection: "column",
-  gap: "3xs",
+  alignItems: "flex-start",
+  gap: "xs",
   minWidth: 0,
 });
 
@@ -490,9 +491,9 @@ function PickAgentStep({ selected }: { selected: AgentId | null }) {
                 <div className={agentInfo}>
                   <div className={agentNameRow}>
                     <span className={agentName}>{a.name}</span>
-                    <Chip variant="static">{a.gender}</Chip>
+                    <Chip variant="static" tone={a.color}>{a.gender}</Chip>
                   </div>
-                  <Chip variant="static">{a.email}</Chip>
+                  <Chip variant="static" tone={a.color}>{a.email}</Chip>
                   <span className={agentExample}>{a.example}</span>
                 </div>
               </div>

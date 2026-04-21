@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { css } from "styled-system/css";
 import { CheckCircle2, Circle } from "lucide-react";
@@ -400,7 +401,7 @@ type AgentPersona = {
   initials: string;
   email: string;
   gender: string;
-  example: string;
+  example: ReactNode;
   color: string;
 };
 
@@ -411,7 +412,12 @@ const AGENTS: AgentPersona[] = [
     initials: "SM",
     email: "sophie.martin@revoptim.com",
     gender: "Féminin",
-    example: "« Je suis chargée de compte, mandatée par votre entreprise. »",
+    example: (
+      <>
+        « Je suis <strong>chargée</strong> de compte, <strong>mandatée</strong>{" "}
+        par votre entreprise. »
+      </>
+    ),
     color: "#c2727d",
   },
   {
@@ -420,7 +426,12 @@ const AGENTS: AgentPersona[] = [
     initials: "TD",
     email: "thomas.durand@revoptim.com",
     gender: "Masculin",
-    example: "« Je suis chargé de compte, mandaté par votre entreprise. »",
+    example: (
+      <>
+        « Je suis <strong>chargé</strong> de compte, <strong>mandaté</strong> par
+        votre entreprise. »
+      </>
+    ),
     color: "#4a6fa5",
   },
   {
@@ -429,8 +440,12 @@ const AGENTS: AgentPersona[] = [
     initials: "CB",
     email: "camille.bernard@revoptim.com",
     gender: "Neutre",
-    example:
-      "« Je suis chargé.e de compte, en charge du suivi pour votre entreprise. »",
+    example: (
+      <>
+        « Je suis <strong>chargé.e</strong> de compte,{" "}
+        <strong>en charge du suivi</strong> pour votre entreprise. »
+      </>
+    ),
     color: "#b5634b",
   },
 ];

@@ -198,6 +198,7 @@ apps/docs/                          # Storybook (component documentation)
 |-----------|-----------|-------------|
 | `Badge` | `badge/` | Status labels and counters |
 | `Banner` | `banner/` | Contextual messages (info, warning, error, success) |
+| `BrandLogo` | `brand-logo/` | Inline-SVG brand mark (Google, Microsoft, Billabex) |
 | `Breadcrumb` | `breadcrumb/` | Navigation breadcrumb trail |
 | `Bubble` | `bubble/` | Chat message (agent / user) |
 | `BubbleGroup` | `bubble/` | Author + date header wrapping a run of bubbles |
@@ -257,7 +258,7 @@ Stories are organized by function, not alphabetically:
 | Category | Components |
 |----------|------------|
 | **Actions** | Button, IconButton, Link, Toggle |
-| **Data Display** | Badge, Bubble, BubbleAttachment, BubbleAttachmentGroup, BubbleGroup, Card, ContactCard, Divider, EmptyState, InfoRow, InvoiceCard, ListItem, SettingsRow, StatCard, StatCardGroup, Table, TableRow, Tooltip |
+| **Data Display** | Badge, BrandLogo, Bubble, BubbleAttachment, BubbleAttachmentGroup, BubbleGroup, Card, ContactCard, Divider, EmptyState, InfoRow, InvoiceCard, ListItem, SettingsRow, StatCard, StatCardGroup, Table, TableRow, Tooltip |
 | **Data Entry** | Checkbox, FormField, Input, MessageComposer, Select, SelectMenu |
 | **Feedback** | Banner, BulkActionBar, Modal, NotificationBadge, Toast |
 | **Navigation** | Breadcrumb, Chip, ChipGroup, DetailNav, ListPagination, NavItem, PageHeader, SectionHeader, SectionTitle, Sidebar, Stepper, StepperItem, TabItem, TablePagination, Tabs |

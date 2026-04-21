@@ -22,6 +22,10 @@ export { Breadcrumb } from "./components/breadcrumb";
 export type { BreadcrumbProps, BreadcrumbItem } from "./components/breadcrumb";
 export { breadcrumbRecipe } from "./components/breadcrumb";
 
+// BrandLogo
+export { BrandLogo } from "./components/brand-logo";
+export type { BrandLogoProps, BrandName } from "./components/brand-logo";
+
 // Button
 export { Button } from "./components/button";
 export type { ButtonProps, ButtonVariant, ButtonSize } from "./components/button";

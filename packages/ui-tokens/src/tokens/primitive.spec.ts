@@ -13,6 +13,8 @@ describe("primitive tokens", () => {
     expect(spacing.md.value).toBe(8);
     expect(spacing.xl.value).toBe(16);
     expect(spacing["2xl"].value).toBe(24);
+    expect(spacing["5xl"].value).toBe(64);
+    expect(spacing["6xl"].value).toBe(80);
   });
 
   it("radii has expected scale", () => {

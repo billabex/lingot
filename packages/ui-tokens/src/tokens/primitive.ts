@@ -94,6 +94,8 @@ export const spacing = {
   "4xl": dimension(48),
   /** 64px */
   "5xl": dimension(64),
+  /** 80px */
+  "6xl": dimension(80),
 } as const satisfies Record<string, DimensionToken>;
 
 // ---------------------------------------------------------------------------
